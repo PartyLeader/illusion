@@ -28,8 +28,19 @@ public class UserService {
         repository.createUser(user);
     }
 
-    public List<User> getUsers(String name) {
-        return repository.getUsers(name);
+    public List<User> getUsers(String ugrency) {
+        return repository.getUsers(ugrency);
+    }
+    public List<User> getUsers(int id) {
+        return repository.getUsers(id);
+    }
+
+    public void removeUser(int id)
+    {
+        repository.removeUser(id);
+    }
+    public List<String> getUrgency(){
+        return repository.getUrgency();
     }
 
 }

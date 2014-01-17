@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.List;
@@ -44,14 +45,28 @@ public class UserController {
 
     @RequestMapping(value = "userfilters")
     public String createUserGetFilters(Model model) {
-        model.addAttribute("user", new User());
+        User user =new User();
+        model.addAttribute("user", user);
+        model.addAttribute("listUrgency",service.getUrgency());
+        System.out.println(service.getUrgency());
         return "userfilters";
     }
 
     @RequestMapping(value ="userfilters", method = RequestMethod.POST)
     public String getUsersFilter(@ModelAttribute("user") User user,Model model) {
-        List<User> users = service.getUsers(user.getName());
+        List<User> users = service.getUsers(user.getUrgency());
         model.addAttribute("users", users);
+        return "users";
+    }
+    @RequestMapping("delete-user/{userId}")
+    public String deleteUser(@PathVariable("userId") int userId) {
+        service.removeUser(userId);
+        return "redirect:/users";
+    }
+    @RequestMapping("order/{userId}")
+    public String getOrder(@PathVariable("userId") int userId,Model model){
+        List<User> users = service.getUsers((int)userId);
+        //model.addAttribute("users",users);
         return "users";
     }
 }

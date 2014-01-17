@@ -1,6 +1,7 @@
 package com.company.permgen.webapp.model;
 
 import javax.persistence.*;
+import java.util.Random;
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,7 +11,7 @@ import javax.persistence.*;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
-@Table
+@Table(name = "USER")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,6 +34,9 @@ public class User {
 
     @Column(nullable = false, length = 255)
     private String simptomi;
+
+    @Column(nullable = false, length = 255)
+    private String urgency;
 
     public int getId() {
         return id;
@@ -88,5 +92,13 @@ public class User {
 
     public void setSimptomi(String simptomi) {
         this.simptomi = simptomi;
+    }
+
+    public String getUrgency() {
+        return urgency;
+    }
+
+    public void setUrgency(String urgency) {
+        this.urgency = urgency;
     }
 }

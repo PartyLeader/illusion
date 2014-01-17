@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Random;
 
 @Repository
 @Transactional
@@ -31,15 +32,47 @@ public class UserRepository {
     }
 
     @SuppressWarnings("unchecked")
-    public List<User> getUsers(String name) {
+    public List<User> getUsers(String urgency) {
 
-        Query query = sessionFactory.getCurrentSession().createSQLQuery("select * from User where name like :name").addEntity(User.class);
-        return  query.setString("name", ""+name+"%").list();
+        Query query = sessionFactory.getCurrentSession().createSQLQuery("select * from User where urgency like :urgency").addEntity(User.class);
+        return  query.setString("urgency", ""+urgency+"%").list();
 
+    }
+    @SuppressWarnings("unchecked")
+    public List<User> getUsers(int id) {
+        Query query = sessionFactory.getCurrentSession().createSQLQuery("select * from User where id = :id").addEntity(User.class);
+        return  query.setString("id", id+"").list();
     }
 
     public void createUser(User user) {
+        Random ran = new Random();
+        int x = ran.nextInt(3);
+        switch (x)
+        {
+            case 0:{user.setUrgency("Низкий");
+                break;
+            }
+            case 1:{user.setUrgency("Средний");
+                break;
+            }
+            case 2:{user.setUrgency("Высокий");
+                break;
+            }
+        }
+
         sessionFactory.getCurrentSession().save(user);
     }
 
+    public void removeUser(int id){
+        User user = (User) sessionFactory.getCurrentSession().load(User.class, id);
+        if(user != null)
+        {
+            sessionFactory.getCurrentSession().delete(user);
+        }
+    }
+    public List<String> getUrgency()
+    {
+        List<String> list = sessionFactory.getCurrentSession().createSQLQuery("select urgency from User").list();
+        return list;
+    }
 }

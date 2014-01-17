@@ -9,22 +9,27 @@
  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
  <meta http-equiv="Content-Language" content="English"/>
  <link rel="stylesheet" media="all" href="<c:url value="/resources/site.css"/>">
- <title>Create User</title>
+ <title>Фильтр заказов</title>
 </head>
 <body>
-<h2>Filter</h2>
+<h2>Фильтр срочности заказов</h2>
 <form:form modelAttribute="user" method="post">
  <table>
  <tr>
-  <td>User:</td>
+  <td>Приоритет:</td>
   <td>
-  <form:input path="name"/>
-  <form:errors path="name" element="span"/>
+    <select name="urgency">
+        <c:forEach items="${listUrgency}" var="friend">
+            <option value="${friend}">${friend}</option>
+        </c:forEach>
+    </select>
+    <form:errors path="urgency" element="span"/>
   </td>
  </tr>
  </table>
  <br/>
- <input type="submit" value="Filter" />
+ <input type="submit" value="Применить фильтр" />
 </form:form>
+<a href="<c:url value="/users"/>">Список заказов</a>
 </body>
 </html>

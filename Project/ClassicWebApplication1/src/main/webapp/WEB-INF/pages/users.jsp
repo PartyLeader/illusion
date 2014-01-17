@@ -8,31 +8,46 @@
  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
  <meta http-equiv="Content-Language" content="English"/>
  <link rel="stylesheet" media="all" href="<c:url value="/resources/site.css"/>">
- <title>Orders</title>
+ <title>Аналитика предприятия</title>
 </head>
 <body>
-<h2>Orders</h2>
-<table>
- <tr>
- <th>User</th>
- <th>Gender</th>
- <th>Size</th>
- <th>manufacture period</th>
- <th>Style</th>
-  <th>Symptoms</th>
- </tr>
- <c:forEach items="${users}" var="user">
- <tr>
-  <td>${user.name}</td>
-  <td>${user.gen}</td>
-  <td>${user.razmer}</td>
-  <td>${user.srok}</td>
-  <td>${user.fason}</td>
-   <td>${user.simptomi}</td>
- </tr>
- </c:forEach>
-</table>
-<br/>
-<a href="<c:url value="/create-user"/>">Create order</a>
+<div id="leftcol">
+    <img src="<c:url value="/resources/images/logo.jpg" />" width="100" height="50" alt="Logo"/>
+</div>
+<div id="middlecol2">
+    <h2>Аналитика предприятия</h2>
+    <c:if test="${!empty users}">
+        <table>
+         <tr>
+         <th>№</th>
+         <th>ФИО</th>
+         <th>Размер</th>
+         <th>Срок изготовления</th>
+         <th>Тип изделия</th>
+         <th>Фасон изделия</th>
+          <th>Симптомы</th>
+         <th>Приоритет</th>
+          <th></th>
+         </tr>
+         <c:forEach items="${users}" var="user" varStatus="index">
+             <tr class="${index.count % 2 == 0 ? 'even': 'odd'}"/>
+                <td>${index.count}</td>
+                <td>${user.name}</td>
+                <td>${user.razmer}</td>
+                <td>${user.srok}</td>
+                <td>${user.fason}</td>
+                <td>${user.gen}</td>
+                <td>${user.simptomi}</td>
+                <td>${user.urgency}</td>
+                <td><a href="delete-user/${user.id}"><img src="<c:url value="/resources/images/delete.png" />"/>Удалить</a></td>
+             </tr>
+         </c:forEach>
+        </table>
+    </c:if>
+    <br/>
+    <a href="<c:url value="/create-user"/>">Создать заказ</a>
+    <a href="<c:url value="/userfilters"/>">Фильтр</a>
+    <a href="<c:url value="/users"/>">Снять фильтр</a>
+</div>
 </body>
 </html>
