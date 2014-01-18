@@ -3,13 +3,16 @@ package com.company.permgen.webapp.controller;
 import com.company.permgen.webapp.model.User;
 import com.company.permgen.webapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -24,7 +27,18 @@ public class UserController {
     @Autowired
     protected UserService service;
 
-    @RequestMapping(value = {"/*", "/users"})
+    @RequestMapping("/index")
+    public String listContacts(Model model) {
+        model.addAttribute("role",SecurityContextHolder.getContext().getAuthentication().getName());
+        return "index";
+    }
+
+    @RequestMapping("/")
+    public String home() {
+        return "redirect:/index";
+    }
+
+    @RequestMapping(value = "/users")
     public String getUsers(Model model) {
         List<User> users = service.getUsers();
         model.addAttribute("users", users);
@@ -40,7 +54,7 @@ public class UserController {
     @RequestMapping(value = "create-user", method = RequestMethod.POST)
     public String createUserPost(@ModelAttribute("user") User user) {
         service.createUser(user);
-        return "redirect:users";
+        return "redirect:/users";
     }
 
     @RequestMapping(value = "userfilters")
@@ -58,15 +72,16 @@ public class UserController {
         model.addAttribute("users", users);
         return "users";
     }
-    @RequestMapping("delete-user/{userId}")
+    @RequestMapping("/delete-user/{userId}")
     public String deleteUser(@PathVariable("userId") int userId) {
         service.removeUser(userId);
         return "redirect:/users";
     }
-    @RequestMapping("order/{userId}")
+    @RequestMapping("/order/{userId}")
     public String getOrder(@PathVariable("userId") int userId,Model model){
         List<User> users = service.getUsers((int)userId);
         //model.addAttribute("users",users);
         return "users";
     }
+
 }

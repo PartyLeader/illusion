@@ -41,8 +41,17 @@ function checkform(f) {
 	return true;
 }
 </script>
+<div id="head">
+    <div id="menu-div" aria-label="Site map">
+		<ul id="menu-ul">
+		    <li><a href="<c:url value="/index" />"><img src="<c:url value="/resources/images/logo.jpg" />" width="100" height="45" alt="Logo®"/></a></li>
+			<li class="menu-nav" role="presentation"><a href="<c:url value="/create-user" />" role="button" tabindex="0">Создать заказ</a></li>
+			<li class="menu-nav" role="presentation"><a href="<c:url value="/users" />" role="button">Аналитика</a></li>
+			<li class="menu-nav" role="presentation"><a href="<c:url value="/index" />" role="button">Задания</a></li>
+		</ul>
+	</div>
+</div><!--head-->
 <div id="leftcol">
-<img src="<c:url value="/resources/images/logo.jpg" />" width="100" height="50" alt="Logo"/>
 </div>
 <form:form modelAttribute="user" method="post" onsubmit="return checkform(this)">
 <div id="middlecol" class="note" >

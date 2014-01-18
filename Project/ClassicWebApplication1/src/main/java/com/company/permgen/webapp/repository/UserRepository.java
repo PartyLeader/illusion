@@ -72,7 +72,7 @@ public class UserRepository {
     }
     public List<String> getUrgency()
     {
-        List<String> list = sessionFactory.getCurrentSession().createSQLQuery("select urgency from User").list();
+        List<String> list = sessionFactory.getCurrentSession().createSQLQuery("select DISTINCT urgency from User").list();
         return list;
     }
 }
