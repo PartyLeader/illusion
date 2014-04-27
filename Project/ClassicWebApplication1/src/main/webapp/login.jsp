@@ -11,7 +11,7 @@
 <body>
 
 <a href="<c:url value="/index" />">
-	Dfdf
+       Контакты
 </a><br/>
 
 <c:if test="${not empty param.error}">

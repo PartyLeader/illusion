@@ -12,8 +12,13 @@
  <title>Фильтр заказов</title>
 </head>
 <body>
+<jsp:include page="header.jsp">
+
+  <jsp:param name="pageTitle" value="Login" />
+</jsp:include>
+
 <h2>Фильтр срочности заказов</h2>
-<form:form modelAttribute="user" method="post">
+<form:form modelAttribute="request" method="post">
  <table>
  <tr>
   <td>Приоритет:</td>

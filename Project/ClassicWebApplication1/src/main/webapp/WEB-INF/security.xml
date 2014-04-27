@@ -10,10 +10,12 @@
 
     <http access-denied-page="/error403.jsp">
         <intercept-url pattern="/index*" access="ROLE_USER,ROLE_ANONYMOUS" />
-        <intercept-url pattern="/users*" access="ROLE_USER" />
-        <intercept-url pattern="/create-user*" access="ROLE_USER" />
-        <intercept-url pattern="/userfilters*" access="ROLE_ADMIN" />
-        <intercept-url pattern="/delete-user/*" access="ROLE_ADMIN" />
+        <intercept-url pattern="/requests*" access="ROLE_USER" />
+        <intercept-url pattern="/create-request*" access="ROLE_USER" />
+        <intercept-url pattern="/requestfilters*" access="ROLE_ADMIN" />
+        <intercept-url pattern="/task*" access="ROLE_ADMIN" />
+        <intercept-url pattern="/delete-request/*" access="ROLE_ADMIN" />
+        <intercept-url pattern="/order/*" access="ROLE_ADMIN" />
         <form-login login-page="/login.jsp" default-target-url="/index"
                     authentication-failure-url="/login.jsp?error=true" />
         <logout logout-url="/logout" logout-success-url="/index" />

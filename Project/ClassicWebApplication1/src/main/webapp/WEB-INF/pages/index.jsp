@@ -11,23 +11,17 @@
  <title>Заказ клиента</title>
 </head>
 <body>
-<div id="head">
-    <div id="menu-div" aria-label="Site map">
-		<ul id="menu-ul">
-		    <li><a href="<c:url value="/index" />"><img src="<c:url value="/resources/images/logo.jpg" />" width="100" height="45" alt="Logo®"/></a></li>
-			<li class="menu-nav" role="presentation"><a href="<c:url value="/create-user" />" role="button" tabindex="0">Создать заказ</a></li>
-			<li class="menu-nav" role="presentation"><a href="<c:url value="/users" />" role="button">Аналитика</a></li>
-			<li class="menu-nav" role="presentation"><a href="<c:url value="/index" />" role="button">Задания</a></li>
-		</ul>
-		 <c:out value="${role}" />
-	</div>
-</div><!--head-->
+<jsp:include page="header.jsp">
+
+  <jsp:param name="pageTitle" value="Login" />
+</jsp:include>
+
 <div id="leftcol">
 
 </div>
 <div id="middlecol2">
 
-    <a href="<c:url value="/users"/>">Список заказов</a>
+    <a href="<c:url value="/requests"/>">Список заказов</a>
 </div>
 </body>
 </html>

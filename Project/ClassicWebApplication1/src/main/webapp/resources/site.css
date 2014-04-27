@@ -130,3 +130,13 @@ background: #4477a1;
     padding: 15px 0px 0 !important;
     margin-left: 20px;
 }
+#user-menu {
+    float: right;
+    line-height: 30px;
+    padding: 0 10px;
+    color: white;
+}
+#user-menu a {
+    color: #0088CC;
+    text-decoration: none;
+}

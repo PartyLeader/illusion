@@ -1,13 +1,12 @@
 package com.company.permgen.webapp.model;
 
 import javax.persistence.*;
-import java.util.Random;
 
 /**
  * Created with IntelliJ IDEA.
- * User: Ski3fter
- * Date: 22.12.13
- * Time: 23:19
+ * User: PartyLeader
+ * Date: 1/19/14
+ * Time: 11:17 PM
  * To change this template use File | Settings | File Templates.
  */
 @Entity
@@ -18,25 +17,27 @@ public class User {
     private int id;
 
     @Column(nullable = false, length = 255)
-    private String gen;
-
-    @Column(nullable = false, length = 255)
     private String name;
 
     @Column(nullable = false, length = 255)
-    private String razmer;
+    private String password;
 
     @Column(nullable = false, length = 255)
-    private String srok;
+    private String email;
 
     @Column(nullable = false, length = 255)
-    private String fason;
+    private String role;
 
-    @Column(nullable = false, length = 255)
-    private String simptomi;
+    public User() {
+    }
 
-    @Column(nullable = false, length = 255)
-    private String urgency;
+    public User(int id, String name, String password, String email, String role) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
+        this.email = email;
+        this.role = role;
+    }
 
     public int getId() {
         return id;
@@ -44,14 +45,6 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getGen() {
-        return gen;
-    }
-
-    public void setGen(String gen) {
-        this.gen = gen;
     }
 
     public String getName() {
@@ -62,43 +55,27 @@ public class User {
         this.name = name;
     }
 
-    public String getRazmer() {
-        return razmer;
+    public String getPassword() {
+        return password;
     }
 
-    public void setRazmer(String razmer) {
-        this.razmer = razmer;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getSrok() {
-        return srok;
+    public String getEmail() {
+        return email;
     }
 
-    public void setSrok(String srok) {
-        this.srok = srok;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getFason() {
-        return fason;
+    public String getRole() {
+        return role;
     }
 
-    public void setFason(String fason) {
-        this.fason = fason;
-    }
-
-    public String getSimptomi() {
-        return simptomi;
-    }
-
-    public void setSimptomi(String simptomi) {
-        this.simptomi = simptomi;
-    }
-
-    public String getUrgency() {
-        return urgency;
-    }
-
-    public void setUrgency(String urgency) {
-        this.urgency = urgency;
+    public void setRole(String role) {
+        this.role = role;
     }
 }

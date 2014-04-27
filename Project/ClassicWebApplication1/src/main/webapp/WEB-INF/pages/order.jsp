@@ -11,37 +11,43 @@
  <title>Заказ клиента</title>
 </head>
 <body>
+<jsp:include page="header.jsp">
+
+  <jsp:param name="pageTitle" value="Login" />
+</jsp:include>
+
 <div id="leftcol">
-    <img src="<c:url value="/images/logo.gif" />" width="100" height="50" alt="Logo"/>
 </div>
-<div id="middlecol2">
-<c:forEach items="${users}" var="user">
-    <h2>Заказ клиента №<c:out value="${user.id}"/></h2>
+<div id="middlecol2" class="note">
+<c:forEach items="${requests}" var="request">
+    <h2>Заказ клиента №<c:out value="${request.id}"/></h2>
     <table>
         <tr>
             <td width="100рх">Заказчик:</td>
             <td>
-                <form:input  size="30" path="${user.name}"/>
+                <span>${request.name}</span>
             </td>
         </tr>
         <tr>
             <td width="100рх">Размер:</td>
             <td>
-                <form:input  path="${user.razmer}"/>
+                <c:out value="${request.razmer}"/>
             </td>
         </tr>
         <tr>
             <td width="100рх">Срок изготовления:</td>
             <td>
-               <form:input  path="${user.srok}"/>
+                <c:out value="${request.srok}"/>
+
                Цвет:
-                <form:input  path="${user.gen}"/>
+                <c:out value="${request.gen}"/>
             </td>
         </tr>
         <tr>
             <td width="100рх">Фасон изделия:</td>
             <td>
-               <form:input  path="${user.fason}"/>
+               <c:out value="${request.fason}"/>
+
                Количество:
                 1
             </td>
@@ -49,10 +55,11 @@
         <tr>
             <td width="100рх">Размер:</td>
             <td>
-                <form:input  path="${user.simptomi}"/>
+                <c:out value="${request.simptomi}"/>
             </td>
         </tr>
     </table>
+</c:forEach>
     <h3>Стадии выполнения:</h3>
      <table>
          <tr>
@@ -66,30 +73,21 @@
          <th>Материал</th>
          <th>Комментарий</th>
          </tr>
-                <tr>
-                <th>1</th>
-                <th>Сборщик</th>
-                <th>100%</th>
-                <th>средне</th>
-                <th>1/12/2013</th>
-                <th>2/12/2013</th>
-                <th>3</th>
-                <th>крапива</th>
-                <th>-</th>
+         <c:forEach items="${orders}" var="order" varStatus="index">
+                <tr class="${index.count % 2 == 0 ? 'even': 'odd'}"/>
+                    <th>${index.count}</th>
+                    <th><a href="<c:url value="/task/${order.id}"/>">${order.worker}</a></th>
+                    <th>${order.status}</th>
+                    <th>${order.priority}</th>
+                    <th>${order.createdate}</th>
+                    <th>${order.enddate}</th>
+                    <th>${order.countGood}</th>
+                    <th>${order.good}</th>
+                    <th>${order.message}</th>
                 </tr>
-                <tr>
-                <th>2</th>
-                <th>Обработчик</th>
-                <th>30%</th>
-                <th>средне</th>
-                <th>2/12/2013</th>
-                <th>10/12/2013</th>
-                <th>8</th>
-                <th>нитки</th>
-                <th>Необходимо выполнить план</th>
-                </tr>
+         </c:forEach>
         </table>
-</c:forEach>
+
 
 <a href="<c:url value="/users"/>">Список заказов</a>
 </div>
