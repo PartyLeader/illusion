@@ -1,7 +1,6 @@
 package com.company.permgen.webapp.controller;
 
-import com.company.permgen.webapp.model.Request;
-import com.company.permgen.webapp.model.Order;
+import com.company.permgen.webapp.model.*;
 import com.company.permgen.webapp.service.OrderService;
 import com.company.permgen.webapp.service.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +37,18 @@ public class UserController {
     public String listContacts(Model model) {
         setModel(model);
         return "index";
+    }
+
+    @RequestMapping("/adminPage")
+    public String getAdminPage(Model model) {
+        model.addAttribute("material", new Material());
+        model.addAttribute("recipe", new Recipe());
+        model.addAttribute("fashion", new Fashion());
+        model.addAttribute("typeofmaterials", new TypeOfMaterials());
+        model.addAttribute("size", new Size());
+        model.addAttribute("status", new Status());
+        setModel(model);
+        return "adminPage";
     }
 
     @RequestMapping("/")
