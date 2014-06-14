@@ -49,7 +49,7 @@
         <control controlID="9" controlTypeID="com.balsamiq.mockups::Image" x="26" y="8" w="40" h="47" measuredW="137" measuredH="150" zOrder="6" locked="false" isInGroup="5">
           <controlProperties>
             <filter>true</filter>
-            <src>../../../%25D0%259F%25D1%2580%25D0%25BE%25D0%25B5%25D0%25BA%25D1%2582%2520%25D0%2598%25D0%25BB%25D0%25BB%25D1%258E%25D0%25B7%25D0%25B8%25D1%258F/RUP/Mockups/assets/thumbnail.jpg</src>
+            <src>./assets/thumbnail.jpg</src>
             <text/>
           </controlProperties>
         </control>
@@ -139,15 +139,15 @@
       <controlProperties>
         <borderStyle>square</borderStyle>
         <filter>true</filter>
-        <src>../../../%25D0%259F%25D1%2580%25D0%25BE%25D0%25B5%25D0%25BA%25D1%2582%2520%25D0%2598%25D0%25BB%25D0%25BB%25D1%258E%25D0%25B7%25D0%25B8%25D1%258F/RUP/Mockups/assets/1</src>
+        <src>./assets/1%2520%281%29.jpg</src>
         <text/>
       </controlProperties>
     </control>
-    <control controlID="44" controlTypeID="com.balsamiq.mockups::Image" x="222" y="617" w="93" h="109" measuredW="187" measuredH="261" zOrder="16" locked="false" isInGroup="-1">
+    <control controlID="44" controlTypeID="com.balsamiq.mockups::Image" x="222" y="617" w="93" h="109" measuredW="235" measuredH="215" zOrder="16" locked="false" isInGroup="-1">
       <controlProperties>
         <borderStyle>square</borderStyle>
         <filter>true</filter>
-        <src>../../../%25D0%259F%25D1%2580%25D0%25BE%25D0%25B5%25D0%25BA%25D1%2582%2520%25D0%2598%25D0%25BB%25D0%25BB%25D1%258E%25D0%25B7%25D0%25B8%25D1%258F/RUP/Mockups/assets/1</src>
+        <src>./assets/1%2520%2813%29.jpg</src>
         <text/>
       </controlProperties>
     </control>
@@ -155,7 +155,7 @@
       <controlProperties>
         <borderStyle>square</borderStyle>
         <filter>true</filter>
-        <src>../../../%25D0%259F%25D1%2580%25D0%25BE%25D0%25B5%25D0%25BA%25D1%2582%2520%25D0%2598%25D0%25BB%25D0%25BB%25D1%258E%25D0%25B7%25D0%25B8%25D1%258F/RUP/Mockups/assets/1%2520%282%29.jpg</src>
+        <src>./assets/1%2520%282%29.jpg</src>
         <text/>
       </controlProperties>
     </control>
@@ -163,7 +163,7 @@
       <controlProperties>
         <borderStyle>square</borderStyle>
         <filter>true</filter>
-        <src>../../../%25D0%259F%25D1%2580%25D0%25BE%25D0%25B5%25D0%25BA%25D1%2582%2520%25D0%2598%25D0%25BB%25D0%25BB%25D1%258E%25D0%25B7%25D0%25B8%25D1%258F/RUP/Mockups/assets/1%2520%2814%29.jpg</src>
+        <src>./assets/1%2520%2814%29.jpg</src>
         <text/>
       </controlProperties>
     </control>
@@ -171,7 +171,7 @@
       <controlProperties>
         <borderStyle>square</borderStyle>
         <filter>true</filter>
-        <src>../../../%25D0%259F%25D1%2580%25D0%25BE%25D0%25B5%25D0%25BA%25D1%2582%2520%25D0%2598%25D0%25BB%25D0%25BB%25D1%258E%25D0%25B7%25D0%25B8%25D1%258F/RUP/Mockups/assets/1%2520%289%29.jpg</src>
+        <src>./assets/1%2520%289%29.jpg</src>
         <text/>
       </controlProperties>
     </control>
@@ -179,7 +179,7 @@
       <controlProperties>
         <borderStyle>square</borderStyle>
         <filter>true</filter>
-        <src>../../../%25D0%259F%25D1%2580%25D0%25BE%25D0%25B5%25D0%25BA%25D1%2582%2520%25D0%2598%25D0%25BB%25D0%25BB%25D1%258E%25D0%25B7%25D0%25B8%25D1%258F/RUP/Mockups/assets/1%2520%2815%29.jpg</src>
+        <src>./assets/1%2520%2815%29.jpg</src>
         <text/>
       </controlProperties>
     </control>
@@ -187,15 +187,16 @@
       <controlProperties>
         <borderStyle>square</borderStyle>
         <filter>true</filter>
-        <src>../../../%25D0%259F%25D1%2580%25D0%25BE%25D0%25B5%25D0%25BA%25D1%2582%2520%25D0%2598%25D0%25BB%25D0%25BB%25D1%258E%25D0%25B7%25D0%25B8%25D1%258F/RUP/Mockups/assets/1%2520%283%29.jpg</src>
+        <src>./assets/1%2520%283%29.jpg</src>
         <text/>
       </controlProperties>
     </control>
-    <control controlID="50" controlTypeID="com.balsamiq.mockups::Image" x="909" y="617" w="93" h="109" measuredW="235" measuredH="215" zOrder="22" locked="false" isInGroup="-1">
+    <control controlID="50" controlTypeID="com.balsamiq.mockups::Image" x="909" y="617" w="93" h="109" measuredW="187" measuredH="261" zOrder="22" locked="false" isInGroup="-1">
       <controlProperties>
         <borderStyle>square</borderStyle>
         <filter>true</filter>
-        <src>../../../%25D0%259F%25D1%2580%25D0%25BE%25D0%25B5%25D0%25BA%25D1%2582%2520%25D0%2598%25D0%25BB%25D0%25BB%25D1%258E%25D0%25B7%25D0%25B8%25D1%258F/RUP/Mockups/assets/1%2520%2813%29.jpg</src>
+        <italic>true</italic>
+        <src>./assets/1%2520%281%29.jpg</src>
         <text/>
       </controlProperties>
     </control>

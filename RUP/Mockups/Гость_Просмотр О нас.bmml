@@ -78,7 +78,7 @@
         <control controlID="5" controlTypeID="com.balsamiq.mockups::Image" x="26" y="8" w="40" h="47" measuredW="137" measuredH="150" zOrder="4" locked="false" isInGroup="37">
           <controlProperties>
             <filter>true</filter>
-            <src>../../../%25D0%259F%25D1%2580%25D0%25BE%25D0%25B5%25D0%25BA%25D1%2582%2520%25D0%2598%25D0%25BB%25D0%25BB%25D1%258E%25D0%25B7%25D0%25B8%25D1%258F/RUP/Mockups/assets/thumbnail.jpg</src>
+            <src>./assets/thumbnail.jpg</src>
             <text/>
           </controlProperties>
         </control>

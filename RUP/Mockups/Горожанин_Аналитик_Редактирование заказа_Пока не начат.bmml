@@ -188,7 +188,7 @@
       <controlProperties>
         <borderStyle>square</borderStyle>
         <filter>true</filter>
-        <src>../../../%25D0%259F%25D1%2580%25D0%25BE%25D0%25B5%25D0%25BA%25D1%2582%2520%25D0%2598%25D0%25BB%25D0%25BB%25D1%258E%25D0%25B7%25D0%25B8%25D1%258F/RUP/Mockups/assets/1%2520%281%29.jpg</src>
+        <src>./assets/1%2520%281%29.jpg</src>
       </controlProperties>
     </control>
     <control controlID="78" controlTypeID="__group__" x="232" y="559" w="349" h="102" measuredW="349" measuredH="102" zOrder="12" locked="false" isInGroup="-1">
