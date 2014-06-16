@@ -1,4 +1,4 @@
-<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1250" measuredH="782" mockupW="1231" mockupH="768">
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1322" measuredH="782" mockupW="1303" mockupH="768">
   <controls>
     <control controlID="0" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="19" y="14" w="1024" h="768" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
       <controlProperties>
@@ -231,9 +231,9 @@
       </groupChildrenDescriptors>
     </control>
     <control controlID="80" controlTypeID="com.balsamiq.mockups::Arrow" x="344" y="675" w="724" h="10" measuredW="150" measuredH="100" zOrder="10" locked="false" isInGroup="-1"/>
-    <control controlID="81" controlTypeID="com.balsamiq.mockups::StickyNote" x="1068" y="619" w="-1" h="-1" measuredW="109" measuredH="123" zOrder="11" locked="false" isInGroup="-1">
+    <control controlID="81" controlTypeID="com.balsamiq.mockups::StickyNote" x="1068" y="619" w="254" h="148" measuredW="109" measuredH="123" zOrder="11" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>%u0422%u0430%u0431%u043B%u0438%u0446%u044B%20%u0434%u043B%u044F%20%u0432%u0441%u0435%u0445%20%u0443%u0447%u0430%u0441%u0442%u043D%u0438%u043A%u043E%u0432%20%u043F%u0440%u043E%u0446%u0435%u0441%u0441%u0430</text>
+        <text>%u0422%u0430%u0431%u043B%u0438%u0446%u044B%20%u0434%u043B%u044F%20%u0432%u0441%u0435%u0445%20%u0443%u0447%u0430%u0441%u0442%u043D%u0438%u043A%u043E%u0432%20%u043F%u0440%u043E%u0446%u0435%u0441%u0441%u0430%0A%20%0A%u0410%u043D%u0430%u043B%u0438%u0442%u0438%u043A%20%u0432%u0438%u0434%u0438%u0442%20%u0432%u0441%u0435%20%u0442%u0430%u0431%u043B%u0438%u0446%u044B%20%u043A%u0430%u043A%20%u043F%u0440%u043E%u0441%u0442%u043E%20%u0432%u044B%u0431%u043E%u0440%u043A%u0443%20%u0430%u043A%u0442%u0438%u0432%u043D%u044B%u0445%20%u0437%u0430%u043A%u0430%u0437%u043E%u0432</text>
       </controlProperties>
     </control>
     <control controlID="82" controlTypeID="com.balsamiq.mockups::Icon" x="243" y="656" w="-1" h="-1" measuredW="48" measuredH="48" zOrder="12" locked="false" isInGroup="-1">

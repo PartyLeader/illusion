@@ -389,14 +389,9 @@
         </control>
       </groupChildrenDescriptors>
     </control>
-    <control controlID="75" controlTypeID="com.balsamiq.mockups::StickyNote" x="1095" y="298" w="142" h="116" measuredW="109" measuredH="123" zOrder="11" locked="false" isInGroup="-1">
+    <control controlID="75" controlTypeID="com.balsamiq.mockups::StickyNote" x="1087" y="298" w="142" h="116" measuredW="109" measuredH="123" zOrder="11" locked="false" isInGroup="-1">
       <controlProperties>
         <text>%u0420%u0435%u0434%u0430%u043A%u0442%u0438%u0440%u043E%u0432%u0430%u043D%u0438%u0435%20%u0437%u0430%u0431%u043B%u043E%u043A%u0438%u0440%u043E%u0432%u0430%u043D%u043D%u043E%u0433%u043E%20%u0437%u0430%u043A%u0430%u0437%u0430%20%u043D%u0435%u0432%u043E%u0437%u043C%u043E%u0436%u043D%u043E%20%u0434%u043B%u044F%20%u0413%u043E%u0440%u043E%u0436%u0430%u043D%u0438%u043D%u0430</text>
-      </controlProperties>
-    </control>
-    <control controlID="76" controlTypeID="com.balsamiq.mockups::StickyNote" x="445" y="145" w="199" h="127" measuredW="109" measuredH="123" zOrder="12" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>%u041A%u043E%u0433%u0434%u0430%20%u0413%u043E%u0440%u043E%u0436%u0430%u043D%u0438%u043D%20%u0441%u043E%u0437%u0434%u0430%u0435%u0442%20%u0437%u0430%u043A%u0430%u0437%2C%20%u0441%u0438%u0441%u0442%u0435%u043C%u0430%20%u0430%u0432%u0442%u043E%u043C%u0430%u0442%u0438%u0447%u0435%u0441%u043A%u0438%20%u0432%u044B%u0447%u0438%u0441%u043B%u044F%u0435%u0442%20%u0434%u043B%u044F%20%u043D%u0435%u0433%u043E%20%u043F%u0443%u0442%u044C%20%u0432%u044B%u043F%u043E%u043B%u043D%u0435%u043D%u0438%u044F</text>
       </controlProperties>
     </control>
   </controls>
