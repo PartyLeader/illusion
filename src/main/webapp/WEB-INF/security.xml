@@ -1,35 +1,51 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<beans:beans xmlns="http://www.springframework.org/schema/security"
-             xmlns:beans="http://www.springframework.org/schema/beans"
-             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="http://www.springframework.org/schema/beans
-                 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-                 http://www.springframework.org/schema/security
-                 http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    http://www.springframework.org/schema/security
+    http://www.springframework.org/schema/security/spring-security-3.0.xsd">
 
+    <bean id="dataSource"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.hsqldb.jdbcDriver" />
+        <property name="url" value="jdbc:hsqldb:mem://personDb" />
+        <property name="username" value="sa" />
+        <property name="password" value="" />
+    </bean>
 
-    <http access-denied-page="/error403.jsp">
-        <intercept-url pattern="/index*" access="ROLE_USER,ROLE_ANONYMOUS" />
-        <intercept-url pattern="/requests*" access="ROLE_USER" />
-        <intercept-url pattern="/create-request*" access="ROLE_USER" />
-        <intercept-url pattern="/requestfilters*" access="ROLE_ADMIN" />
-        <intercept-url pattern="/task*" access="ROLE_ADMIN" />
-        <intercept-url pattern="/delete-request/*" access="ROLE_ADMIN" />
-        <intercept-url pattern="/order/*" access="ROLE_ADMIN" />
-        <form-login login-page="/login.jsp" default-target-url="/index"
+    <bean id="dbUtil" class="com.company.permgen.webapp.utils.DbUtil"
+          init-method="initialize">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <security:http access-denied-page="/error403.jsp">
+        <security:intercept-url pattern="/index*" access="ROLE_USER,ROLE_ANONYMOUS,ROLE_ADMIN" />
+        <security:intercept-url pattern="/requests*" access="ROLE_USER,ROLE_ADMIN" />
+        <security:intercept-url pattern="/create-request*" access="ROLE_USER,ROLE_ADMIN" />
+        <security:intercept-url pattern="/requestfilters*" access="ROLE_ADMIN" />
+        <security:intercept-url pattern="/task*" access="ROLE_ADMIN" />
+        <security:intercept-url pattern="/delete-request/*" access="ROLE_ADMIN" />
+        <security:intercept-url pattern="/order/*" access="ROLE_ADMIN" />
+        <security:form-login login-page="/login.jsp" default-target-url="/index"
                     authentication-failure-url="/login.jsp?error=true" />
-        <logout logout-url="/logout" logout-success-url="/index" />
+        <security:logout logout-url="/logout" logout-success-url="/index" />
 
-        <anonymous username="guest" granted-authority="ROLE_ANONYMOUS" />
-        <remember-me />
-    </http>
-    <authentication-manager>
-        <authentication-provider>
-            <user-service>
-                <user name="admin" password="pass" authorities="ROLE_ADMIN,ROLE_USER" />
-                <user name="user1" password="1111" authorities="ROLE_USER" />
-                <user name="user2" password="2222" disabled="true" authorities="ROLE_USER" />
-            </user-service>
-        </authentication-provider>
-    </authentication-manager>
-</beans:beans>
+        <security:anonymous username="guest" granted-authority="ROLE_ANONYMOUS" />
+        <security:remember-me />
+    </security:http>
+
+    <security:authentication-manager>
+        <security:authentication-provider>
+            <security:jdbc-user-service
+                    data-source-ref="dataSource"
+                    users-by-username-query="select username,password,enabled from user_authentication where username=?"
+                    authorities-by-username-query="select u1.username, u2.role from user_authentication u1, user_authorization u2 where u1.user_id = u2.user_id and u1.username =?" />
+        </security:authentication-provider>
+    </security:authentication-manager>
+
+
+
+</beans>  
