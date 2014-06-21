@@ -1,0 +1,8 @@
+Номер тест плана определяется, как:
+<version of product>.<null number of test suite> - например, 2.0.00
+
+Номер тест сьюта:
+<version of product>.<...number/s of parent test suite if there is>.<number of the test suite>.<null number of test cases> - например, 2.0.01.0
+
+Номер тест кейза:
+<version of product>.<...number/s of parent test suite if there is>.<number of the test suite>.<number of test cases> - например, 2.0.01.3
