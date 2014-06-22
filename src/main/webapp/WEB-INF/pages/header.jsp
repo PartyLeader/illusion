@@ -6,8 +6,8 @@
     <div id="menu-div" aria-label="Site map">
 		<ul id="menu-ul">
 		    <li><a href="<c:url value="/index" />"><img src="<c:url value="/resources/images/logo.jpg" />" width="100" height="45" alt="Logo®"/></a></li>
-			<li class="menu-nav" role="presentation"><a href="<c:url value="/create-request" />" role="button" tabindex="0">Создать заказ</a></li>
-			<li class="menu-nav" role="presentation"><a href="<c:url value="/requests" />" role="button">Аналитика</a></li>
+			<li class="menu-nav" role="presentation"><a href="<c:url value="/create-order" />" role="button" tabindex="0">Создать заказ</a></li>
+			<li class="menu-nav" role="presentation"><a href="<c:url value="/orders" />" role="button">Аналитика</a></li>
 			<li class="menu-nav" role="presentation"><a href="<c:url value="/index" />" role="button">Задания</a></li>
             <li class="menu-nav" role="presentation"><a href="<c:url value="/adminPage" />" role="button">Админка</a></li>
 		</ul>

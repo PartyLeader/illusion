@@ -1,6 +1,8 @@
 package com.company.permgen.webapp.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Ski3fter on 01.05.14.
@@ -10,10 +12,31 @@ import javax.persistence.*;
 public class Size {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "SIZE_ID", unique = true, nullable = false)
     private int id;
 
-    @Column(nullable = false, length = 255)
+    @Column(name = "SIZE_NAME",nullable = false, length = 255)
     private String name;
+
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "size")
+//    private Set<Order> order = new HashSet<Order>(0);
+
+    public Size() {
+    }
+
+    public Size(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public Size(int id, String name, Set<Order> order) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public Size(String name) {
+        this.name = name;
+    }
 
     public int getId() {
         return id;

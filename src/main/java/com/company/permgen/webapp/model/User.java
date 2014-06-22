@@ -1,6 +1,8 @@
 package com.company.permgen.webapp.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,19 +16,23 @@ import javax.persistence.*;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "USER_ID", unique = true, nullable = false)
     private int id;
 
-    @Column(nullable = false, length = 255)
+    @Column(name = "USER_NAME", nullable = false, length = 255)
     private String name;
 
-    @Column(nullable = false, length = 255)
+    @Column(name = "USER_PASSWORD", nullable = false, length = 255)
     private String password;
 
-    @Column(nullable = false, length = 255)
+    @Column(name = "USER_EMAIL", nullable = false, length = 255)
     private String email;
 
-    @Column(nullable = false, length = 255)
+    @Column(name = "USER_ROLE", nullable = false, length = 255)
     private String role;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private Set<Order> order = new HashSet<Order>(0);
 
     public User() {
     }
@@ -37,6 +43,14 @@ public class User {
         this.password = password;
         this.email = email;
         this.role = role;
+    }
+
+    public Set<Order> getOrder() {
+        return order;
+    }
+
+    public void setOrder(Set<Order> order) {
+        this.order = order;
     }
 
     public int getId() {

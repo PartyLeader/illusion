@@ -46,46 +46,32 @@ function checkform(f) {
 
 <div id="leftcol">
 </div>
-<form:form modelAttribute="request" method="post" onsubmit="return checkform(this)">
+<form:form modelAttribute="order" method="post" onsubmit="return checkform(this)">
 <div id="middlecol" class="note" >
 	<h2>Форма заказа</h2>
-
-
 		<table>
-			<tr>
-				<td width="100рх">Контакты:</td>
-				<td>
-					<form:input  size="30" path="name"/>
-					<form:errors path="name" element="span"/>
-				</td>
-			</tr>
 			<tr>
                 <td>Размер:</td>
                 <td>
-                    <select name="razmer">
-                    <%
-                        String[] testArray = {"X", "XX", "XXL", "L", "S", "XL"};
-                        for (int i = 0; i < testArray.length; i++) {
-                    %>
-                            <option value=<%=testArray[i]%>>
-                            <%= testArray[i] %>
-                            </option>
-                    <%
-                        }
-                    %>
+                    <select name="size">
+                     <c:forEach items="${listSize}" var="friend">
+                                <option value="${friend.Id}">${friend.Name}</option>
+                            </c:forEach>
+
+
                     </select>
 
-                    <form:errors path="razmer" element="span"/>
+                    <form:errors path="size" element="span"/>
 
                Цвет:
 
                     <select name="gen">
                     <%
                         String[] colorArray = {"Белый", "Серый", "Черный", "Синий"};
-                        for (int i = 0; i < colorArray.length; i++) {
+                        for (int i = 0; i < listSize.length; i++) {
                     %>
-                            <option value=<%=colorArray[i]%>>
-                            <%= colorArray[i] %>
+                            <option value=<%=listSize[i].ID%>>
+                            <%= listSize[i].Name %>
                             </option>
                     <%
                         }
@@ -97,33 +83,22 @@ function checkform(f) {
             <tr>
                 <td>Срок изготовления (dd/mm/ccyy):</td>
                 <td>
-                    <input type="text" id="mydate" name="srok" size="10" maxlength="10" onkeyup="dtval(this,event)">
-                    <form:errors path="srok" element="span"/>
+                    <input type="text" id="mydate" name="enddate" size="10" maxlength="10" onkeyup="dtval(this,event)">
+                    <form:errors path="enddate" element="span"/>
                 </td>
             </tr>
 
 			<tr>
 				<td>Фасон изделия:</td>
 				<td>
-					<form:radiobutton path="fason" value="Рубаха"/>Рубаха  <br/>
-					<form:radiobutton path="fason" value="Футболка"/>Футболка    <br/>
-					<form:radiobutton path="fason" value="Свитер"/>Свитер   <br/>
-					<form:errors path="fason" element="span"/>
-				</td>
-			</tr>
-			<tr>
-				<td>Симптомы:</td>
-				<td>
-					<form:checkbox path="simptomi" value="Заболевание1"/>Заболевание1<br/>
-                    <form:checkbox path="simptomi" value="Заболевание2"/>Заболевание2 <br/>
-                    <form:checkbox path="simptomi" value="Заболевание3"/>Заболевание3   <br/>
-					<form:errors path="simptomi" element="span"/>
+					<form:radiobutton path="fashion" value="Рубаха"/>Рубаха  <br/>
+					<form:radiobutton path="fashion" value="Футболка"/>Футболка    <br/>
+					<form:radiobutton path="fashion" value="Свитер"/>Свитер   <br/>
+					<form:errors path="fashion" element="span"/>
 				</td>
 			</tr>
 		</table>
 		<br/>
-
-
 </div>
 <!-- middlecol -->
 <div id="rightcol">

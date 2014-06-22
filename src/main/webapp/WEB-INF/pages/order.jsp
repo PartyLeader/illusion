@@ -76,7 +76,7 @@
          <c:forEach items="${orders}" var="order" varStatus="index">
                 <tr class="${index.count % 2 == 0 ? 'even': 'odd'}"/>
                     <th>${index.count}</th>
-                    <th><a href="<c:url value="/task/${order.id}"/>">${order.worker}</a></th>
+                    <th><a href="<c:url value="/task/${order.id}"/>">${order.user.name}</a></th>
                     <th>${order.status}</th>
                     <th>${order.priority}</th>
                     <th>${order.createdate}</th>

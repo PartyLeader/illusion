@@ -43,4 +43,8 @@ public class OrderService {
     public List<Order> getOrders(int requestId) {
         return repository.getOrders(requestId);
     }
+    public List<Order> getOrders()
+    {
+        return repository.getOrders();
+    }
 }

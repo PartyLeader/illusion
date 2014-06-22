@@ -1,8 +1,8 @@
 package com.company.permgen.webapp.controller;
 
 import com.company.permgen.webapp.model.*;
-import com.company.permgen.webapp.service.OrderService;
-import com.company.permgen.webapp.service.RequestService;
+import com.company.permgen.webapp.repository.StateRepository;
+import com.company.permgen.webapp.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.print.attribute.standard.DateTimeAtCompleted;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -28,10 +27,18 @@ import java.util.Random;
 @Controller
 public class UserController {
     @Autowired
-    protected RequestService requestService;
-
-    @Autowired
     protected OrderService orderService;
+    @Autowired
+    protected SizeService sizeService;
+    @Autowired
+    protected StateRepository stateService;
+    @Autowired
+    protected GoodTypeService goodTypeService;
+    @Autowired
+    protected FashionService fashionService;
+    @Autowired
+    protected MagicService magicService;
+
 
     @RequestMapping("/index")
     public String listContacts(Model model) {
@@ -41,14 +48,76 @@ public class UserController {
 
     @RequestMapping("/adminPage")
     public String getAdminPage(Model model) {
-        model.addAttribute("material", new Material());
+        model.addAttribute("good", new Good());
+
         model.addAttribute("recipe", new Recipe());
+
+        model.addAttribute("magic", new Magic());
+        model.addAttribute("magicList", magicService.getMagic());
         model.addAttribute("fashion", new Fashion());
-        model.addAttribute("typeofmaterials", new TypeOfMaterials());
+        model.addAttribute("fashionList", fashionService.getFashion());
+        model.addAttribute("goodType", new GoodType());
+        model.addAttribute("goodTypeList", goodTypeService.getGoodType());
         model.addAttribute("size", new Size());
-        model.addAttribute("status", new Status());
+        model.addAttribute("sizeList", sizeService.getSize());
+        model.addAttribute("state", new State());
+        model.addAttribute("stateList", stateService.getState());
+
         setModel(model);
         return "adminPage";
+    }
+
+    @RequestMapping("/first-load")
+    public String getFirstLoadPage(Model model) {
+
+
+        sizeService.createSize(new Size("L"));
+        sizeService.createSize(new Size("X"));
+        sizeService.createSize(new Size("XL"));
+        sizeService.createSize(new Size("XXL"));
+        List<Size> list = sizeService.getSize();
+
+        model.addAttribute("sizeName", list.get(0).getName());
+        model.addAttribute("sizeList", list);
+        setModel(model);
+        return "first-load";
+    }
+
+
+    @RequestMapping(value = "/adminPage/size", method = RequestMethod.POST)
+    public String createSizePost(@ModelAttribute("size") Size size) {
+       // Size size = new Size(sizeName);
+        sizeService.createSize(size);
+        System.out.println(size.getId());
+        return "redirect:/adminPage";
+    }
+    @RequestMapping(value = "/adminPage/state", method = RequestMethod.POST)
+    public String createStatePost(@ModelAttribute("state") State item) {
+        // Size size = new Size(sizeName);
+        stateService.createState(item);
+        System.out.println(item.getId());
+        return "redirect:/adminPage";
+    }
+    @RequestMapping(value = "/adminPage/goodType", method = RequestMethod.POST)
+    public String createGoodTypePost(@ModelAttribute("goodType") GoodType item) {
+        // Size size = new Size(sizeName);
+        goodTypeService.createGoodType(item);
+        System.out.println(item.getId());
+        return "redirect:/adminPage";
+    }
+    @RequestMapping(value = "/adminPage/fashion", method = RequestMethod.POST)
+    public String createFashionPost(@ModelAttribute("fashion") Fashion item) {
+        // Size size = new Size(sizeName);
+        fashionService.createFashion(item);
+        System.out.println(item.getId());
+        return "redirect:/adminPage";
+    }
+    @RequestMapping(value = "/adminPage/magic", method = RequestMethod.POST)
+    public String createFashionPost(@ModelAttribute("magic") Magic item) {
+        // Size size = new Size(sizeName);
+        magicService.createMagic(item);
+        System.out.println(item.getId());
+        return "redirect:/adminPage";
     }
 
     @RequestMapping("/")
@@ -56,68 +125,65 @@ public class UserController {
         return "redirect:/index";
     }
 
-    @RequestMapping(value = "/requests")
-    public String getRequests(Model model) {
-        List<Request> requests = requestService.getRequests();
-        model.addAttribute("requests", requests);
+    @RequestMapping(value = "/orders")
+    public String getOrders(Model model) {
+        List<Order> orders = orderService.getOrders();
+        model.addAttribute("orders", orders);
         setModel(model);
-        return "requests";
+        return "orders";
     }
 
-    @RequestMapping(value = "create-request")
+    @RequestMapping(value = "create-order")
     public String createRequestGet(Model model) {
-        model.addAttribute("request", new Request());
+        model.addAttribute("order", new Order());
+        List<Size> list =     sizeService.getSize();
+        model.addAttribute("listSize", list);
         setModel(model);
-        return "create-request";
+        return "create-order";
     }
 
-    @RequestMapping(value = "create-request", method = RequestMethod.POST)
-    public String createRequestPost(@ModelAttribute("request") Request request) {
-        requestService.createRequest(request);
-        System.out.println(request.getId());
-        Random rand = new Random();
+    @RequestMapping(value = "create-order", method = RequestMethod.POST)
+    public String createRequestPost(@ModelAttribute("order") Order order) {
         Date date = new Date();
-        Date tomorrow = new Date(date.getTime() + (rand.nextInt() * 1000 * 60 * 60 * 24));
-        Order order =  new Order(request.getId(), "Сборщик","Крапива",rand.nextInt(5)+1,"Wait",1,"comment1","Обычный",date.toString(),new Date(date.getTime() + (rand.nextInt(5) * 1000 * 60 * 60 * 24)).toString());
+        order.setCreatedate(date.toString());
         orderService.createOrder(order);
-        orderService.createOrder(new Order(request.getId(), "Обработчик","Нитки",rand.nextInt(5),"Wait",1,"comment2","Обычный",date.toString(),new Date(date.getTime() + (rand.nextInt(7) * 1000 * 60 * 60 * 24)).toString()));
-        orderService.createOrder(new Order(request.getId(), "Швея","Рубаха",1,"Wait",1,"comment3","Обычный",date.toString(),new Date(date.getTime() + (rand.nextInt(6) * 1000 * 60 * 60 * 24)).toString()));
-        orderService.createOrder(new Order(request.getId(), "Маг","Готовое изделие",0,"Wait",1,"comment4","Обычный",date.toString(),new Date(date.getTime() + (rand.nextInt(12) * 1000 * 60 * 60 * 24)).toString()));
+        System.out.println(order.getId());
+        Random rand = new Random();
 
-        return "redirect:/requests";
+        return "redirect:/orders";
     }
-
-    @RequestMapping(value = "requestfilters")
-    public String createRequestGetFilters(Model model) {
-        Request request =new Request();
-        model.addAttribute("request", request);
-        model.addAttribute("listUrgency", requestService.getUrgency());
-        System.out.println(requestService.getUrgency());
-        setModel(model);
-        return "requestfilters";
-    }
-
-    @RequestMapping(value ="requestfilters", method = RequestMethod.POST)
-    public String getRequesrsFilter(@ModelAttribute("request") Request request,Model model) {
-        List<Request> requests = requestService.getRequests(request.getUrgency()) ;
-        model.addAttribute("requests", requests);
-        setModel(model);
-        return "requests";
-    }
-    @RequestMapping("/delete-request/{requestId}")
-    public String deleteRequest(@PathVariable("requestId") int requestId) {
-        requestService.getRequests(requestId);
-        return "redirect:/requests";
-    }
-    @RequestMapping("/order/{requestId}")
-    public String getOrder(@PathVariable("requestId") int requestId,Model model){
-        List<Request> requests = requestService.getRequests((int)requestId) ;
-        model.addAttribute("requests",requests);
-        List<Order> orders = orderService.getOrders(requestId);
-        model.addAttribute("orders",orders);
-        setModel(model);
-        return "order";
-    }
+//
+//    @RequestMapping(value = "requestfilters")
+//    public String createRequestGetFilters(Model model) {
+//        Request request =new Request();
+//        model.addAttribute("request", request);
+//        model.addAttribute("listUrgency", requestService.getUrgency());
+//        System.out.println(requestService.getUrgency());
+//        setModel(model);
+//        return "requestfilters";
+//    }
+//
+//    @RequestMapping(value ="requestfilters", method = RequestMethod.POST)
+//    public String getRequesrsFilter(@ModelAttribute("request") Request request,Model model) {
+//        List<Request> requests = requestService.getRequests(request.getUrgency()) ;
+//        model.addAttribute("requests", requests);
+//        setModel(model);
+//        return "requests";
+//    }
+//    @RequestMapping("/delete-request/{requestId}")
+//    public String deleteRequest(@PathVariable("requestId") int requestId) {
+//        requestService.getRequests(requestId);
+//        return "redirect:/requests";
+//    }
+//    @RequestMapping("/order/{requestId}")
+//    public String getOrder(@PathVariable("requestId") int requestId,Model model){
+//        List<Order> requests = requestService.getRequests((int)requestId) ;
+//        model.addAttribute("requests",requests);
+//        List<Order> orders = orderService.getOrders(requestId);
+//        model.addAttribute("orders",orders);
+//        setModel(model);
+//        return "order";
+//    }
 
     @RequestMapping("/task/{orderId}")
     public String taskGet(@PathVariable("orderId") int orderId,Model model) {
@@ -134,8 +200,6 @@ public class UserController {
         System.out.println("createTaskPost");
         return "redirect:/requests";
     }
-
-
 
     private Model setModel(Model model) {
         model.addAttribute("role",SecurityContextHolder.getContext().getAuthentication().getName());

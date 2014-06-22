@@ -27,7 +27,7 @@ public class OrderRepository {
     @SuppressWarnings("unchecked")
     public List<Order> getOrder() {
         return sessionFactory.getCurrentSession()
-                .createQuery("FROM Order b")
+                .createQuery("FROM Order2 b")
                 .list();
     }
 
@@ -53,7 +53,13 @@ public class OrderRepository {
     }
 
     public List<Order> getOrders(int requestId) {
-        Query query = sessionFactory.getCurrentSession().createSQLQuery("select * from ORDER2 where requestId = :requestId").addEntity(Order.class);
+        Query query = sessionFactory.getCurrentSession().createSQLQuery("select * from Order2 where requestId = :requestId").addEntity(Order.class);
         return  query.setString("requestId", requestId+"").list();
+    }
+
+    public List<Order> getOrders() {
+        return sessionFactory.getCurrentSession()
+        .createQuery("FROM Order2 b")
+        .list();
     }
 }

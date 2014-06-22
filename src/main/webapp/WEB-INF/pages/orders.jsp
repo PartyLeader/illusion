@@ -19,7 +19,7 @@
 </div>
 <div id="middlecol2">
     <h2>Аналитика предприятия</h2>
-    <c:if test="${!empty requests}">
+    <c:if test="${!empty orders}">
         <table>
          <tr>
          <th>№</th>
@@ -28,29 +28,29 @@
          <th>Срок изготовления</th>
          <th>Тип изделия</th>
          <th>Фасон изделия</th>
-          <th>Симптомы</th>
+         <th>Симптомы</th>
          <th>Приоритет</th>
           <th></th>
          </tr>
-         <c:forEach items="${requests}" var="request" varStatus="index">
+         <c:forEach items="${orders}" var="order" varStatus="index">
              <tr class="${index.count % 2 == 0 ? 'even': 'odd'}"/>
                 <td>${index.count}</td>
-                <td><a href="order/${request.id}">${request.name}</a></td>
-                <td>${request.razmer}</td>
-                <td>${request.srok}</td>
-                <td>${request.fason}</td>
-                <td>${request.gen}</td>
-                <td>${request.simptomi}</td>
-                <td>${request.urgency}</td>
-                <td><a href="delete-request/${request.id}"><img src="<c:url value="/resources/images/delete.png" />"/>Удалить</a></td>
+                <td><a href="order/${order.id}">${order.name}</a></td>
+                <td>${orders.size}</td>
+                <td>${orders.srok}</td>
+                <td>${orders.fashion}</td>
+                <td>${orders.gen}</td>
+                <td>${orders.simptomi}</td>
+                <td>${orders.state}</td>
+                <td><a href="delete-order/${order.id}"><img src="<c:url value="/resources/images/delete.png" />"/>Удалить</a></td>
              </tr>
          </c:forEach>
         </table>
     </c:if>
     <br/>
-    <a href="<c:url value="/create-request"/>">Создать заказ</a>
-    <a href="<c:url value="/requestfilters"/>">Фильтр</a>
-    <a href="<c:url value="/requests"/>">Снять фильтр</a>
+    <a href="<c:url value="/create-order"/>">Создать заказ</a>
+    <a href="<c:url value="/orderfilters"/>">Фильтр</a>
+    <a href="<c:url value="/orders"/>">Снять фильтр</a>
 </div>
 </body>
 </html>

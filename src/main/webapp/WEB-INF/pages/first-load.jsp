@@ -20,8 +20,17 @@
 
 </div>
 <div id="middlecol2">
+ПЕРВАЯ  загрузка. КОСТЫЛЬ!!!!
 
-  <a href="<c:url value="/orders"/>">Список заказов</a>
+                 <b> ${sizeName}</b>
+                 <select>
+                    <c:forEach items="${sizeList}" var="item">
+                     <option value="${item.id}">${item.name}</option>
+                    </c:forEach>
+                 </select>
+                 <hr/>
+
+
 </div>
 </body>
 </html>

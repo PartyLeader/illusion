@@ -22,73 +22,13 @@
 </div>
 <table>
     <tr>
-        <td>
-            <form:form modelAttribute="material" method="post" onsubmit="true">
-                <div id="middlecol2">
-                    <table>
-                        <h2> Таблица материалы:</h2>
-                        <tr>
-                            <td width="100рх">Материал:</td>
-                            <td>
-                                <form:input size="20" path="name"/>
-                                <form:errors path="name" element="span"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td width="100рх">Качество:</td>
-                            <td>
-                                <form:input size="20" path="quality"/>
-                                <form:errors path="quality" element="span"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td width="100рх">Тип:</td>
-                            <td>
-                                <form:input size="20" path="type"/>
-                                <form:errors path="type" element="span"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td width="100рх">Статус:</td>
-                            <td>
-                                <form:input size="20" path="status"/>
-                                <form:errors path="status" element="span"/>
-                            </td>
-                        </tr>
 
-                    </table>
-                    <input type="submit" class="button-blue" value="Добавить"/>
-                </div>
-            </form:form>
-        </td>
-        <td>
-            <form:form modelAttribute="recipe" method="post" onsubmit="true">
-                <table>
-                    <h2> Таблица рецепты:</h2>
-                    <tr>
-                        <td width="100рх">Наименование рецепта:</td>
-                        <td>
-                            <form:input size="20" path="name"/>
-                            <form:errors path="name" element="span"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="100рх">Характеристика:</td>
-                        <td>
-                            <form:input size="20" path="characteristic"/>
-                            <form:errors path="characteristic" element="span"/>
-                        </td>
-                    </tr>
-                </table>
-            </form:form>
-            <input type="submit" class="button-blue" value="Добавить"/>
-        </td>
         <%----%>
         <td>
             <table>
                 <tr>
                     <td>
-                        <form:form modelAttribute="status" method="post" onsubmit="true">
+                        <form:form action="adminPage/state" modelAttribute="state" method="post" onsubmit="true">
                             <table>
                                 <h2> Таблица статусы:</h2>
                                 <tr>
@@ -99,28 +39,19 @@
                                     </td>
                                 </tr>
                             </table>
+                            <input type="submit" class="button-blue" value="Добавить"/>
                         </form:form>
-                        <input type="submit" class="button-blue" value="Добавить"/>
+                    </td>
+                    <td>
+                         <select>
+                           <c:forEach items="${stateList}" var="item">
+                            <option value="${item.id}">${item.name}</option>
+                           </c:forEach>
+                        </select>
                     </td>
 
                 </tr>
-                <tr>
-                    <td>
-                        <form:form modelAttribute="fashion" method="post" onsubmit="true">
-                            <table>
-                                <h2> Таблица Фасоны:</h2>
-                                <tr>
-                                    <td width="100рх">Наименование фасона:</td>
-                                    <td>
-                                        <form:input size="20" path="name"/>
-                                        <form:errors path="name" element="span"/>
-                                    </td>
-                                </tr>
-                            </table>
-                        </form:form>
-                        <input type="submit" class="button-blue" value="Добавить"/>
-                    </td>
-                </tr>
+
             </table>
 
          </td>
@@ -133,7 +64,62 @@
 <table>
     <tr>
         <td>
-            <form:form modelAttribute="typeofmaterials" method="post" onsubmit="true">
+            <form:form action="adminPage/magic" modelAttribute="magic" method="post" onsubmit="true">
+                <table>
+                    <h2> Таблица Магических свойств:</h2>
+                    <tr>
+                        <td width="100рх">Наименование свойства:</td>
+                        <td>
+                            <form:input size="20" path="name"/>
+                            <form:errors path="name" element="span"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="100рх">Описание свойства:</td>
+                        <td>
+                            <form:input size="255" path="specification"/>
+                            <form:errors path="specification" element="span"/>
+                        </td>
+                    </tr>
+                </table>
+                <input type="submit" class="button-blue" value="Добавить"/>
+            </form:form>
+        </td>
+        <td>
+                     <select>
+                       <c:forEach items="${magicList}" var="item">
+                        <option value="${item.id}">${item.name}</option>
+                       </c:forEach>
+                    </select>
+                </td>
+    </tr>
+    <tr>
+        <td>
+            <form:form action="adminPage/fashion" modelAttribute="fashion" method="post" onsubmit="true">
+                <table>
+                    <h2> Таблица Фасоны:</h2>
+                    <tr>
+                        <td width="100рх">Наименование фасона:</td>
+                        <td>
+                            <form:input size="20" path="name"/>
+                            <form:errors path="name" element="span"/>
+                        </td>
+                    </tr>
+                </table>
+                <input type="submit" class="button-blue" value="Добавить"/>
+            </form:form>
+        </td>
+        <td>
+                     <select>
+                       <c:forEach items="${fashionList}" var="item">
+                        <option value="${item.id}">${item.name}</option>
+                       </c:forEach>
+                    </select>
+                </td>
+    </tr>
+    <tr>
+        <td>
+            <form:form action="adminPage/goodType" modelAttribute="goodType" method="post" onsubmit="true">
                 <table>
                     <h2> Таблица тип материала:</h2>
                     <tr>
@@ -144,13 +130,20 @@
                         </td>
                     </tr>
                 </table>
+                <input type="submit" class="button-blue" value="Добавить"/>
             </form:form>
-            <input type="submit" class="button-blue" value="Добавить"/>
         </td>
+        <td>
+                     <select>
+                       <c:forEach items="${goodTypeList}" var="item">
+                        <option value="${item.id}">${item.name}</option>
+                       </c:forEach>
+                    </select>
+                </td>
     </tr>
     <tr>
         <td>
-            <form:form modelAttribute="size" method="post" onsubmit="true">
+            <form:form action="adminPage/size" modelAttribute="size" method="post" onsubmit="true">
                 <table>
                     <h2> Таблица Размеры:</h2>
                     <tr>
@@ -161,8 +154,16 @@
                         </td>
                     </tr>
                 </table>
+                <input type="submit" class="button-blue" value="Добавить"/>
             </form:form>
-            <input type="submit" class="button-blue" value="Добавить"/>
+
+        </td>
+        <td>
+             <select>
+               <c:forEach items="${sizeList}" var="item">
+                <option value="${item.id}">${item.name}</option>
+               </c:forEach>
+            </select>
         </td>
     </tr>
 </table>

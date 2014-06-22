@@ -9,6 +9,8 @@ package com.company.permgen.webapp.model;
  */
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -16,52 +18,71 @@ import javax.persistence.*;
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ORDER_ID", unique = true, nullable = false)
     private int id;
 
-    @Column(nullable = false)
-    private int requestId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ORDER_FASHION", nullable = false)
+    private Fashion fashion;
 
-    @Column(nullable = false, length = 255)
-    private String worker;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ORDER_SIZE", nullable = false)
+    private Size size;
 
-    @Column(nullable = false, length = 255)
-    private String good;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ORDER_USER", nullable = false)
+    private Size user;
 
-    @Column(nullable = false)
-    private int countGood;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ORDER_STATE", nullable = false)
+    private State state;
 
-    @Column(nullable = false, length = 255)
-    private String status;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ORDER_RECIPE", nullable = false)
+    private Recipe recipe;
 
-    @Column(nullable = false, length = 255)
-    private int user_id;
+    @Column(name = "ORDER_GEN",nullable = false, length = 255)
+    private String gen;
 
-    @Column(nullable = true, length = 255)
-    private String message;
-
-    @Column(nullable = false, length = 255)
-    private String priority;
-
-    @Column(nullable = true, length = 255)
+    @Column(name = "ORDER_CREATEDATE",nullable = true, length = 255)
     private String createdate;
 
-    @Column(nullable = true, length = 255)
+    @Column(name = "ORDER_ENDDATE",nullable = true, length = 255)
     private String enddate;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
+    private Set<Product> product = new HashSet<Product>(0);
 
     public Order() {
     }
 
-    public Order(int requestId, String worker, String good, int countGood, String status, int user_id, String message, String priority, String createdate, String enddate) {
-        this.requestId = requestId;
-        this.worker = worker;
-        this.good = good;
-        this.countGood = countGood;
-        this.status = status;
-        this.user_id = user_id;
-        this.message = message;
-        this.priority = priority;
+    public Order(int id, Fashion fashion, Size size, Size user, State state, Recipe recipe, String gen, String createdate, String enddate, Set<Product> product) {
+        this.id = id;
+        this.fashion = fashion;
+        this.size = size;
+        this.user = user;
+        this.state = state;
+        this.recipe = recipe;
+        this.gen = gen;
         this.createdate = createdate;
         this.enddate = enddate;
+        this.product = product;
+    }
+
+    public Size getUser() {
+        return user;
+    }
+
+    public void setUser(Size user) {
+        this.user = user;
+    }
+
+    public String getGen() {
+        return gen;
+    }
+
+    public void setGen(String gen) {
+        this.gen = gen;
     }
 
     public int getId() {
@@ -72,68 +93,36 @@ public class Order {
         this.id = id;
     }
 
-    public int getRequestId() {
-        return requestId;
+    public Fashion getFashion() {
+        return fashion;
     }
 
-    public void setRequestId(int requestId) {
-        this.requestId = requestId;
+    public void setFashion(Fashion fashion) {
+        this.fashion = fashion;
     }
 
-    public String getWorker() {
-        return worker;
+    public Size getSize() {
+        return size;
     }
 
-    public void setWorker(String worker) {
-        this.worker = worker;
+    public void setSize(Size size) {
+        this.size = size;
     }
 
-    public String getGood() {
-        return good;
+    public State getState() {
+        return state;
     }
 
-    public void setGood(String good) {
-        this.good = good;
+    public void setState(State state) {
+        this.state = state;
     }
 
-    public int getCountGood() {
-        return countGood;
+    public Recipe getRecipe() {
+        return recipe;
     }
 
-    public void setCountGood(int countGood) {
-        this.countGood = countGood;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public int getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public String getPriority() {
-        return priority;
-    }
-
-    public void setPriority(String priority) {
-        this.priority = priority;
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
     }
 
     public String getCreatedate() {
@@ -150,5 +139,13 @@ public class Order {
 
     public void setEnddate(String enddate) {
         this.enddate = enddate;
+    }
+
+    public Set<Product> getProduct() {
+        return product;
+    }
+
+    public void setProduct(Set<Product> product) {
+        this.product = product;
     }
 }
