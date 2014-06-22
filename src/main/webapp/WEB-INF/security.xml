@@ -8,7 +8,7 @@
     http://www.springframework.org/schema/security
     http://www.springframework.org/schema/security/spring-security-3.0.xsd">
 
-    <bean id="dataSource"
+<bean id="dataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="org.hsqldb.jdbcDriver" />
         <property name="url" value="jdbc:hsqldb:mem://personDb" />
@@ -23,11 +23,13 @@
 
     <security:http access-denied-page="/error403.jsp">
         <security:intercept-url pattern="/index*" access="ROLE_USER,ROLE_ANONYMOUS,ROLE_ADMIN" />
-        <security:intercept-url pattern="/requests*" access="ROLE_USER,ROLE_ADMIN" />
-        <security:intercept-url pattern="/create-request*" access="ROLE_USER,ROLE_ADMIN" />
-        <security:intercept-url pattern="/requestfilters*" access="ROLE_ADMIN" />
+        <security:intercept-url pattern="/orders*" access="ROLE_USER,ROLE_ADMIN" />
+        <security:intercept-url pattern="/create-order*" access="ROLE_USER,ROLE_ADMIN" />
+        <security:intercept-url pattern="/filter-order*" access="ROLE_ADMIN" />
+        <security:intercept-url pattern="/adminPage*" access="ROLE_ADMIN" />
+        <security:intercept-url pattern="/first-load*" access="ROLE_ADMIN" />
         <security:intercept-url pattern="/task*" access="ROLE_ADMIN" />
-        <security:intercept-url pattern="/delete-request/*" access="ROLE_ADMIN" />
+        <security:intercept-url pattern="/delete-order/*" access="ROLE_ADMIN" />
         <security:intercept-url pattern="/order/*" access="ROLE_ADMIN" />
         <security:form-login login-page="/login.jsp" default-target-url="/index"
                     authentication-failure-url="/login.jsp?error=true" />

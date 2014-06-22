@@ -10,6 +10,10 @@
     <meta http-equiv="Content-Language" content="English"/>
     <link rel="stylesheet" media="all" href="<c:url value="/resources/site.css"/>">
     <title>Создать заказ</title>
+            <link href="<c:url value="/resources/css/application.min.css"/>" rel="stylesheet">
+             <link rel="shortcut icon" href="<c:url value="/resources/img/favicon.png"/>">
+             <meta name="viewport" content="width=device-width, initial-scale=1.0">
+             <meta name="author" content="Illusion team">
 </head>
 <body>
 <script type="text/javascript">

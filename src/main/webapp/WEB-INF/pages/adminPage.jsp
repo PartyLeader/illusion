@@ -10,6 +10,10 @@
     <meta http-equiv="Content-Language" content="English"/>
     <link rel="stylesheet" media="all" href="<c:url value="/resources/site.css"/>">
     <title>Админка</title>
+        <link href="<c:url value="/resources/css/application.min.css"/>" rel="stylesheet">
+         <link rel="shortcut icon" href="<c:url value="/resources/img/favicon.png"/>">
+         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         <meta name="author" content="Illusion team">
 </head>
 <body>
 <jsp:include page="header.jsp">
@@ -77,7 +81,7 @@
                     <tr>
                         <td width="100рх">Описание свойства:</td>
                         <td>
-                            <form:input size="255" path="specification"/>
+                            <form:textarea path="specification" rows="5" cols="30" />
                             <form:errors path="specification" element="span"/>
                         </td>
                     </tr>
@@ -85,13 +89,13 @@
                 <input type="submit" class="button-blue" value="Добавить"/>
             </form:form>
         </td>
-        <td>
-                     <select>
-                       <c:forEach items="${magicList}" var="item">
-                        <option value="${item.id}">${item.name}</option>
-                       </c:forEach>
-                    </select>
-                </td>
+       <td>
+             <select>
+               <c:forEach items="${magicList}" var="item">
+                <option value="${item.id}">${item.name}</option>
+               </c:forEach>
+             </select>
+        </td>
     </tr>
     <tr>
         <td>

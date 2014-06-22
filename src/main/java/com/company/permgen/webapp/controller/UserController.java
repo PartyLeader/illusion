@@ -53,7 +53,7 @@ public class UserController {
         model.addAttribute("recipe", new Recipe());
 
         model.addAttribute("magic", new Magic());
-        model.addAttribute("magicList", magicService.getMagic());
+       // model.addAttribute("magicList", magicService.getMagic());
         model.addAttribute("fashion", new Fashion());
         model.addAttribute("fashionList", fashionService.getFashion());
         model.addAttribute("goodType", new GoodType());
