@@ -19,6 +19,7 @@
 				<li class="menu-nav" role="presentation"><a href="<c:url value="/orders" />" role="button">Аналитика</a></li>
 				<li class="menu-nav" role="presentation"><a href="<c:url value="/index" />" role="button">Задания</a></li>
 				<li class="menu-nav" role="presentation"><a href="<c:url value="/adminPage" />" role="button">Админка</a></li>
+                <li class="menu-nav" role="presentation"><a href="<c:url value="/controlUsers" />" role="button">Пользуны</a></li>
 			</ul>
 			<div id="user-menu">
 				<c:if test="${role=='guest'}">

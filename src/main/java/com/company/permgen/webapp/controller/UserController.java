@@ -38,6 +38,8 @@ public class UserController {
     protected FashionService fashionService;
     @Autowired
     protected MagicService magicService;
+    @Autowired
+    protected UsersService usersService;
 
 
     @RequestMapping("/index")
@@ -45,6 +47,17 @@ public class UserController {
         setModel(model);
         return "index";
     }
+
+    @RequestMapping("/controlUsers")
+    public String getControlUsers(Model model) {
+        model.addAttribute("users", new User());
+        model.addAttribute("userslist", usersService.getUsers());
+
+        setModel(model);
+
+        return "controlUsers";
+    }
+
 
     @RequestMapping("/adminPage")
     public String getAdminPage(Model model) {
