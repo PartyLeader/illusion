@@ -55,4 +55,11 @@ public class Fashion {
     public void setProduct(Set<Product> product) {
         this.product = product;
     }
+
+    public Fashion(String name) {
+        this.name = name;
+    }
+
+    public Fashion() {
+    }
 }

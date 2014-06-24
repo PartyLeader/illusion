@@ -27,7 +27,7 @@ public class SizeService {
     public void createSize(Size size) {
         repository.createSize(size);
     }
-    public void updateOrder(Size size) {
+    public void updateSize(Size size) {
         repository.updateSize(size);
     }
 }

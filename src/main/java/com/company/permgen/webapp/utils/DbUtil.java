@@ -28,9 +28,9 @@ public class DbUtil {
             Statement statement = connection.createStatement();
             statement.executeUpdate("DROP TABLE USER_AUTHENTICATION IF EXISTS");
             statement.executeUpdate("CREATE TABLE USER_AUTHENTICATION (USER_ID INTEGER, USERNAME VARCHAR(50), PASSWORD VARCHAR(50), ENABLED BOOLEAN);");
-            statement.executeUpdate("INSERT INTO USER_AUTHENTICATION VALUES(1,'admin','pass1',TRUE);");
-            statement.executeUpdate("INSERT INTO USER_AUTHENTICATION VALUES(1,'user1','pass1',TRUE);");
-            statement.executeUpdate("INSERT INTO USER_AUTHENTICATION VALUES(1,'guest','guest',TRUE);");
+            statement.executeUpdate("INSERT INTO USER_AUTHENTICATION VALUES(1,'admin@admin.com','pass1',TRUE);");
+            statement.executeUpdate("INSERT INTO USER_AUTHENTICATION VALUES(1,'user1@user.com','pass1',TRUE);");
+            statement.executeUpdate("INSERT INTO USER_AUTHENTICATION VALUES(1,'guest@guest.com','guest',TRUE);");
             statement.executeUpdate("DROP TABLE USER_AUTHORIZATION IF EXISTS");
             statement.executeUpdate("CREATE TABLE USER_AUTHORIZATION (USER_ROLE_ID INTEGER,USER_ID INTEGER, ROLE VARCHAR(50));");
             statement.executeUpdate("INSERT INTO USER_AUTHORIZATION VALUES(1,1,'ROLE_ADMIN');");

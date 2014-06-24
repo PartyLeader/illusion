@@ -170,6 +170,39 @@
             </select>
         </td>
     </tr>
+     <tr>
+            <td>
+                <form:form action="adminPage/recipe" modelAttribute="recipe" method="post" onsubmit="true">
+                    <table>
+                        <h2> Таблица рецептов:</h2>
+                        <tr>
+                            <td width="100рх">Симптом:</td>
+                            <td>
+                                <form:input size="20" path="name"/>
+
+                                <form:errors path="name" element="span"/>
+                            </td>
+                        </tr>
+                         <tr>
+                            <td width="100рх">Описание свойства:</td>
+                            <td>
+                                <form:textarea path="specification" rows="5" cols="30" />
+                                <form:errors path="specification" element="span"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <input type="submit" class="button-blue" value="Добавить"/>
+                </form:form>
+
+            </td>
+            <td>
+                 <select>
+                   <c:forEach items="${recipeList}" var="item">
+                    <option value="${item.id}">${item.name}</option>
+                   </c:forEach>
+                </select>
+            </td>
+        </tr>
 </table>
 
 </body>

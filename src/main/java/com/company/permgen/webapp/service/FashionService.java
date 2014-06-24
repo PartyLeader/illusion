@@ -25,7 +25,9 @@ public class FashionService {
     public List<Fashion> getFashion() {
         return repository.getFashion();
     }
-
+    public List<Fashion> getFashion(int id) {
+        return repository.getFashion(id);
+    }
     public void createFashion(Fashion item) {
         repository.createFashion(item);
     }

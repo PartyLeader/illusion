@@ -34,6 +34,11 @@ public class Recipe {
     public Recipe() {
     }
 
+    public Recipe(String name, String specification) {
+        this.name = name;
+        this.specification = specification;
+    }
+
     public Recipe(int id, String name, String specification, Set<Order> order, Set<Good> goods) {
         this.id = id;
         this.name = name;

@@ -12,9 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 
 /**
@@ -38,6 +37,15 @@ public class UserController {
     protected FashionService fashionService;
     @Autowired
     protected MagicService magicService;
+    @Autowired
+    protected RecipeService recipeService;
+
+
+    private List<Size> sizeList;
+    private List<State> stateList;
+    private List<GoodType> goodTypeList;
+    private List<Fashion> fashionList;
+    private List<Recipe> recipeList;
 
 
     @RequestMapping("/index")
@@ -54,14 +62,26 @@ public class UserController {
 
         model.addAttribute("magic", new Magic());
        // model.addAttribute("magicList", magicService.getMagic());
+
         model.addAttribute("fashion", new Fashion());
-        model.addAttribute("fashionList", fashionService.getFashion());
+        fashionList =   fashionService.getFashion();
+        model.addAttribute("fashionList", fashionList);
+
         model.addAttribute("goodType", new GoodType());
-        model.addAttribute("goodTypeList", goodTypeService.getGoodType());
+        goodTypeList = goodTypeService.getGoodType();
+        model.addAttribute("goodTypeList", goodTypeList);
+
         model.addAttribute("size", new Size());
-        model.addAttribute("sizeList", sizeService.getSize());
+        sizeList =   sizeService.getSize();
+        model.addAttribute("sizeList", sizeList);
+
         model.addAttribute("state", new State());
-        model.addAttribute("stateList", stateService.getState());
+        stateList =  stateService.getState();
+        model.addAttribute("stateList", stateList);
+
+        model.addAttribute("recipe", new Recipe());
+        recipeList =  recipeService.getRecipe();
+        model.addAttribute("recipeList", recipeList);
 
         setModel(model);
         return "adminPage";
@@ -75,11 +95,24 @@ public class UserController {
         sizeService.createSize(new Size("X"));
         sizeService.createSize(new Size("XL"));
         sizeService.createSize(new Size("XXL"));
-        List<Size> list = sizeService.getSize();
+        sizeList = sizeService.getSize();
 
-        model.addAttribute("sizeName", list.get(0).getName());
-        model.addAttribute("sizeList", list);
+        model.addAttribute("sizeName", sizeList.get(0).getName());
+        model.addAttribute("sizeList", sizeList);
         setModel(model);
+        fashionService.createFashion(new Fashion("Модная рубаха"));
+        fashionService.createFashion(new Fashion("Мажорная рубаха"));
+        fashionService.createFashion(new Fashion("Дворянская рубаха"));
+
+
+        stateService.createState(new State("Обычный"));
+        stateService.createState(new State("Срочный"));
+
+        recipeService.createRecipe(new Recipe("Алкоголизм", "Алкоголизм лечится рубахой из жестких сортов крапивы"));
+        recipeService.createRecipe(new Recipe("Курение", "Никотиновые рубахи. Такой рубахи хватает на 1,5 месяца"));
+        recipeService.createRecipe(new Recipe("Простуда", "Тплая рубаха с высоким воротом."));
+
+
         return "first-load";
     }
 
@@ -106,7 +139,7 @@ public class UserController {
         return "redirect:/adminPage";
     }
     @RequestMapping(value = "/adminPage/fashion", method = RequestMethod.POST)
-    public String createFashionPost(@ModelAttribute("fashion") Fashion item) {
+         public String createFashionPost(@ModelAttribute("fashion") Fashion item) {
         // Size size = new Size(sizeName);
         fashionService.createFashion(item);
         System.out.println(item.getId());
@@ -114,8 +147,14 @@ public class UserController {
     }
     @RequestMapping(value = "/adminPage/magic", method = RequestMethod.POST)
     public String createFashionPost(@ModelAttribute("magic") Magic item) {
-        // Size size = new Size(sizeName);
         magicService.createMagic(item);
+        System.out.println(item.getId());
+        return "redirect:/adminPage";
+    }
+    @RequestMapping(value = "/adminPage/recipe", method = RequestMethod.POST)
+    public String createRecipePost(@ModelAttribute("recipe") Recipe item) {
+        // Size size = new Size(sizeName);
+        recipeService.createRecipe(item);
         System.out.println(item.getId());
         return "redirect:/adminPage";
     }
@@ -136,16 +175,26 @@ public class UserController {
     @RequestMapping(value = "create-order")
     public String createRequestGet(Model model) {
         model.addAttribute("order", new Order());
-        List<Size> list =     sizeService.getSize();
-        model.addAttribute("listSize", list);
+        model.addAttribute("fashionList", fashionList);
+        model.addAttribute("sizeList", sizeList);
+        model.addAttribute("stateList", stateList);
+        model.addAttribute("recipeList", recipeList);
+
         setModel(model);
         return "create-order";
     }
 
     @RequestMapping(value = "create-order", method = RequestMethod.POST)
     public String createRequestPost(@ModelAttribute("order") Order order) {
-        Date date = new Date();
-        order.setCreatedate(date.toString());
+        Date createdate = new Date();
+       // Date enddate = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH).parse();
+
+        order.setCreatedate(createdate.toString());
+        order.setFashion(fashionList.get(Integer.parseInt(order.getFashion().getName())));
+        order.setSize(sizeList.get(Integer.parseInt(order.getSize().getName())));
+        order.setState(stateList.get(Integer.parseInt(order.getState().getName())));
+        //order.setRecipe(recipeList.get(Integer.parseInt(order.getRecipe().getName())));
+
         orderService.createOrder(order);
         System.out.println(order.getId());
         Random rand = new Random();

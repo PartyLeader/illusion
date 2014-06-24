@@ -28,6 +28,10 @@ public class State {
     public State() {
     }
 
+    public State(String name) {
+        this.name = name;
+    }
+
     public State(String name, int id, Set<Order> order) {
         this.name = name;
         this.id = id;

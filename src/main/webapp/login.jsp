@@ -21,44 +21,42 @@
 <div class="single-widget-container">
     <section class="widget login-widget">
         <header class="text-align-center">
-            <h4>Login to your account</h4>
+            <h3>Авторизация</h3>
         </header>
         <div class="body">
             <form class="no-margin"
                   method="POST" action="<c:url value="/j_spring_security_check" />">
                 <fieldset>
                     <div class="form-group no-margin">
-                        <label for="name" >Login</label>
+                        <label for="name">Логин(e-mail)</label>
 
                         <div class="input-group input-group-lg">
                                 <span class="input-group-addon">
-                                    <i class="eicon-user"></i>
+                                    <i class="fa fa-user"></i>
                                 </span>
-                            <input id="name" name="j_username" type="text" class="form-control input-lg"
-                                   placeholder="Your Login">
+                            <input id="name" name="j_username" type="email" class="form-control input-lg placeholder_size"
+                                   placeholder="Введите логин...">
                         </div>
-
                     </div>
-
                     <div class="form-group">
-                        <label for="password" >Password</label>
-
+                        <label for="password" >Пароль</label>
                         <div class="input-group input-group-lg">
                                 <span class="input-group-addon">
                                     <i class="fa fa-lock"></i>
                                 </span>
-                            <input id="password" name="j_password" type="password" class="form-control input-lg"
-                                   placeholder="Your Password">
+                            <input id="password" name="j_password" type="password" class="form-control input-lg placeholder_size"
+                                   placeholder="Введите пароль...">
                         </div>
-
                     </div>
                 </fieldset>
                 <div class="form-actions">
-                    <button type="submit" class="btn btn-block btn-lg btn-danger">
-                        <span class="small-circle"><i class="fa fa-caret-right"></i></span>
-                        <small>Sign In</small>
+                    <button type="submit" class="btn btn-block btn-lg btn-success">
+                        <small>Войти</small>
                     </button>
-                    <div class="forgot"><a class="forgot" href="login.html#">Reset input form</a></div>
+                    <button type="submit" class="btn btn-block btn-lg btn-warning">
+                       <small>Отмена</small>
+                    </button>
+                    <div class="forgot"><label><i>Иллюзия (C) 2014</i></label></div>
                 </div>
             </form>
         </div>

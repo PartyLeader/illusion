@@ -140,3 +140,15 @@ background: #4477a1;
     color: #0088CC;
     text-decoration: none;
 }
+
+.margin_top{
+    margin-top: 80px;
+}
+
+.placeholder_size{
+    font-size: 16,25px !important;
+}
+.list_item {
+    color: #000000;
+    text-decoration: none;
+}
