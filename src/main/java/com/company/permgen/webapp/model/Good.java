@@ -25,45 +25,14 @@ public class Good {
     @Column(name = "GOOD_QUALITY", nullable = false)
     private boolean quality;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "GOOD_GOODTYPE", nullable = false)
-    private GoodType type;
+    @Column(name = "GOOD_GOODTYPE", nullable = false)
+    private int type;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "good")
-    private Set<Warehouse> warehouse = new HashSet<Warehouse>(0);
-
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "RECIPE_GOOD", joinColumns = {
-            @JoinColumn(name = "GOOD_ID", nullable = false, updatable = false) },
-            inverseJoinColumns = { @JoinColumn(name = "RECIPE_ID",
-                    nullable = false, updatable = false) })
-    private Set<Recipe> recipes = new HashSet<Recipe>(0);
-
-    public Good() {
-    }
-
-    public Good(int id, String name, boolean quality, GoodType type, Set<Recipe> recipes) {
+    public Good(int id, String name, boolean quality, int type) {
         this.id = id;
         this.name = name;
         this.quality = quality;
         this.type = type;
-        this.recipes = recipes;
-    }
-
-    public Set<Warehouse> getWarehouse() {
-        return warehouse;
-    }
-
-    public void setWarehouse(Set<Warehouse> warehouse) {
-        this.warehouse = warehouse;
-    }
-
-    public Set<Recipe> getRecipes() {
-        return recipes;
-    }
-
-    public void setRecipes(Set<Recipe> recipes) {
-        this.recipes = recipes;
     }
 
     public int getId() {
@@ -82,7 +51,7 @@ public class Good {
         this.name = name;
     }
 
-    public boolean getQuality() {
+    public boolean isQuality() {
         return quality;
     }
 
@@ -90,11 +59,11 @@ public class Good {
         this.quality = quality;
     }
 
-    public GoodType getType() {
-        return this.type;
+    public int getType() {
+        return type;
     }
 
-    public void setType(GoodType type) {
+    public void setType(int type) {
         this.type = type;
     }
 }

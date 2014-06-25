@@ -25,17 +25,15 @@ public class Magic {
     @Column(name = "MAGIC_SPECIFICATION",nullable = false, length = 255)
     private String specification;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "magic")
-    private Set<Product> product = new HashSet<Product>(0);
-
-    public Magic() {
+    public Magic(String name, String specification) {
+        this.name = name;
+        this.specification = specification;
     }
 
-    public Magic(String name, int id, String specification, Set<Product> product) {
-        this.name = name;
+    public Magic(int id, String name, String specification) {
         this.id = id;
+        this.name = name;
         this.specification = specification;
-        this.product = product;
     }
 
     public int getId() {
@@ -62,11 +60,8 @@ public class Magic {
         this.specification = specification;
     }
 
-    public Set<Product> getProduct() {
-        return product;
+    public Magic() {
     }
 
-    public void setProduct(Set<Product> product) {
-        this.product = product;
-    }
+
 }

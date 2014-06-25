@@ -18,18 +18,10 @@ public class Size {
     @Column(name = "SIZE_NAME",nullable = false, length = 255)
     private String name;
 
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "size")
-//    private Set<Order> order = new HashSet<Order>(0);
-
     public Size() {
     }
 
     public Size(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public Size(int id, String name, Set<Order> order) {
         this.id = id;
         this.name = name;
     }

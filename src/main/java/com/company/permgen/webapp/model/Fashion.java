@@ -18,12 +18,6 @@ public class Fashion {
     @Column(name = "FASHION_NAME", nullable = false, length = 255)
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "fashion")
-    private Set<Order> order = new HashSet<Order>(0);
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "fashion")
-    private Set<Product> product = new HashSet<Product>(0);
-
     public int getId() {
         return id;
     }
@@ -38,22 +32,6 @@ public class Fashion {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Set<Order> getOrder() {
-        return order;
-    }
-
-    public void setOrder(Set<Order> order) {
-        this.order = order;
-    }
-
-    public Set<Product> getProduct() {
-        return product;
-    }
-
-    public void setProduct(Set<Product> product) {
-        this.product = product;
     }
 
     public Fashion(String name) {

@@ -21,25 +21,20 @@ public class Order {
     @Column(name = "ORDER_ID", unique = true, nullable = false)
     private int id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ORDER_FASHION", nullable = false)
-    private Fashion fashion;
+    @Column(name = "ORDER_FASHION", nullable = false)
+    private int fashion;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ORDER_SIZE", nullable = false)
-    private Size size;
+    @Column(name = "ORDER_SIZE", nullable = false)
+    private int size;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ORDER_USER", nullable = false)
-    private Size user;
+    @Column(name = "ORDER_USER", nullable = false)
+    private int user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ORDER_STATE", nullable = false)
-    private State state;
+    @Column(name = "ORDER_STATE", nullable = false)
+    private int state;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ORDER_RECIPE", nullable = false)
-    private Recipe recipe;
+    @Column(name = "ORDER_RECIPE", nullable = false)
+    private int recipe;
 
     @Column(name = "ORDER_GEN",nullable = false, length = 255)
     private String gen;
@@ -50,13 +45,10 @@ public class Order {
     @Column(name = "ORDER_ENDDATE",nullable = true, length = 255)
     private String enddate;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
-    private Set<Product> product = new HashSet<Product>(0);
-
     public Order() {
     }
 
-    public Order(int id, Fashion fashion, Size size, Size user, State state, Recipe recipe, String gen, String createdate, String enddate, Set<Product> product) {
+    public Order(int id, int fashion, int size, int user, int state, int recipe, String gen, String createdate, String enddate) {
         this.id = id;
         this.fashion = fashion;
         this.size = size;
@@ -66,23 +58,6 @@ public class Order {
         this.gen = gen;
         this.createdate = createdate;
         this.enddate = enddate;
-        this.product = product;
-    }
-
-    public Size getUser() {
-        return user;
-    }
-
-    public void setUser(Size user) {
-        this.user = user;
-    }
-
-    public String getGen() {
-        return gen;
-    }
-
-    public void setGen(String gen) {
-        this.gen = gen;
     }
 
     public int getId() {
@@ -93,36 +68,52 @@ public class Order {
         this.id = id;
     }
 
-    public Fashion getFashion() {
+    public int getFashion() {
         return fashion;
     }
 
-    public void setFashion(Fashion fashion) {
+    public void setFashion(int fashion) {
         this.fashion = fashion;
     }
 
-    public Size getSize() {
+    public int getSize() {
         return size;
     }
 
-    public void setSize(Size size) {
+    public void setSize(int size) {
         this.size = size;
     }
 
-    public State getState() {
+    public int getUser() {
+        return user;
+    }
+
+    public void setUser(int user) {
+        this.user = user;
+    }
+
+    public int getState() {
         return state;
     }
 
-    public void setState(State state) {
+    public void setState(int state) {
         this.state = state;
     }
 
-    public Recipe getRecipe() {
+    public int getRecipe() {
         return recipe;
     }
 
-    public void setRecipe(Recipe recipe) {
+    public void setRecipe(int recipe) {
         this.recipe = recipe;
+    }
+
+    public String getGen() {
+        return gen;
+    }
+
+    public void setGen(String gen) {
+        this.gen = gen;
     }
 
     public String getCreatedate() {
@@ -139,13 +130,5 @@ public class Order {
 
     public void setEnddate(String enddate) {
         this.enddate = enddate;
-    }
-
-    public Set<Product> getProduct() {
-        return product;
-    }
-
-    public void setProduct(Set<Product> product) {
-        this.product = product;
     }
 }

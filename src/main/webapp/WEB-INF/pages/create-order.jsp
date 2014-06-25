@@ -114,7 +114,7 @@
                                            <form:errors path="enddate" element="span"/>
                                         </div>
                                     </div>
-                                   <!-- <div class="control-group">
+                                    <div class="control-group">
                                         <label class="control-label">Симптомы</label>
                                         <div class="controls form-group">
                                              <c:forEach items="${recipeList}" var="item">
@@ -123,7 +123,7 @@
                                                 </label>
                                             </c:forEach>
                                         </div>
-                                    </div>      -->
+                                    </div>
 
                                     <div class="form-actions">
                                         <button type="submit" class="btn btn-primary">Cоздать</button>

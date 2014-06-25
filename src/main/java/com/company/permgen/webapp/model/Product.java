@@ -23,13 +23,11 @@ public class Product {
     @Column(name = "PRODUCT_SPECIFICATION",nullable = false, length = 255)
     private String specification;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MAGIC_ID", nullable = false)
-    private Magic magic;
+    @Column(name = "MAGIC_ID", nullable = false)
+    private int magic;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "PRODUCT_FASHION", nullable = false)
-    private Fashion fashion;
+    @Column(name = "PRODUCT_FASHION", nullable = false)
+    private int fashion;
 
     @Column(name = "PRODUCT_PERIODUSE",nullable = false)
     private Date periodUse;
@@ -37,14 +35,13 @@ public class Product {
     @Column(name = "PRODUCT_FINISHDATE",nullable = false)
     private Date finishDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "PRODUCT_ORDER", nullable = false)
-    private Order order;
+    @Column(name = "PRODUCT_ORDER", nullable = false)
+    private int order;
 
     public Product() {
     }
 
-    public Product(int id, String specification, Magic magic, Fashion fashion, Date periodUse, Date finishDate, Order order) {
+    public Product(int id, String specification, int magic, int fashion, Date periodUse, Date finishDate, int order) {
         this.id = id;
         this.specification = specification;
         this.magic = magic;
@@ -70,19 +67,19 @@ public class Product {
         this.specification = specification;
     }
 
-    public Magic getMagic() {
+    public int getMagic() {
         return magic;
     }
 
-    public void setMagic(Magic magic) {
+    public void setMagic(int magic) {
         this.magic = magic;
     }
 
-    public Fashion getFashion() {
+    public int getFashion() {
         return fashion;
     }
 
-    public void setFashion(Fashion fashion) {
+    public void setFashion(int fashion) {
         this.fashion = fashion;
     }
 
@@ -102,11 +99,11 @@ public class Product {
         this.finishDate = finishDate;
     }
 
-    public Order getOrder() {
+    public int getOrder() {
         return order;
     }
 
-    public void setOrder(Order order) {
+    public void setOrder(int order) {
         this.order = order;
     }
 }

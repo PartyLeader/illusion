@@ -22,20 +22,12 @@ public class State {
     @Column(name = "STATE_NAME",nullable = false, length = 255)
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "state")
-    private Set<Order> order = new HashSet<Order>(0);
 
     public State() {
     }
 
     public State(String name) {
         this.name = name;
-    }
-
-    public State(String name, int id, Set<Order> order) {
-        this.name = name;
-        this.id = id;
-        this.order = order;
     }
 
     public int getId() {
@@ -52,13 +44,5 @@ public class State {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Set<Order> getOrder() {
-        return order;
-    }
-
-    public void setOrder(Set<Order> order) {
-        this.order = order;
     }
 }

@@ -24,6 +24,10 @@ public class Output {
     public Output() {
     }
 
+    public Output(String name) {
+        this.name = name;
+    }
+
     public Output(int id, String name, Date date) {
         this.id = id;
         this.name = name;

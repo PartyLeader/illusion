@@ -22,30 +22,28 @@ public class Warehouse {
     @Column(name = "WAREHOUSE_NAME",nullable = false, length = 255)
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "WAREHOUSE_GOOD", nullable = false)
-    private Good good;
+    @Column(name = "WAREHOUSE_GOOD", nullable = false)
+    private int good;
 
     @Column(name = "WAREHOUSE_COUNT",nullable = false)
     private int count;
 
-    public Warehouse(int id, String name, Good goods, int count) {
+    public Warehouse() {
+    }
+
+    public Warehouse(String name) {
+        this.name = name;
+    }
+
+    public Warehouse(int id, String name, int good, int count) {
         this.id = id;
         this.name = name;
-        this.good = goods;
+        this.good = good;
         this.count = count;
     }
 
     public int getId() {
         return id;
-    }
-
-    public Good getGood() {
-        return good;
-    }
-
-    public void setGood(Good goods) {
-        this.good = goods;
     }
 
     public void setId(int id) {
@@ -58,6 +56,14 @@ public class Warehouse {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getGood() {
+        return good;
+    }
+
+    public void setGood(int good) {
+        this.good = good;
     }
 
     public int getCount() {

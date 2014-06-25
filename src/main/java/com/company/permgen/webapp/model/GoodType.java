@@ -22,8 +22,6 @@ public class GoodType {
     @Column(name = "GOODTYPE_NAME", nullable = false, length = 255)
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "type")
-    private Set<Good> good = new HashSet<Good>(0);
 
     public GoodType() {
     }
@@ -33,10 +31,8 @@ public class GoodType {
         this.id = id;
     }
 
-    public GoodType(int id, String name, Set<Good> good) {
-        this.id = id;
+    public GoodType(String name) {
         this.name = name;
-        this.good = good;
     }
 
     public int getId() {
@@ -53,13 +49,5 @@ public class GoodType {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Set<Good> getGood() {
-        return good;
-    }
-
-    public void setGood(Set<Good> good) {
-        this.good = good;
     }
 }
