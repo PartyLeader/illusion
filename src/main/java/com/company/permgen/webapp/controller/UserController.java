@@ -196,10 +196,7 @@ public class UserController {
        // Date enddate = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH).parse();
 
         order.setCreatedate(createdate.toString());
-        //order.setFashion(fashionList.get(Integer.parseInt(order.getFashion().getName())));
-       /// order.setSize(sizeList.get(Integer.parseInt(order.getSize().getName())));
-       // order.setState(stateList.get(Integer.parseInt(order.getState().getName())));
-        //order.setRecipe(recipeList.get(Integer.parseInt(order.getRecipe().getName())));
+
 
         orderService.createOrder(order);
         System.out.println(order.getId());
