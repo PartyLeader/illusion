@@ -28,6 +28,9 @@ public class Good {
     @Column(name = "GOOD_GOODTYPE", nullable = false)
     private int type;
 
+    public Good() {
+    }
+
     public Good(int id, String name, boolean quality, int type) {
         this.id = id;
         this.name = name;

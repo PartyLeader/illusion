@@ -39,48 +39,40 @@ public class UserController {
     protected MagicService magicService;
     @Autowired
     protected RecipeService recipeService;
-
+    @Autowired
+    protected ImageService imageService;
 
     private List<Size> sizeList;
     private List<State> stateList;
     private List<GoodType> goodTypeList;
     private List<Fashion> fashionList;
     private List<Recipe> recipeList;
-
+    private List<Magic> magicList;
 
     @RequestMapping("/index")
     public String listContacts(Model model) {
+
+        List<Image> imageList = imageService.getImage();
+        model.addAttribute("sliderImg", imageList);
         setModel(model);
         return "index";
     }
 
     @RequestMapping("/adminPage")
     public String getAdminPage(Model model) {
+
         model.addAttribute("good", new Good());
-
         model.addAttribute("recipe", new Recipe());
-
         model.addAttribute("magic", new Magic());
-       // model.addAttribute("magicList", magicService.getMagic());
-
         model.addAttribute("fashion", new Fashion());
-        fashionList =   fashionService.getFashion();
-        model.addAttribute("fashionList", fashionList);
-
         model.addAttribute("goodType", new GoodType());
-        goodTypeList = goodTypeService.getGoodType();
-        model.addAttribute("goodTypeList", goodTypeList);
-
         model.addAttribute("size", new Size());
-        sizeList =   sizeService.getSize();
-        model.addAttribute("sizeList", sizeList);
-
         model.addAttribute("state", new State());
-        stateList =  stateService.getState();
-        model.addAttribute("stateList", stateList);
 
-        model.addAttribute("recipe", new Recipe());
-        recipeList =  recipeService.getRecipe();
+        LoadLists();
+
+        model.addAttribute("sizeList", sizeList);
+        model.addAttribute("stateList", stateList);
         model.addAttribute("recipeList", recipeList);
 
         setModel(model);
@@ -100,9 +92,22 @@ public class UserController {
         model.addAttribute("sizeName", sizeList.get(0).getName());
         model.addAttribute("sizeList", sizeList);
         setModel(model);
-        fashionService.createFashion(new Fashion("Модная рубаха"));
-        fashionService.createFashion(new Fashion("Мажорная рубаха"));
-        fashionService.createFashion(new Fashion("Дворянская рубаха"));
+        List<Fashion> fashionList1 = new ArrayList<Fashion>();
+        fashionList1.add(new Fashion("Модная рубаха"));
+        fashionList1.add(new Fashion("Мажорная рубаха"));
+        fashionList1.add(new Fashion("Прикольная"));
+        fashionList1.add(new Fashion("Модная рубаха"));
+        fashionList1.add(new Fashion("Модная рубаха"));
+        fashionList1.add(new Fashion("Модная рубаха"));
+        fashionList1.add(new Fashion("Модная рубаха"));
+        fashionList1.add(new Fashion("Модная рубаха"));
+        fashionList1.add(new Fashion("Модная рубаха"));
+
+        for(int i =0; i< fashionList1.size();i++)
+        {
+            fashionService.createFashion(fashionList1.get(i));
+            imageService.createImage(new Image(fashionList1.get(i).getName(), i +".jpg","BL" + i));
+        }
 
 
         stateService.createState(new State("Обычный"));
@@ -110,8 +115,7 @@ public class UserController {
 
         recipeService.createRecipe(new Recipe("Алкоголизм", "Алкоголизм лечится рубахой из жестких сортов крапивы"));
         recipeService.createRecipe(new Recipe("Курение", "Никотиновые рубахи. Такой рубахи хватает на 1,5 месяца"));
-        recipeService.createRecipe(new Recipe("Простуда", "Тплая рубаха с высоким воротом."));
-
+        recipeService.createRecipe(new Recipe("Простуда", "Теплая рубаха с высоким воротом."));
 
         return "first-load";
     }
@@ -175,6 +179,8 @@ public class UserController {
     @RequestMapping(value = "create-order")
     public String createRequestGet(Model model) {
         model.addAttribute("order", new Order());
+
+        LoadLists();
         model.addAttribute("fashionList", fashionList);
         model.addAttribute("sizeList", sizeList);
         model.addAttribute("stateList", stateList);
@@ -190,9 +196,9 @@ public class UserController {
        // Date enddate = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH).parse();
 
         order.setCreatedate(createdate.toString());
-        order.setFashion(fashionList.get(Integer.parseInt(order.getFashion().getName())));
-        order.setSize(sizeList.get(Integer.parseInt(order.getSize().getName())));
-        order.setState(stateList.get(Integer.parseInt(order.getState().getName())));
+        //order.setFashion(fashionList.get(Integer.parseInt(order.getFashion().getName())));
+       /// order.setSize(sizeList.get(Integer.parseInt(order.getSize().getName())));
+       // order.setState(stateList.get(Integer.parseInt(order.getState().getName())));
         //order.setRecipe(recipeList.get(Integer.parseInt(order.getRecipe().getName())));
 
         orderService.createOrder(order);
@@ -253,5 +259,15 @@ public class UserController {
     private Model setModel(Model model) {
         model.addAttribute("role",SecurityContextHolder.getContext().getAuthentication().getName());
         return model;
+    }
+    private void LoadLists()
+    {
+        fashionList =   fashionService.getFashion();
+        goodTypeList = goodTypeService.getGoodType();
+        //    goodList = goodService.getType();
+        sizeList =   sizeService.getSize();
+        stateList =  stateService.getState();
+        recipeList =  recipeService.getRecipe();
+     //   magicList =  magicService.getMagic();
     }
 }

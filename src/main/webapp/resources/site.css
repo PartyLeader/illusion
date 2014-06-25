@@ -152,3 +152,7 @@ background: #4477a1;
     color: #000000;
     text-decoration: none;
 }
+
+.padding-left{
+    padding-left: 25px !important;
+}

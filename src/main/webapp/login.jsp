@@ -14,10 +14,6 @@
 </head>
 <body>
 
-<a href="<c:url value="/index" />">
-       Контакты
-</a><br/>
-
 <div class="single-widget-container">
     <section class="widget login-widget">
         <header class="text-align-center">
@@ -53,18 +49,18 @@
                     <button type="submit" class="btn btn-block btn-lg btn-success">
                         <small>Войти</small>
                     </button>
-                    <button type="submit" class="btn btn-block btn-lg btn-warning">
+                    <a href="<c:url value="/index" />" class="btn btn-block btn-lg btn-warning">
                        <small>Отмена</small>
-                    </button>
+                    </a>
                     <div class="forgot"><label><i>Иллюзия (C) 2014</i></label></div>
                 </div>
             </form>
         </div>
          <c:if test="${not empty param.error}">
              <footer>
-                <div class="facebook-login">
-                    <font color="red"> error
-                    : ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message} </font>
+                <div class="alert alert-danger">
+                    <i class="fa fa-ban"></i>
+                    <strong>Печаль-беда, но такого пользователя с таким паролем у нас нет!</strong>
                 </div>
             </footer>
         </c:if>

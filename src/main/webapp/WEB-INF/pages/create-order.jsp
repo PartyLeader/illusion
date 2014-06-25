@@ -11,10 +11,11 @@
     <link rel="stylesheet" media="all" href="<c:url value="/resources/site.css"/>">
 
     <title>Создать заказ</title>
-            <link href="<c:url value="/resources/css/application.min.css"/>" rel="stylesheet">
-             <link rel="shortcut icon" href="<c:url value="/resources/img/favicon.png"/>">
-             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-             <meta name="author" content="Illusion team">
+
+    <link href="<c:url value="/resources/css/application.min.css"/>" rel="stylesheet">
+    <link rel="shortcut icon" href="<c:url value="/resources/img/favicon.png"/>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Illusion team">
 </head>
 <body class="background-dark wysihtml5-supported">
 <script type="text/javascript">
@@ -25,17 +26,17 @@
     });
 
     function dtval(d,e) {
-    var pK = e ? e.which : window.event.keyCode;
-    if (pK == 8) {d.value = substr(0,d.value.length-1); return;}
-    var dt = d.value;
-    var da = dt.split('/');
-    for (var a = 0; a < da.length; a++) {if (da[a] != +da[a]) da[a] = da[a].substr(0,da[a].length-1);}
-    if (da[0] > 31) {da[1] = da[0].substr(da[0].length-1,1);da[0] = '0'+da[0].substr(0,da[0].length-1);}
-    if (da[1] > 12) {da[2] = da[1].substr(da[1].length-1,1);da[1] = '0'+da[1].substr(0,da[1].length-1);}
-    if (da[2] > 9999) da[1] = da[2].substr(0,da[2].length-1);
-    dt = da.join('/');
-    if (dt.length == 2 || dt.length == 5) dt += '/';
-    d.value = dt;
+        var pK = e ? e.which : window.event.keyCode;
+        if (pK == 8) {d.value = substr(0,d.value.length-1); return;}
+        var dt = d.value;
+        var da = dt.split('/');
+        for (var a = 0; a < da.length; a++) {if (da[a] != +da[a]) da[a] = da[a].substr(0,da[a].length-1);}
+        if (da[0] > 31) {da[1] = da[0].substr(da[0].length-1,1);da[0] = '0'+da[0].substr(0,da[0].length-1);}
+        if (da[1] > 12) {da[2] = da[1].substr(da[1].length-1,1);da[1] = '0'+da[1].substr(0,da[1].length-1);}
+        if (da[2] > 9999) da[1] = da[2].substr(0,da[2].length-1);
+        dt = da.join('/');
+        if (dt.length == 2 || dt.length == 5) dt += '/';
+        d.value = dt;
     }
     function checkform(f) {
         if (f.name.value=="") {
@@ -51,11 +52,10 @@
     }
 </script>
 <jsp:include page="header.jsp">
-  <jsp:param name="pageTitle" value="Login" />
+  <jsp:param name="pageTitle" value="СreateOrder" />
 </jsp:include>
 
-
-<div class="content container wrap margin_top">
+<div class="content container wrap">
     <div class="row">
         <div class="col-md-12">
             <h2 class="page-title">Создание нового заказа</h2>
@@ -71,7 +71,7 @@
                                  <form:form modelAttribute="order" method="post" class="form-horizontal label-left" onsubmit="return checkform(this)">
                                     <div class="control-group">
                                         <label for="description" class="control-label">Контакты</label>
-                                        <div class="controls form-group">
+                                        <div class="controls form-group padding-left">
                                             <textarea id="description" rows="3" name="text" class="form-control"></textarea>
                                         </div>
                                     </div>
@@ -88,11 +88,14 @@
                                    <div class="control-group">
                                         <label for="description" class="control-label">Парамерты</label>
                                         <div class="controls form-group">
-                                            <select name="size" class="dropdown list_item">
+                                            <select name="size" class="selectpicker padding-left" data-style="btn-default">
                                                 <c:forEach items="${sizeList}" var="item">
                                                         <option value="${item.id}">${item.name}</option>
                                                 </c:forEach>
                                             </select>
+                                        </div>
+                                        <div class="controls form-group padding-left">
+                                            <input id="color" class="form-control colorpicker" type="text" name="color" value="#eac85e">
                                         </div>
                                         <form:errors path="size" element="span"/>
                                     </div>
@@ -101,7 +104,7 @@
                                         <div class="controls form-group">
                                              <c:forEach items="${stateList}" var="item">
                                                 <label class="radio">
-                                                    <form:radiobutton path="state" value="${item.id}"/>${item.name}
+                                                    <form:radiobutton class = "iCheck" path="state" value="${item.id}"/>${item.name}
                                                 </label>
                                             </c:forEach>
                                             <form:errors path="state" element="span"/>
@@ -109,7 +112,7 @@
                                     </div>
                                     <div class="control-group">
                                         <label for="description" class="control-label">Срок изготовления (dd/mm/yyyy)</label>
-                                        <div class="controls form-group">
+                                        <div class="controls form-group padding-left">
                                            <input class="form-control" type="text" id="mydate" name="enddate" size="10" maxlength="10" onkeyup="dtval(this,event)" placeholder="dd/mm/yyyy">
                                            <form:errors path="enddate" element="span"/>
                                         </div>
@@ -138,13 +141,13 @@
                             <header>
                                 <h4>
                                     <i class="fa fa-star"></i>
-                                    Grid of images, videos, text, and more
+                                    Предпросмотр
                                 </h4>
                             </header>
                              <div class="body">
                                 <ul class="row thumbnails">
                                     <li class="col-sm-4">
-                                            <img src="<c:url value="/resources/img/1.jpg"/>" alt="">
+                                            <img src="<c:url value="/resources/img/fashionPictures/1.jpg"/>" alt="">
                                     </li>
                                 </ul>
                              </div>

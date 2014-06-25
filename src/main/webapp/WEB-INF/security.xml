@@ -22,13 +22,13 @@
     </bean>
 
     <security:http access-denied-page="/error403.jsp">
-        <security:intercept-url pattern="/index*" access="ROLE_USER,ROLE_ANONYMOUS,ROLE_ADMIN" />
-        <security:intercept-url pattern="/orders*" access="ROLE_USER,ROLE_ADMIN" />
+        <security:intercept-url pattern="/index*" access="ROLE_USER,ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_TAILOR,ROLE_VAHTANG,ROLE_HANDLER,ROLE_MAGIC" />
+        <security:intercept-url pattern="/orders*" access="ROLE_USER" />
         <security:intercept-url pattern="/create-order*" access="ROLE_USER,ROLE_ADMIN" />
         <security:intercept-url pattern="/filter-order*" access="ROLE_ADMIN" />
         <security:intercept-url pattern="/adminPage*" access="ROLE_ADMIN" />
         <security:intercept-url pattern="/first-load*" access="ROLE_ADMIN" />
-        <security:intercept-url pattern="/task*" access="ROLE_ADMIN" />
+        <security:intercept-url pattern="/task*" access="ROLE_ADMIN,ROLE_TAILOR,ROLE_VAHTANG,ROLE_HANDLER,ROLE_MAGIC" />
         <security:intercept-url pattern="/delete-order/*" access="ROLE_ADMIN" />
         <security:intercept-url pattern="/order/*" access="ROLE_ADMIN" />
         <security:form-login login-page="/login.jsp" default-target-url="/index"
@@ -36,6 +36,7 @@
         <security:logout logout-url="/logout" logout-success-url="/index" />
 
         <security:anonymous username="guest" granted-authority="ROLE_ANONYMOUS" />
+
         <security:remember-me />
     </security:http>
 

@@ -5,6 +5,7 @@ import com.company.permgen.webapp.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 /**
@@ -25,7 +26,19 @@ public class OrderService {
     }
 
     public void createOrder(Order order) {
+        try{
         repository.createOrder(order);
+        }
+        catch (Exception e) {
+            // Unwrap for HandlerExceptionResolvers ...
+            Throwable targetException = e;
+            if (targetException instanceof RuntimeException) {
+                throw (RuntimeException) targetException;
+            }
+            else if (targetException instanceof Error) {
+                throw (Error) targetException;
+            }
+        }
     }
     public void updateOrder(Order order) {
         repository.updateOrder(order);

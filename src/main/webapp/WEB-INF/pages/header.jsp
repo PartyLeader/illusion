@@ -5,7 +5,9 @@
 
 <link href="<c:url value="/resources/css/application.min.css"/>" rel="stylesheet">
 
-<script src="<c:url value="/resources/lib/jquery/jquery-2.0.3.min.js"/>"></script>
+<script src="<c:url value="/resources/lib/jquery/jquery-2.1.1.js"/>"></script>
+<script src="<c:url value="/resources/lib/jquery/jquery-2.1.1.min.js"/>"></script>
+
  <!-- jquery and friends -->
  <script src="<c:url value="/resources/lib/jquery-pjax/jquery.pjax.js"/>"></script>
  <script src="<c:url value="/resources/lib/jquery-maskedinput/jquery.maskedinput.js"/>"></script>
@@ -39,51 +41,85 @@
 <script src="<c:url value="/resources/js/settings.js"/>"></script>
 <script src="<c:url value="/resources/js/forms-elemets.js"/>"></script>
 
-<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="logo">
-        <h4><a href="index.html">Иллюзия</a></h4>
-    </div>
-    <div class="container-fluid">
-       <!-- <div class="navbar-header head">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-        </div>   -->
-		<div class="navbar-collapse">
-			<div id="user-menu">
+<div class="logo">
+    <h3><a href="index.html"><strong>Иллюзия</strong></a></h3>
+</div>
+<div class="container-fluid page-header">
+	<div id="user-menu">
 				<c:if test="${role=='guest'}">
-					 <a href="<c:url value="/login.jsp" />">Авторизация</a>
+				    <a href="<c:url value="/login.jsp" />" style="color:white"><u>Авторизация</u></a>
 				</c:if>
 				<c:if test="${role !='guest'}">
-							  <c:out value="${role}" />
+			        <c:out value="${role}/" />
+				    <a href="<c:url value="/logout" />" style="color:white"><u>Выйти</u></a>
 				</c:if>
-				/
-				<a href="<c:url value="/logout" />">Выйти</a>
-			</div>
-		</div>
-    </div>
-</div><!--head-->
-<nav id="sidebar" class="sidebar nav-collapse">
-    <ul id="side-nav " class="side-nav">
-        <li class="accordion-toggle">
-            <a href="index.html"><i class="fa fa-table"></i> <span class="name">Галерея</span></a>
+	</div>
+</div>
+
+<!--head-->
+<nav id="sidebar" class="sidebar nav-collapse collapse">
+    <ul id="side-nav" class="side-nav">
+        <li>
+            <a href="index.html">
+                <i class="fa fa-picture-o"></i>
+                <span class="name">Галерея</span>
+            </a>
+        </li>
+        <c:if test="${role!='guest'}">
+            <li>
+                <a href="index.html">
+                    <i class="fa fa-magic"></i>
+                    <span class="name">Заказы</span>
+                </a>
+            </li>
+        </c:if>
+        <li>
+            <a href="<c:url value="/orders" />" role="button">
+                <i class="fa fa-star-half-empty"></i>
+                <span class="name">Аналитика</span>
+            </a>
+        </li>
+        <li>
+            <a href="<c:url value="/index" />" role="button">
+                <i class="fa fa-tasks"></i>
+                <span class="name">План работ</span>
+            </a>
+        </li>
+        <li>
+            <a href="<c:url value="/index" />" role="button">
+                <i class="fa fa-dropbox"></i>
+                <span class="name">Склад</span>
+            </a>
+        </li>
+        <li class="panel">
+            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#side-nav" href="form_elements.html#forms-collapse" role="button">
+                <i class="fa fa-wrench"></i>
+                <span class="name">Админка</span>
+            </a>
+            <ul id="forms-collapse" class="panel-collapse collapse">
+                <li><a href="<c:url value="/adminPage"/>">Пользователи</a></li>
+                <li><a href="form_article.html">Магические свойства</a></li>
+                <li><a href="form_elements.html">Рецепты</a></li>
+                <li><a href="form_validation.html">Фасоны</a></li>
+                <li><a href="form_wizard.html">Размеры</a></li>
+            </ul>
         </li>
         <li class="accordion-toggle">
-            <a href="index.html"><i class="fa fa-magic"></i> <span class="name">Заказы</span></a>
+            <a href="index.html">
+                <i class="fa fa-home"></i>
+                <span class="name">О нас</span>
+            </a>
         </li>
-        <li class="accordion-toggle">
-            <a href="index.html"><i class="fa fa-code-fork"></i> <span class="name">Dashboard</span></a>
+        <br>
+        <li>
+            <a href="<c:url value="/create-order" />" role="button">
+                <i class="fa fa-magic"></i>
+                <span class="name">Создать заказ</span>
+            </a>
         </li>
-        <li class="accordion-toggle">
-            <a href="index.html"><i class="fa fa-home"></i> <span class="name">О нас</span></a>
-        </li>
-        <li class="accordion-toggle">
-            <a href="<c:url value="/create-order" />" role="button" tabindex="0"><i class="fa fa-magic"></i><span class="name"> Создать заказ</span></a></li>
-        <li class="accordion-toggle"><a href="<c:url value="/orders" />" role="button"><i class="fa fa-magic"></i><span class="name"> Аналитика</span></a></li>
-        <li class="accordion-toggle"><a href="<c:url value="/index" />" role="button"><i class="fa fa-magic"></i><span class="name"> Задания</span></a></li>
-        <li class="accordion-toggle"><a href="<c:url value="/adminPage" />" role="button"><i class="fa fa-magic"></i><span class="name"> Админка</span></a></li>
     </ul>
+    <div class="col-xs-4">
+        <a href="<c:url value="/first-load" />" class="btn-icons btn btn-transparent btn-sm">First Load</a>
+    </div>
 </nav>
+

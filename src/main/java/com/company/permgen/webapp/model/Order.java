@@ -14,29 +14,29 @@ import java.util.Set;
 
 
 @Entity
-@Table(name = "ORDER2")
+@Table(name = "ORDER3")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ORDER_ID", unique = true, nullable = false)
     private int id;
 
-    @Column(name = "ORDER_FASHION", nullable = false)
+    @Column(name = "ORDER_FASHION", nullable = true)
     private int fashion;
 
-    @Column(name = "ORDER_SIZE", nullable = false)
+    @Column(name = "ORDER_SIZE", nullable = true)
     private int size;
 
-    @Column(name = "ORDER_USER", nullable = false)
+    @Column(name = "ORDER_USER", nullable = true)
     private int user;
 
-    @Column(name = "ORDER_STATE", nullable = false)
+    @Column(name = "ORDER_STATE", nullable = true)
     private int state;
 
-    @Column(name = "ORDER_RECIPE", nullable = false)
+    @Column(name = "ORDER_RECIPE", nullable = true)
     private int recipe;
 
-    @Column(name = "ORDER_GEN",nullable = false, length = 255)
+    @Column(name = "ORDER_GEN",nullable = true, length = 255)
     private String gen;
 
     @Column(name = "ORDER_CREATEDATE",nullable = true, length = 255)
