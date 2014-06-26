@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -150,8 +151,8 @@ public class UserController {
         roleService.createRole(adminRole);
         roleService.createRole(new Role("ROLE_USER"));
 
-        usersService.createUsers(new User("VASIYA","123","123@mail.ru",guestRole.getId(),true));
-        usersService.createUsers(new User("admin","123","123@mail.ru",adminRole.getId(),true));
+        usersService.createUsers(new User("user@user.com","121","user@user.com",guestRole.getId(),true));
+        usersService.createUsers(new User("admin@admin.com","121","admin@admin.com",adminRole.getId(),true));
         return "first-load";
     }
 

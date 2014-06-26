@@ -98,7 +98,8 @@
                 <span class="name">Админка</span>
             </a>
             <ul id="forms-collapse" class="panel-collapse collapse">
-                <li><a href="<c:url value="/adminPage"/>">Пользователи</a></li>
+                <li><a href="<c:url value="/adminPage"/>">Админка</a></li>
+                <li><a href="<c:url value="/controlUsers"/>">Пользователи</a></li>
                 <li><a href="<c:url value="/adminPageMagic"/>">Магические свойства</a></li>
                 <li><a href="<c:url value="/adminPageRecipe"/>">Рецепты</a></li>
                 <li><a href="<c:url value="/adminPageFashion"/>">Фасоны</a></li>
