@@ -14,7 +14,7 @@ import java.util.Set;
 
 
 @Entity
-@Table(name = "ORDER3")
+@Table(name = "ORDER4")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

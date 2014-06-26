@@ -95,7 +95,7 @@
                                             </select>
                                         </div>
                                         <div class="controls form-group padding-left">
-                                            <input id="color" class="form-control colorpicker" type="text" name="color" value="#eac85e">
+                                            <input id="gen" class="form-control colorpicker" type="text" name="gen" value="#eac85e">
                                         </div>
                                         <form:errors path="size" element="span"/>
                                     </div>

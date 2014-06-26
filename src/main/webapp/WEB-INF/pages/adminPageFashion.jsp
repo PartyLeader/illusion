@@ -9,7 +9,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="Content-Language" content="English"/>
     <link rel="stylesheet" media="all" href="<c:url value="/resources/site.css"/>">
-    <title>Админка: Пользователи</title>
+    <title>Админка: Фасоны</title>
         <link href="<c:url value="/resources/css/application.min.css"/>" rel="stylesheet">
          <link rel="shortcut icon" href="<c:url value="/resources/img/favicon.png"/>">
          <meta name="viewport" content="width=device-width, initial-scale=1.0">
