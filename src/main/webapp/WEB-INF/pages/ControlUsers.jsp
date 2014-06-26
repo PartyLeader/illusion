@@ -60,7 +60,13 @@
                                 <tr>
                                     <td width="100рх">Роль:</td>
                                     <td>
-                                        <form:input size="20" path="role"/>
+
+                                        <form:select path="role">
+                                            <c:forEach items="${rolelist}" var="item">
+                                                <form:option value="${item.id}" label="${item.role}"/>
+                                            </c:forEach>
+
+                                        </form:select>
                                         <form:errors path="role" element="span"/>
                                     </td>
                                     </tr>

@@ -29,21 +29,27 @@ public class User {
     @Column(name = "EMAIL", nullable = false, length = 255)
     private String email;
 
-    @Column(name = "ROLE", nullable = false, length = 255)
-    private String role;
+    @Column(name = "ROLE_ID", nullable = false)
+    private int role;
+
 
     //  ENABLED BOOLEAN
   @Column(name = "ENABLED")
    private Boolean enabled;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    private Set<Order> order = new HashSet<Order>(0);
 
     public User() {
     }
 
-    public User(int id, String name, String password, String email, String role,Boolean enabled) {
+    public User(int id, String name, String password, String email,Boolean enabled) {
         this.id = id;
+        this.name = name;
+        this.password = password;
+        this.email = email;
+        this.enabled = enabled;
+    }
+
+    public User(String name, String password, String email, int role, Boolean enabled) {
         this.name = name;
         this.password = password;
         this.email = email;
@@ -51,12 +57,12 @@ public class User {
         this.enabled = enabled;
     }
 
-    public Set<Order> getOrder() {
-        return order;
+    public int getRole() {
+        return role;
     }
 
-    public void setOrder(Set<Order> order) {
-        this.order = order;
+    public void setRole(int role) {
+        this.role = role;
     }
 
     public int getId() {
@@ -91,13 +97,6 @@ public class User {
         this.email = email;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
 
     public Boolean getEnabled() {
         return enabled;

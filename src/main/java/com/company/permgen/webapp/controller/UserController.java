@@ -40,7 +40,8 @@ public class UserController {
     protected MagicService magicService;
     @Autowired
     protected UsersService usersService;
-
+    @Autowired
+    protected RoleService roleService;
 
     @RequestMapping("/index")
     public String listContacts(Model model) {
@@ -52,12 +53,21 @@ public class UserController {
     public String getControlUsers(Model model) {
         model.addAttribute("users", new User());
         model.addAttribute("userslist", usersService.getUsers());
+        List<Role> roleList =  roleService.getRole();
+        model.addAttribute("rolelist",roleList);
 
         setModel(model);
 
         return "controlUsers";
     }
-
+    @RequestMapping(value = "/controlUsers", method = RequestMethod.POST)
+    public String createUserPost(@ModelAttribute("users") User item) {
+        // Size size = new Size(sizeName);
+        item.setEnabled(true);
+        usersService.createUsers(item);
+        System.out.println(item.getId());
+        return "redirect:/controlUsers";
+    }
 
     @RequestMapping("/adminPage")
     public String getAdminPage(Model model) {
@@ -93,6 +103,14 @@ public class UserController {
         model.addAttribute("sizeName", list.get(0).getName());
         model.addAttribute("sizeList", list);
         setModel(model);
+ Role guestRole = new Role("ROLE_ANONYMOUS");
+        Role adminRole = new Role("ROLE_ADMIN");
+        roleService.createRole(guestRole);
+        roleService.createRole(adminRole);
+        roleService.createRole(new Role("ROLE_USER"));
+
+        usersService.createUsers(new User("VASIYA","123","123@mail.ru",guestRole.getId(),true));
+        usersService.createUsers(new User("admin","123","123@mail.ru",adminRole.getId(),true));
         return "first-load";
     }
 
