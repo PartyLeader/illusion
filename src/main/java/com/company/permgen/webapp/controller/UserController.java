@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.Date;
+import java.util.List;
+import java.util.Random;
 import java.text.SimpleDateFormat;
-import java.util.*;
 
 
 /**
@@ -38,6 +40,10 @@ public class UserController {
     @Autowired
     protected MagicService magicService;
     @Autowired
+    protected UsersService usersService;
+    @Autowired
+    protected RoleService roleService;
+    @Autowired
     protected RecipeService recipeService;
     @Autowired
     protected ImageService imageService;
@@ -58,8 +64,29 @@ public class UserController {
         return "index";
     }
 
+    @RequestMapping("/controlUsers")
+    public String getControlUsers(Model model) {
+        model.addAttribute("users", new User());
+        model.addAttribute("userslist", usersService.getUsers());
+        List<Role> roleList =  roleService.getRole();
+        model.addAttribute("rolelist",roleList);
+
+        setModel(model);
+
+        return "controlUsers";
+    }
+    @RequestMapping(value = "/controlUsers", method = RequestMethod.POST)
+    public String createUserPost(@ModelAttribute("users") User item) {
+        // Size size = new Size(sizeName);
+        item.setEnabled(true);
+        usersService.createUsers(item);
+        System.out.println(item.getId());
+        return "redirect:/controlUsers";
+    }
+
     @RequestMapping("/adminPage")
     public String getAdminPage(Model model) {
+        model.addAttribute("good", new Good());
 
         model.addAttribute("good", new Good());
         model.addAttribute("recipe", new Recipe());
@@ -117,6 +144,14 @@ public class UserController {
         recipeService.createRecipe(new Recipe("Курение", "Никотиновые рубахи. Такой рубахи хватает на 1,5 месяца"));
         recipeService.createRecipe(new Recipe("Простуда", "Теплая рубаха с высоким воротом."));
 
+ Role guestRole = new Role("ROLE_ANONYMOUS");
+        Role adminRole = new Role("ROLE_ADMIN");
+        roleService.createRole(guestRole);
+        roleService.createRole(adminRole);
+        roleService.createRole(new Role("ROLE_USER"));
+
+        usersService.createUsers(new User("VASIYA","123","123@mail.ru",guestRole.getId(),true));
+        usersService.createUsers(new User("admin","123","123@mail.ru",adminRole.getId(),true));
         return "first-load";
     }
 
