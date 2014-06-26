@@ -168,6 +168,20 @@ public class UserController {
         return "redirect:/index";
     }
 
+    @RequestMapping(value = "/adminPageMagic")
+    public String getAdminPageMagic(Model model) {
+
+        setModel(model);
+        return "adminPageMagic";
+    }
+
+    @RequestMapping(value = "/analyticView")
+    public String getAdminPageView(Model model) {
+
+        setModel(model);
+        return "analyticView";
+    }
+
     @RequestMapping(value = "/orders")
     public String getOrders(Model model) {
         List<Order> orders = orderService.getOrders();
@@ -175,7 +189,6 @@ public class UserController {
         setModel(model);
         return "orders";
     }
-
     @RequestMapping(value = "create-order")
     public String createRequestGet(Model model) {
         model.addAttribute("order", new Order());

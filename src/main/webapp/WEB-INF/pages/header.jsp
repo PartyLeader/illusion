@@ -29,6 +29,7 @@
   <script src="<c:url value="/resources/lib/bootstrap/button.js"/>"></script>
   <script src="<c:url value="/resources/lib/bootstrap/dropdown.js"/>"></script>
   <script src="<c:url value="/resources/lib/bootstrap/modal.js"/>"></script>
+  <script src="<c:url value="/resources/lib/bootstrap/carousel.js"/>"></script>
  <!-- bootstrap custom plugins -->
  <script src="<c:url value="/resources/lib/bootstrap-datepicker.js"/>"></script>
  <script src="<c:url value="/resources/lib/bootstrap-select/bootstrap-select.js"/>"></script>
@@ -67,14 +68,14 @@
         </li>
         <c:if test="${role!='guest'}">
             <li>
-                <a href="index.html">
+                <a href="<c:url value="/orders" />">
                     <i class="fa fa-magic"></i>
                     <span class="name">Заказы</span>
                 </a>
             </li>
         </c:if>
         <li>
-            <a href="<c:url value="/orders" />" role="button">
+            <a href="<c:url value="/analyticView" />" role="button">
                 <i class="fa fa-star-half-empty"></i>
                 <span class="name">Аналитика</span>
             </a>
@@ -98,10 +99,10 @@
             </a>
             <ul id="forms-collapse" class="panel-collapse collapse">
                 <li><a href="<c:url value="/adminPage"/>">Пользователи</a></li>
-                <li><a href="form_article.html">Магические свойства</a></li>
-                <li><a href="form_elements.html">Рецепты</a></li>
-                <li><a href="form_validation.html">Фасоны</a></li>
-                <li><a href="form_wizard.html">Размеры</a></li>
+                <li><a href="<c:url value="/adminPageMagic"/>">Магические свойства</a></li>
+                <li><a href="<c:url value="/adminPageRecipe"/>">Рецепты</a></li>
+                <li><a href="<c:url value="/adminPageFashion"/>">Фасоны</a></li>
+                <li><a href="<c:url value="/adminPageSize"/>">Размеры</a></li>
             </ul>
         </li>
         <li class="accordion-toggle">

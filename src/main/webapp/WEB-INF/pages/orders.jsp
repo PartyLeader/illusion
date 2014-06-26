@@ -8,53 +8,58 @@
  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
  <meta http-equiv="Content-Language" content="English"/>
  <link rel="stylesheet" media="all" href="<c:url value="/resources/site.css"/>">
- <title>Аналитика предприятия</title>
+ <title>Заказы</title>
          <link href="<c:url value="/resources/css/application.min.css"/>" rel="stylesheet">
           <link rel="shortcut icon" href="<c:url value="/resources/img/favicon.png"/>">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
           <meta name="author" content="Illusion team">
 </head>
 <body>
-<jsp:include page="header.jsp">
 
-  <jsp:param name="pageTitle" value="Login" />
+<jsp:include page="header.jsp">
+  <jsp:param name="pageTitle" value="Orders" />
 </jsp:include>
-<div id="leftcol">
-</div>
-<div id="middlecol2">
-    <h2>Аналитика предприятия</h2>
-    <c:if test="${!empty orders}">
-        <table>
-         <tr>
-         <th>№</th>
-         <th>ФИО</th>
-         <th>Размер</th>
-         <th>Срок изготовления</th>
-         <th>Тип изделия</th>
-         <th>Фасон изделия</th>
-         <th>Симптомы</th>
-         <th>Приоритет</th>
-          <th></th>
-         </tr>
-         <c:forEach items="${orders}" var="order" varStatus="index">
-             <tr class="${index.count % 2 == 0 ? 'even': 'odd'}"/>
-                <td>${index.count}</td>
-                <td><a href="order/${order.id}">${order.name}</a></td>
-                <td>${orders.size}</td>
-                <td>${orders.srok}</td>
-                <td>${orders.fashion}</td>
-                <td>${orders.gen}</td>
-                <td>${orders.simptomi}</td>
-                <td>${orders.state}</td>
-                <td><a href="delete-order/${order.id}"><img src="<c:url value="/resources/images/delete.png" />"/>Удалить</a></td>
-             </tr>
-         </c:forEach>
-        </table>
-    </c:if>
-    <br/>
-    <a href="<c:url value="/create-order"/>">Создать заказ</a>
-    <a href="<c:url value="/orderfilters"/>">Фильтр</a>
-    <a href="<c:url value="/orders"/>">Снять фильтр</a>
+<div class="content container wrap">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="page-title">Заказы</h2>
+        </div>
+    </div>
+    <div class="row">
+        <section class="widget">
+                <c:if test="${!empty orders}">
+                    <table>
+                     <tr>
+                     <th>№</th>
+                     <th>ФИО</th>
+                     <th>Размер</th>
+                     <th>Срок изготовления</th>
+                     <th>Тип изделия</th>
+                     <th>Фасон изделия</th>
+                     <th>Симптомы</th>
+                     <th>Приоритет</th>
+                      <th></th>
+                     </tr>
+                     <c:forEach items="${orders}" var="order" varStatus="index">
+                         <tr class="${index.count % 2 == 0 ? 'even': 'odd'}"/>
+                            <td>${index.count}</td>
+                            <td><a href="order/${order.id}">${order.id}</a></td>
+                            <td>${order.user}</td>
+                            <td>${order.fashion}</td>
+                            <td>${order.gen}</td>
+                            <td>${order.recipe}</td>
+                            <td>${order.state}</td>
+                            <td><a href="delete-order/${order.id}"><img src="<c:url value="/resources/images/delete.png" />"/>Удалить</a></td>
+                         </tr>
+                     </c:forEach>
+                    </table>
+                </c:if>
+                <br/>
+                <a href="<c:url value="/create-order"/>">Создать заказ</a>
+                <a href="<c:url value="/orderfilters"/>">Фильтр</a>
+                <a href="<c:url value="/orders"/>">Снять фильтр</a>     \
+        </section>
+    </div>
 </div>
 </body>
 </html>

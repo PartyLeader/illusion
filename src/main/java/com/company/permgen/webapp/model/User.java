@@ -31,10 +31,7 @@ public class User {
     @Column(name = "USER_ROLE", nullable = false, length = 255)
     private String role;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    private Set<Order> order = new HashSet<Order>(0);
-
-    public User() {
+     public User() {
     }
 
     public User(int id, String name, String password, String email, String role) {
@@ -45,13 +42,6 @@ public class User {
         this.role = role;
     }
 
-    public Set<Order> getOrder() {
-        return order;
-    }
-
-    public void setOrder(Set<Order> order) {
-        this.order = order;
-    }
 
     public int getId() {
         return id;
