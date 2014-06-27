@@ -102,12 +102,13 @@
                                     <div class="control-group">
                                         <label class="control-label">Тип заказа</label>
                                         <div class="controls form-group">
-                                             <c:forEach items="${stateList}" var="item">
                                                 <label class="radio">
-                                                    <form:radiobutton class = "iCheck" path="state" value="${item.id}"/>${item.name}
+                                                    <form:radiobutton class = "iCheck" path="priority" value="0"/>Высокий
                                                 </label>
-                                            </c:forEach>
-                                            <form:errors path="state" element="span"/>
+                                                <label class="radio">
+                                                    <form:radiobutton class = "iCheck" path="priority" value="1"/>Низкий
+                                                </label>
+                                            <form:errors path="priority" element="span"/>
                                         </div>
                                     </div>
                                     <div class="control-group">

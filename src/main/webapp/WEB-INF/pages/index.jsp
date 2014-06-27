@@ -20,7 +20,7 @@
 </head>
 <body class="background-dark wysihtml5-supported">
     <jsp:include page="header.jsp">
-    <jsp:param name="pageTitle" value="Login" />
+    <jsp:param name="pageTitle" value="Gallery" />
 </jsp:include>
 
 <script src="<c:url value="/resources/lib/jssor.slider.mini.js"/>"></script>

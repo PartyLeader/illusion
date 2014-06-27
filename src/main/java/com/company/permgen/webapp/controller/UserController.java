@@ -138,20 +138,29 @@ public class UserController {
         }
 
 
-        stateService.createState(new State("Обычный"));
-        stateService.createState(new State("Срочный"));
+        stateService.createState(new State("Отправлен"));
+        stateService.createState(new State("Обработка"));
+        stateService.createState(new State("Сбор травы"));
+        stateService.createState(new State("Обработка травы"));
+        stateService.createState(new State("Изготовление"));
+        stateService.createState(new State("Магия"));
+        stateService.createState(new State("Готово"));
+
+
 
         recipeService.createRecipe(new Recipe("Алкоголизм", "Алкоголизм лечится рубахой из жестких сортов крапивы"));
         recipeService.createRecipe(new Recipe("Курение", "Никотиновые рубахи. Такой рубахи хватает на 1,5 месяца"));
         recipeService.createRecipe(new Recipe("Простуда", "Теплая рубаха с высоким воротом."));
 
- Role guestRole = new Role("ROLE_ANONYMOUS");
+        Role guestRole = new Role("ROLE_ANONYMOUS");
         Role adminRole = new Role("ROLE_ADMIN");
+        Role userRole = new Role("ROLE_USER");
+
         roleService.createRole(guestRole);
         roleService.createRole(adminRole);
-        roleService.createRole(new Role("ROLE_USER"));
+        roleService.createRole(userRole);
 
-        usersService.createUsers(new User("user@user.com","121","user@user.com",guestRole.getId(),true));
+        usersService.createUsers(new User("user@user.com","121","user@user.com",userRole.getId(),true));
         usersService.createUsers(new User("admin@admin.com","121","admin@admin.com",adminRole.getId(),true));
         return "first-load";
     }
@@ -245,8 +254,8 @@ public class UserController {
        // Date enddate = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH).parse();
 
         order.setCreatedate(createdate.toString());
-
-
+         order.setState(0);//send
+        order.setBlock(0);//unblock
         orderService.createOrder(order);
         System.out.println(order.getId());
         Random rand = new Random();

@@ -9,7 +9,7 @@ table tr td {
 table tr th {
  text-align: left;
 }
-.odd, .odd td { background: #D6DAE0; }
+.odd, .odd td { background: #4E5A6B; }
 .even, .even td { background: none; }
 #middlecol{
     float:left;
@@ -155,4 +155,7 @@ background: #4477a1;
 
 .padding-left{
     padding-left: 25px !important;
+}
+.padding-bottom{
+    padding-bottom: 25px !important;
 }

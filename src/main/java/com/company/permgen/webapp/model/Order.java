@@ -33,8 +33,14 @@ public class Order {
     @Column(name = "ORDER_STATE", nullable = true)
     private int state;
 
+    @Column(name = "ORDER_PRIORIRY", nullable = true)
+    private int priority;
+
     @Column(name = "ORDER_RECIPE", nullable = true)
     private int recipe;
+
+    @Column(name = "ORDER_BLOCK", nullable = true)
+    private int block;
 
     @Column(name = "ORDER_GEN",nullable = true, length = 255)
     private String gen;
@@ -58,6 +64,35 @@ public class Order {
         this.gen = gen;
         this.createdate = createdate;
         this.enddate = enddate;
+    }
+
+    public Order(int id, int fashion, int size, int user, int state, int priority, int recipe, String gen, String createdate, String enddate) {
+        this.id = id;
+        this.fashion = fashion;
+        this.size = size;
+        this.user = user;
+        this.state = state;
+        this.priority = priority;
+        this.recipe = recipe;
+        this.gen = gen;
+        this.createdate = createdate;
+        this.enddate = enddate;
+    }
+
+    public int getBlock() {
+        return block;
+    }
+
+    public void setBlock(int block) {
+        this.block = block;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
     }
 
     public int getId() {

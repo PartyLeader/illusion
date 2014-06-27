@@ -41,6 +41,7 @@
 <script src="<c:url value="/resources/js/app.js"/>"></script>
 <script src="<c:url value="/resources/js/settings.js"/>"></script>
 <script src="<c:url value="/resources/js/forms-elemets.js"/>"></script>
+<script src="<c:url value="/resources/lib/jquery.dataTables.min.js"/>"></script>
 
 <div class="logo">
     <h3><a href="index.html"><strong>Иллюзия</strong></a></h3>
@@ -98,7 +99,6 @@
                 <span class="name">Админка</span>
             </a>
             <ul id="forms-collapse" class="panel-collapse collapse">
-                <li><a href="<c:url value="/adminPage"/>">Админка</a></li>
                 <li><a href="<c:url value="/controlUsers"/>">Пользователи</a></li>
                 <li><a href="<c:url value="/adminPageMagic"/>">Магические свойства</a></li>
                 <li><a href="<c:url value="/adminPageRecipe"/>">Рецепты</a></li>

@@ -15,10 +15,33 @@
           <meta name="author" content="Illusion team">
 </head>
 <body>
-
 <jsp:include page="header.jsp">
   <jsp:param name="pageTitle" value="Orders" />
 </jsp:include>
+<script>
+    $(document).ready(function(){
+    	var default_options = {
+                "oLanguage": {
+                    "sLengthMenu": "Отображено _MENU_ записей на страницу",
+                    "sSearch": "Поиск:",
+                    "sZeroRecords": "Ничего не найдено - извините",
+                    "sInfo": "Показано с _START_ по _END_ из _TOTAL_ записей",
+                    "sInfoEmpty": "Показано с 0 по 0 из 0 записей",
+                    "sInfoFiltered": "(filtered from _MAX_ total records)",
+                    "oPaginate": {
+                        "sFirst": "Первая",
+                        "sLast":"Посл.",
+                        "sNext":"След.",
+                        "sPrevious":"Пред.",
+                    }
+                },
+                "bSort": true,
+                "aaSorting": [[ 1, "desc" ]],
+            "bProcessing": false
+        };
+        $('#datatable-table').dataTable(default_options);
+    });
+</script>
 <div class="content container wrap">
     <div class="row">
         <div class="col-md-12">
@@ -26,38 +49,46 @@
         </div>
     </div>
     <div class="row">
-        <section class="widget">
+        <section class="widget padding-bottom">
+            <div class="padding-bottom">
+                <a href="<c:url value="/create-order"/>" class="btn btn-success">Создать заказ</a>
+                <a href="<c:url value="/orders"/>" class="btn btn-inverse pull-right">Снять фильтр</a>
+                <a href="<c:url value="/orderfilters"/>" class="btn btn-inverse pull-right">Фильтр</a>
+            </div>
+            <div class="body">
                 <c:if test="${!empty orders}">
-                    <table>
-                     <tr>
-                     <th>№</th>
-                     <th>ФИО</th>
-                     <th>Размер</th>
-                     <th>Срок изготовления</th>
-                     <th>Тип изделия</th>
-                     <th>Фасон изделия</th>
-                     <th>Симптомы</th>
-                     <th>Приоритет</th>
-                      <th></th>
-                     </tr>
-                     <c:forEach items="${orders}" var="order" varStatus="index">
-                         <tr class="${index.count % 2 == 0 ? 'even': 'odd'}"/>
-                            <td>${index.count}</td>
-                            <td><a href="order/${order.id}">${order.id}</a></td>
-                            <td>${order.user}</td>
-                            <td>${order.fashion}</td>
-                            <td>${order.gen}</td>
-                            <td>${order.recipe}</td>
-                            <td>${order.state}</td>
-                            <td><a href="delete-order/${order.id}"><img src="<c:url value="/resources/images/delete.png" />"/>Удалить</a></td>
-                         </tr>
-                     </c:forEach>
+                    <table id="datatable-table" class="table table-striped">
+                        <thead>
+                             <tr>
+                                 <th>#</th>
+                                 <th>Статус</th>
+                                 <th>Фасон</th>
+                                 <th>Срок изготовления</th>
+                                 <th>Состояние</th>
+                                 <th>Действия</th>
+                             </tr>
+                        <thead>
+                        <tbody>
+                             <c:forEach items="${orders}" var="order" varStatus="index">
+                                <tr class="${index.count % 2 == 0 ? 'even': 'odd'}"/>
+                                    <td>${index.count}</td>
+                                    <td>${order.priority}</td>
+                                    <td>${order.fashion}</td>
+                                    <td>${order.enddate}</td>
+                                    <td>${order.state}</td>
+                                    <td><a href="order/${order.id}">${order.id}</a>
+                                    <a href="delete-order/${order.id}"><img src="<c:url value="/resources/images/delete.png" />"/>Удалить</a></td>
+                                 </tr>
+                             </c:forEach>
+                        </tbody>
                     </table>
                 </c:if>
-                <br/>
-                <a href="<c:url value="/create-order"/>">Создать заказ</a>
-                <a href="<c:url value="/orderfilters"/>">Фильтр</a>
-                <a href="<c:url value="/orders"/>">Снять фильтр</a>     \
+                <c:if test="${empty orders}">
+                    <div class="alert alert-info">
+                        <strong><i class="fa fa-info-circle"></i> Внимание!</strong> К сожалению у вас еще нет заказов!
+                    </div>
+                </c:if>
+            </div>
         </section>
     </div>
 </div>
