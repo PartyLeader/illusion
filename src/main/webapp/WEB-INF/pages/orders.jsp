@@ -51,7 +51,7 @@
     <div class="row">
         <section class="widget padding-bottom">
             <div class="padding-bottom">
-                <a href="<c:url value="/create-order"/>" class="btn btn-success">Создать заказ</a>
+                <a href="<c:url value="/create-order"/>" class="btn btn-success"><i class="fa fa-plus"></i> Создать заказ</a>
                 <a href="<c:url value="/orders"/>" class="btn btn-inverse pull-right">Снять фильтр</a>
                 <a href="<c:url value="/orderfilters"/>" class="btn btn-inverse pull-right">Фильтр</a>
             </div>
@@ -70,15 +70,17 @@
                         <thead>
                         <tbody>
                              <c:forEach items="${orders}" var="order" varStatus="index">
-                                <tr class="${index.count % 2 == 0 ? 'even': 'odd'}"/>
-                                    <td>${index.count}</td>
-                                    <td>${order.priority}</td>
-                                    <td>${order.fashion}</td>
-                                    <td>${order.enddate}</td>
-                                    <td>${order.state}</td>
-                                    <td><a href="order/${order.id}">${order.id}</a>
-                                    <a href="delete-order/${order.id}"><img src="<c:url value="/resources/images/delete.png" />"/>Удалить</a></td>
-                                 </tr>
+                                    <tr class="${index.count % 2 == 0 ? 'even': 'odd'}"/>
+                                        <td>${index.count}</td>
+                                        <td>${order.priority}</td>
+                                        <td>${order.fashion}</td>
+                                        <td>${order.enddate}</td>
+                                        <td>${order.state}</td>
+                                        <td>
+                                            <a href="order/${order.id}" class="btn btn-primary"><i class="fa fa-edit"></i> Редактировать</a>
+                                            <a href="delete-order/${order.id}" class="btn-danger btn"><i class="fa eicon-trash"></i> Удалить</a>
+                                        </td>
+                                     </tr>
                              </c:forEach>
                         </tbody>
                     </table>
