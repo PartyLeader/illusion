@@ -297,8 +297,30 @@ public class UserController {
     public String getAdminPageView(Model model) {
         model.addAttribute("orders", orderService.getOrders());
         model.addAttribute("userList", usersService.getUsers());
+        model.addAttribute("fashionList", fashionService.getFashion());
+        model.addAttribute("stateList", stateService.getState());
         setModel(model);
         return "analyticView";
+    }
+
+    @RequestMapping(value = "/plan-work-anal")
+    public String getPlanAnalPage(Model model) {
+        model.addAttribute("orders", orderService.getOrders());
+        model.addAttribute("userList", usersService.getUsers());
+        model.addAttribute("fashionList", fashionService.getFashion());
+        model.addAttribute("stateList", stateService.getState());
+        setModel(model);
+        return "plan-work-anal";
+    }
+
+    @RequestMapping(value = "/find-order")
+    public String getFindOrderPage(Model model) {
+        model.addAttribute("orders", orderService.getOrders());
+        model.addAttribute("userList", usersService.getUsers());
+        model.addAttribute("fashionList", fashionService.getFashion());
+        model.addAttribute("stateList", stateService.getState());
+        setModel(model);
+        return "find-order";
     }
 
     @RequestMapping(value = "/orders")
@@ -308,6 +330,8 @@ public class UserController {
         List<Order> orders = orderService.getOrders();
         model.addAttribute("orders", orders);
         model.addAttribute("userList", usersService.getUsers());
+        model.addAttribute("fashionList", fashionService.getFashion());
+        model.addAttribute("stateList", stateService.getState());
         setModel(model);
         return "orders";
     }
@@ -315,13 +339,11 @@ public class UserController {
     @RequestMapping(value = "create-order")
     public String createRequestGet(Model model) {
         model.addAttribute("order", new Order());
-
         LoadLists();
         model.addAttribute("fashionList", fashionList);
         model.addAttribute("sizeList", sizeList);
         model.addAttribute("stateList", stateList);
         model.addAttribute("recipeList", recipeList);
-
         setModel(model);
         return "create-order";
     }
@@ -340,8 +362,16 @@ public class UserController {
         Random rand = new Random();
        if( _userSession.getAuthorities().toArray()[0].equals("ROLE_ADMIN"))
            return "redirect:/analyticView";
-        return "redirect:/orders";//что за бред? а если я админ, который создает заказ, я попаду в бездну 404?
+        return "redirect:/orders";
     }
+
+    @RequestMapping(value = "/find-order/{orderid}")
+    public String findOrder(@PathVariable int orderid, Model model) {
+        orderService.getOrder(orderid);
+        model.addAttribute("order",orderService.getOrder(orderid));
+        return "find-order";
+    }
+
 //
 //    @RequestMapping(value = "requestfilters")
 //    public String createRequestGetFilters(Model model) {

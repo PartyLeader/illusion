@@ -18,6 +18,8 @@
         <security:intercept-url pattern="/index*" access="ROLE_USER,ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_TAILOR,ROLE_VAHTANG,ROLE_HANDLER,ROLE_MAGIC" />
         <security:intercept-url pattern="/orders*" access="ROLE_USER" />
         <security:intercept-url pattern="/analyticView*" access="ROLE_ADMIN" />
+        <security:intercept-url pattern="/plan-work-anal*" access="ROLE_ADMIN" />
+        <security:intercept-url pattern="/find-order*" access="ROLE_ADMIN" />
         <security:intercept-url pattern="/create-order*" access="ROLE_USER,ROLE_ADMIN" />
         <security:intercept-url pattern="/controlUsers*" access="ROLE_ADMIN" />
         <security:intercept-url pattern="/controlUsersCustomers*" access="ROLE_ADMIN,ROLE_ANONYMOUS " />

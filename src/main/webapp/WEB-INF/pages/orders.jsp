@@ -83,7 +83,7 @@
                                     <tr>
                                         <td>${index.count}</td>
                                         <td><c:if test="${order.priority == '0'}">Срочный</c:if><c:if test="${order.priority != '0'}">Обычный</c:if></td>
-                                        <td>${order.fashion}</td>
+                                        <td>${fashionList[order.fashion-1].name}</td>
                                         <td>${order.enddate}</td>
                                         <td>
                                             <c:if test="${(order.state == '0' || order.state == '1') && order.block != 1}">
@@ -95,7 +95,7 @@
                                             <c:if test="${order.block == '1'}" >
                                                 <span class="label label-danger">
                                             </c:if>
-                                            ${order.state} </span>
+                                                    ${stateList[order.state].name}</span>
                                         </td>
                                         <td>
                                             <a href="order/${order.id}" class="btn btn-primary"><i class="fa fa-edit"></i> Редактировать</a>
@@ -138,7 +138,7 @@
                                 <tr>
                                 <td>${index.count}</td>
                                 <td><c:if test="${order.priority == '0'}">Срочный</c:if><c:if test="${order.priority != '0'}">Обычный</c:if></td>
-                                <td>${order.fashion}</td>
+                                <td>${fashionList[order.fashion-1].name}</td>
                                 <td>${order.enddate}</td>
                                 <td>
                                     <a href="instruction/${order.id}" class="btn btn-primary"><i class="fa eicon-right"></i> Просмотр</a>

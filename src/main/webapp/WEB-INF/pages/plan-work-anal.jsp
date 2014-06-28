@@ -8,7 +8,7 @@
  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
  <meta http-equiv="Content-Language" content="English"/>
  <link rel="stylesheet" media="all" href="<c:url value="/resources/site.css"/>">
- <title>Аналитика</title>
+ <title>План работ</title>
          <link href="<c:url value="/resources/css/application.min.css"/>" rel="stylesheet">
           <link rel="shortcut icon" href="<c:url value="/resources/img/favicon.png"/>">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +17,7 @@
 <body>
 
 <jsp:include page="header.jsp">
-  <jsp:param name="pageTitle" value="Analytic" />
+  <jsp:param name="pageTitle" value="planWorkAnal" />
 </jsp:include>
 <script>
     $(document).ready(function(){
@@ -52,8 +52,18 @@
 <div class="content container wrap">
     <div class="row">
         <div class="col-md-12">
-            <h2 class="page-title">Аналитика</h2>
+            <h2 class="page-title">План работ</h2>
         </div>
+    </div>
+    <div class="alert alert-info row">
+        <strong>
+            <div class="col-md-1">
+                <i class="fa fa-info-circle fa-4x"></i>
+            </div>
+            <div class="col-md-10">
+                На этой странице Вы видите все заказы, которые в текущий момент находятся в процессе их выполнения. Чтобы добавить какие-либо заказы в "План работ" - зайдите в раздел "Аналитика" и возобновите приостановленные заказы или начните выполнение новых заказов. Система автоматически расчитает стадии для эти заказов и передаст их на выполнение.
+            </div>
+        </strong>
     </div>
     <div class="row">
         <section class="widget padding-bottom">

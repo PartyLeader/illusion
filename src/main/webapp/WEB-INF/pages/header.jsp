@@ -87,7 +87,9 @@
         </c:if>
         <c:if test="${userRole !='ROLE_ANONYMOUS' && userRole !='ROLE_USER'}">
             <li>
-                <a href="<c:url value="" />" role="button">
+                <c:if test="${userRole == 'ROLE_ADMIN'}">
+                    <a href="<c:url value="/plan-work-anal" />" role="button">
+                </c:if>
                     <i class="fa fa-tasks"></i>
                     <span class="name">План работ</span>
                 </a>
