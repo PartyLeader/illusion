@@ -80,7 +80,7 @@
                                         <label class="control-label">Фасон изделия</label>
                                         <div class="controls form-group">
                                              <c:forEach items="${fashionList}" var="item">
-                                                <label class="radio">
+                                                <label class="radio" id="fashion">
                                                     <form:radiobutton class = "iCheck fashioncheck" path="fashion" value="${item.id}"/>${item.name}
                                                 </label>
                                             </c:forEach>
@@ -106,10 +106,10 @@
                                     <div class="control-group margin-top">
                                         <label class="control-label">Тип заказа</label>
                                         <div class="controls form-group">
-                                                <label class="radio">
+                                                <label class="radio" id="priority1">
                                                     <form:radiobutton class = "iCheck" path="priority" value="0"/>Срочный
                                                 </label>
-                                                <label class="radio">
+                                                <label class="radio" id="priority2">
                                                     <form:radiobutton class = "iCheck" path="priority" value="1"/>Обычный
                                                 </label>
                                             <form:errors path="priority" element="span"/>
@@ -126,7 +126,7 @@
                                         <label class="control-label">Симптомы</label>
                                         <div class="controls form-group">
                                              <c:forEach items="${recipeList}" var="item">
-                                                <label class="radio">
+                                                <label class="radio" id="recipe">
                                                     <form:radiobutton class = "iCheck" path="recipe" value="${item.id}"/>${item.name}
                                                 </label>
                                             </c:forEach>

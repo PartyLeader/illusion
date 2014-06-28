@@ -77,11 +77,11 @@
                              </tr>
                         <thead>
                         <tbody>
-                             <c:forEach items="${orders}" var="order" varStatus="index">
+                             <c:forEach items="${orders}" var="order">
                                  <c:if test="${userList[order.user-1].name == userName}">
                                  <c:if test="${order.state != '6'}">
                                     <tr>
-                                        <td>${index.count}</td>
+                                        <td>${order.id}</td>
                                         <td><c:if test="${order.priority == '0'}">Срочный</c:if><c:if test="${order.priority != '0'}">Обычный</c:if></td>
                                         <td>${fashionList[order.fashion-1].name}</td>
                                         <td>${order.enddate}</td>
@@ -133,11 +133,11 @@
                         </tr>
                         <thead>
                         <tbody>
-                        <c:forEach items="${orders}" var="order" varStatus="index">
+                        <c:forEach items="${orders}" var="order">
                             <c:if test="${userList[order.user-1].name == userName}">
                             <c:if test="${order.state == '6'}">
                                 <tr>
-                                <td>${index.count}</td>
+                                <td>${order.id}</td>
                                 <td><c:if test="${order.priority == '0'}">Срочный</c:if><c:if test="${order.priority != '0'}">Обычный</c:if></td>
                                 <td>${fashionList[order.fashion-1].name}</td>
                                 <td>${order.enddate}</td>
