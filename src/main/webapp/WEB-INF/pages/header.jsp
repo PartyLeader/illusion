@@ -42,6 +42,7 @@
 <script src="<c:url value="/resources/js/settings.js"/>"></script>
 <script src="<c:url value="/resources/js/forms-elemets.js"/>"></script>
 <script src="<c:url value="/resources/lib/jquery.dataTables.min.js"/>"></script>
+<script src="<c:url value="/resources/js/tables-dynamic.js"/>"></script>
 
 <div class="logo">
     <h3><a href="index.html"><strong>Иллюзия</strong></a></h3>
@@ -50,8 +51,6 @@
 	<div id="user-menu">
 				<c:if test="${role=='guest'}">
 				    <a href="<c:url value="/login.jsp" />" style="color:white"><u>Авторизация</u></a>
-                    /
-                    <a href="" style="color:white"><u>Регистрация</u></a>
 				</c:if>
 				<c:if test="${role !='guest'}">
 			        <c:out value="${role}/" />
@@ -61,10 +60,10 @@
 </div>
 
 <!--head-->
-<div class="sidebar nav-collapse collapse">
+<nav id="sidebar" class="sidebar nav-collapse collapse">
     <ul id="side-nav" class="side-nav">
         <li>
-            <a href="<c:url value="index.html"/>">
+            <a href="index.html">
                 <i class="fa fa-picture-o"></i>
                 <span class="name">Галерея</span>
             </a>
@@ -84,13 +83,13 @@
             </a>
         </li>
         <li>
-            <a href="<c:url value="" />" role="button">
+            <a href="<c:url value="/index" />" role="button">
                 <i class="fa fa-tasks"></i>
                 <span class="name">План работ</span>
             </a>
         </li>
         <li>
-            <a href="<c:url value="" />" role="button">
+            <a href="<c:url value="/index" />" role="button">
                 <i class="fa fa-dropbox"></i>
                 <span class="name">Склад</span>
             </a>
@@ -110,7 +109,7 @@
             </ul>
         </li>
         <li class="accordion-toggle">
-            <a href="">
+            <a href="index.html">
                 <i class="fa fa-home"></i>
                 <span class="name">О нас</span>
             </a>
@@ -126,5 +125,5 @@
     <div class="col-xs-4">
         <a href="<c:url value="/first-load" />" class="btn-icons btn btn-transparent btn-sm">First Load</a>
     </div>
-</div>
+</nav>
 

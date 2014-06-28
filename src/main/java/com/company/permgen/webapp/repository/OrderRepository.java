@@ -27,13 +27,13 @@ public class OrderRepository {
     @SuppressWarnings("unchecked")
     public List<Order> getOrder() {
         return sessionFactory.getCurrentSession()
-                .createQuery("FROM Order2 b")
+                .createQuery("FROM Order b")
                 .list();
     }
 
     @SuppressWarnings("unchecked")
     public List<Order> getOrder(int id) {
-        Query query = sessionFactory.getCurrentSession().createSQLQuery("select * from Order2 where id = :id").addEntity(Order.class);
+        Query query = sessionFactory.getCurrentSession().createSQLQuery("select * from Order where id = :id").addEntity(Order.class);
         return  query.setString("id", id+"").list();
     }
 
@@ -60,7 +60,8 @@ public class OrderRepository {
     }
 
     public List<Order> getOrders(int requestId) {
-        Query query = sessionFactory.getCurrentSession().createSQLQuery("select * from Order where id = :requestId").addEntity(Order.class);
+        Query query = sessionFactory.getCurrentSession().createQuery("FROM Order b WHERE id = :requestId");
+       // Query query = sessionFactory.getCurrentSession().createSQLQuery("select * from Order where id = :requestId").addEntity(Order.class);
         return  query.setString("requestId", requestId+"").list();
     }
 

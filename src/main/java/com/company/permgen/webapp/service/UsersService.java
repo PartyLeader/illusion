@@ -30,5 +30,10 @@ public class UsersService {
     public void updateUsers(User item) {
         repository.updateUser(item);
     }
+    public int getUserId(String userName)
+    {
+        List<User> list = repository.getUser(userName);
+        return list.get(0).getId();
+    }
 
 }

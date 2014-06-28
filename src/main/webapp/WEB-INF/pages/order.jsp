@@ -19,81 +19,80 @@
 
   <jsp:param name="pageTitle" value="Order" />
 </jsp:include>
+<div class="col-md-7">
+                        <section class="widget">
+                            <div class="body">
+                                 <form:form modelAttribute="order" method="post" class="form-horizontal label-left" onsubmit="return checkform(this)">
+                                    <div class="control-group">
+                                        <label for="description" class="control-label">Контакты</label>
+                                        <div class="controls form-group padding-left">
+                                            <textarea id="description" rows="3" name="text" class="form-control parsley-validated" required="required"></textarea>
+                                        </div>
+                                    </div>
+                                   <div class="control-group">
+                                        <label class="control-label">Фасон изделия</label>
+                                        <div class="controls form-group">
+                                             <c:forEach items="${fashionList}" var="item">
+                                                <label class="radio">
+                                                    <form:radiobutton class = "iCheck fashioncheck" path="fashion" value="${item.id}"/>${item.name}
+                                                </label>
+                                            </c:forEach>
+                                        </div>
+                                    </div>
+                                   <div class="control-group">
+                                        <label for="description" class="control-label">Парамерты</label>
+                                       <div class="control-label padding-left">
+                                        <span class="padding-left">
+                                            <select name="size" class="selectpicker " data-style="btn-default">
+                                                <c:forEach items="${sizeList}" var="item">
+                                                        <option value="${item.id}">${item.name}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </span>
+                                        <span class="input-group padding-left margin-top">
+                                            <input id="color" class="colorpicker" type="text" name="gen" value="#eac85e">
+                                            <span id="color-holder" class="input-group-addon" style="background-color: #eac85e;">&nbsp;&nbsp;&nbsp;</span>
+                                        </span>
+                                       </div>
+                                        <form:errors path="size" element="span"/>
+                                    </div>
+                                    <div class="control-group margin-top">
+                                        <label class="control-label">Тип заказа</label>
+                                        <div class="controls form-group">
+                                                <label class="radio">
+                                                    <form:radiobutton class = "iCheck" path="priority" value="0"/>Срочный
+                                                </label>
+                                                <label class="radio">
+                                                    <form:radiobutton class = "iCheck" path="priority" value="1"/>Обычный
+                                                </label>
+                                            <form:errors path="priority" element="span"/>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label for="description" class="control-label">Срок изготовления (dd/mm/yyyy)</label>
+                                        <div class="controls form-group padding-left">
+                                           <input id="in-place-date" class="form-control date-picker parsley-validated" required="required" type="text" name="enddate" value="">
+                                           <form:errors path="enddate" element="span"/>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">Симптомы</label>
+                                        <div class="controls form-group">
+                                             <c:forEach items="${recipeList}" var="item">
+                                                <label class="radio">
+                                                    <form:radiobutton class = "iCheck" path="recipe" value="${item.id}"/>${item.name}
+                                                </label>
+                                            </c:forEach>
+                                        </div>
+                                    </div>
 
-<div id="leftcol">
-</div>
-<div id="middlecol2" class="note">
-<c:forEach items="${requests}" var="request">
-    <h2>Заказ клиента №<c:out value="${request.id}"/></h2>
-    <table>
-        <tr>
-            <td width="100рх">Заказчик:</td>
-            <td>
-                <span>${request.name}</span>
-            </td>
-        </tr>
-        <tr>
-            <td width="100рх">Размер:</td>
-            <td>
-                <c:out value="${request.razmer}"/>
-            </td>
-        </tr>
-        <tr>
-            <td width="100рх">Срок изготовления:</td>
-            <td>
-                <c:out value="${request.srok}"/>
-
-               Цвет:
-                <c:out value="${request.gen}"/>
-            </td>
-        </tr>
-        <tr>
-            <td width="100рх">Фасон изделия:</td>
-            <td>
-               <c:out value="${request.fason}"/>
-
-               Количество:
-                1
-            </td>
-        </tr>
-        <tr>
-            <td width="100рх">Размер:</td>
-            <td>
-                <c:out value="${request.simptomi}"/>
-            </td>
-        </tr>
-    </table>
-</c:forEach>
-    <h3>Стадии выполнения:</h3>
-     <table>
-         <tr>
-         <th>№</th>
-         <th>Работник</th>
-         <th>Прогресс</th>
-         <th>Приоритет</th>
-         <th>Начало</th>
-         <th>Конец</th>
-         <th>Кол-во</th>
-         <th>Материал</th>
-         <th>Комментарий</th>
-         </tr>
-         <c:forEach items="${orders}" var="order" varStatus="index">
-                <tr class="${index.count % 2 == 0 ? 'even': 'odd'}"/>
-                    <th>${index.count}</th>
-                    <th><a href="<c:url value="/task/${order.id}"/>">${order.user.name}</a></th>
-                    <th>${order.status}</th>
-                    <th>${order.priority}</th>
-                    <th>${order.createdate}</th>
-                    <th>${order.enddate}</th>
-                    <th>${order.countGood}</th>
-                    <th>${order.good}</th>
-                    <th>${order.message}</th>
-                </tr>
-         </c:forEach>
-        </table>
-
-
-<a href="<c:url value="/users"/>">Список заказов</a>
-</div>
+                                    <div class="form-actions">
+                                        <button type="submit" class="btn btn-success btn-lg"><i class="fa fa-check"></i> Создать</button>
+                                        <button type="button" class="btn btn-inverse btn-lg"><i class="fa eicon-cancel"></i> Отмена</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </section>
+                </div>
 </body>
 </html>

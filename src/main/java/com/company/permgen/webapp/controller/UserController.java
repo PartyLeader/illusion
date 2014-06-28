@@ -4,6 +4,7 @@ import com.company.permgen.webapp.model.*;
 import com.company.permgen.webapp.repository.StateRepository;
 import com.company.permgen.webapp.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -111,6 +112,10 @@ public class UserController extends AbstractController {
 
     @RequestMapping("/first-load")
     public String getFirstLoadPage(Model model) {
+        List<Size> list = sizeService.getSize();
+        if(list.size() > 0){
+            return "redirect:/index";
+        }
         sizeService.createSize(new Size("S (40)"));
         sizeService.createSize(new Size("M (44)"));
         sizeService.createSize(new Size("L (48)"));
@@ -335,20 +340,36 @@ public class UserController extends AbstractController {
 
         return "redirect:/orders";//что за бред? а если я админ, который создает заказ, я попаду в бездну 404?
     }
+//
+//    @RequestMapping(value = "requestfilters")
+//    public String createRequestGetFilters(Model model) {
+//        Request request =new Request();
+//        model.addAttribute("request", request);
+//        model.addAttribute("listUrgency", requestService.getUrgency());
+//        System.out.println(requestService.getUrgency());
+//        setModel(model);
+//        return "requestfilters";
+//    }
+//
+//    @RequestMapping(value ="requestfilters", method = RequestMethod.POST)
+//    public String getRequesrsFilter(@ModelAttribute("request") Request request,Model model) {
+//        List<Request> requests = requestService.getRequests(request.getUrgency()) ;
+//        model.addAttribute("requests", requests);
+//        setModel(model);
+//        return "requests";
+//    }
 //    @RequestMapping("/delete-request/{requestId}")
 //    public String deleteRequest(@PathVariable("requestId") int requestId) {
 //        requestService.getRequests(requestId);
 //        return "redirect:/requests";
 //    }
-//    @RequestMapping("/order/{requestId}")
-//    public String getOrder(@PathVariable("requestId") int requestId,Model model){
-//        List<Order> requests = requestService.getRequests((int)requestId) ;
-//        model.addAttribute("requests",requests);
-//        List<Order> orders = orderService.getOrders(requestId);
-//        model.addAttribute("orders",orders);
-//        setModel(model);
-//        return "order";
-//    }
+    @RequestMapping("/order/{orderId}")
+    public String getOrder(@PathVariable("orderId") int orderId, Model model){
+        List<Order> orders = orderService.getOrders((int)orderId);
+        model.addAttribute("orders",orders);
+        setModel(model);
+        return "order";
+    }
 
     @RequestMapping("/task/{orderId}")
     public String taskGet(@PathVariable("orderId") int orderId,Model model) {
@@ -367,7 +388,9 @@ public class UserController extends AbstractController {
     }
 
     private Model setModel(Model model) {
-        model.addAttribute("role",SecurityContextHolder.getContext().getAuthentication().getName());
+        Authentication userSession = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("userName",userSession.getName());
+        model.addAttribute("userRole",userSession.getAuthorities().toArray()[0]);
         return model;
     }
     private void LoadLists()
