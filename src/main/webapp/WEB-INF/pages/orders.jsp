@@ -86,11 +86,14 @@
                                         <td>${order.fashion}</td>
                                         <td>${order.enddate}</td>
                                         <td>
-                                            <c:if test="${order.state == '0' || order.state == '1'}">
+                                            <c:if test="${(order.state == '0' || order.state == '1') && order.block != 1}">
                                                 <span class="label label-default">
                                             </c:if>
-                                            <c:if test="${order.state == '2' || order.state == '3' || order.state =='4' || order.state == '5'}">
+                                            <c:if test="${(order.state == '2' || order.state == '3' || order.state =='4' || order.state == '5') && order.block != 1}">
                                                 <span class="label label-success">
+                                            </c:if>
+                                            <c:if test="${order.block == '1'}" >
+                                                <span class="label label-danger">
                                             </c:if>
                                             ${order.state} </span>
                                         </td>

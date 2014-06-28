@@ -90,12 +90,12 @@
                                     <td>${userList[order.user-1].name}</td>
                                     <td>${order.fashion}</td>
                                     <td>${order.enddate}</td>
-                                    <td>${order.state}</td>
+                                    <td><span class="label label-default">${order.state}</span></td>
                                     <td>
                                         <a href="order/${order.id}" class="btn btn-primary"><i class="fa fa-edit"></i> Редактировать</a>
                                         <a href="delete-order/${order.id}" class="btn-danger btn"><i class="fa eicon-trash"></i> Удалить</a>
                                         <a href="start-order/${order.id}" class="btn btn-success"><i class="fa fa-play"></i> Начать выполнение</a>
-                                        <a href="block-order/${order.id}" class="btn-default btn"><i class="fa fa-step-forward"></i> Поставить в обработку</a>
+                                        <a href="stay-handler/${order.id}" class="btn-default btn"><i class="fa fa-step-forward"></i> Поставить в обработку</a>
                                     </td>
                                 </tr>
                             </c:if>
@@ -138,7 +138,7 @@
                                     <td>${userList[order.user-1].name}</td>
                                     <td>${order.fashion}</td>
                                     <td>${order.enddate}</td>
-                                    <td>Заблокирован</td>
+                                    <td><span class="label label-danger">Заблокирован</span></td>
                                     <td>
                                         <a href="order/${order.id}" class="btn btn-primary"><i class="fa fa-edit"></i> Редактировать</a>
                                         <a href="delete-order/${order.id}" class="btn-danger btn"><i class="fa eicon-trash"></i> Удалить</a>
@@ -185,7 +185,7 @@
                                     <td>${userList[order.user-1].name}</td>
                                     <td>${order.fashion}</td>
                                     <td>${order.enddate}</td>
-                                    <td>${order.state}</td>
+                                    <td><span class="label label-success">${order.state}</span></td>
                                     <td>
                                         <a href="order/${order.id}" class="btn btn-primary"><i class="fa fa-edit"></i> Редактировать</a>
                                         <a href="delete-order/${order.id}" class="btn-danger btn"><i class="fa eicon-trash"></i> Удалить</a>

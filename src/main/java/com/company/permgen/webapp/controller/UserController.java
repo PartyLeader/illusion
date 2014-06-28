@@ -10,10 +10,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.AbstractController;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,7 +26,7 @@ import java.text.SimpleDateFormat;
  * To change this template use File | Settings | File Templates.
  */
 @Controller
-public class UserController extends AbstractController {
+public class UserController {
     @Autowired
     protected OrderService orderService;
     @Autowired
@@ -374,6 +370,13 @@ public class UserController extends AbstractController {
         orderService.removeOrder(orderId);
         return "redirect:/analyticView";
     }
+
+    @RequestMapping("/stay-handler/{orderId}")
+    public String stayHandler(@PathVariable("orderId") int orderId){
+        orderService.stayHandler(orderId);
+        return "redirect:/analyticView";
+    }
+
     @RequestMapping("/order/{orderId}")
     public String getOrder(@PathVariable("orderId") int orderId, Model model){
         List<Order> orders = orderService.getOrders((int)orderId);
@@ -418,10 +421,5 @@ public class UserController extends AbstractController {
         recipeList =  recipeService.getRecipe();
         magicList =  magicService.getMagic();
      //   magicList =  magicService.getMagic();
-    }
-
-    @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        return null;
     }
 }
