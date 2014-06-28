@@ -35,5 +35,4 @@ public class UsersService {
         List<User> list = repository.getUser(userName);
         return list.get(0).getId();
     }
-
 }
