@@ -109,34 +109,34 @@ public class UserController {
 
     @RequestMapping("/first-load")
     public String getFirstLoadPage(Model model) {
-
-
-        sizeService.createSize(new Size("L"));
-        sizeService.createSize(new Size("X"));
-        sizeService.createSize(new Size("XL"));
-        sizeService.createSize(new Size("XXL"));
+        sizeService.createSize(new Size("S (40)"));
+        sizeService.createSize(new Size("M (44)"));
+        sizeService.createSize(new Size("L (48)"));
+        sizeService.createSize(new Size("XL (50)"));
+        sizeService.createSize(new Size("XXL (52)"));
+        sizeService.createSize(new Size("XXXL (54)"));
+        sizeService.createSize(new Size("X (100)"));
         sizeList = sizeService.getSize();
-
         model.addAttribute("sizeName", sizeList.get(0).getName());
         model.addAttribute("sizeList", sizeList);
         setModel(model);
+
         List<Fashion> fashionList1 = new ArrayList<Fashion>();
-        fashionList1.add(new Fashion("Модная рубаха"));
-        fashionList1.add(new Fashion("Мажорная рубаха"));
-        fashionList1.add(new Fashion("Прикольная"));
-        fashionList1.add(new Fashion("Модная рубаха"));
-        fashionList1.add(new Fashion("Модная рубаха"));
-        fashionList1.add(new Fashion("Модная рубаха"));
-        fashionList1.add(new Fashion("Модная рубаха"));
-        fashionList1.add(new Fashion("Модная рубаха"));
-        fashionList1.add(new Fashion("Модная рубаха"));
+        fashionList1.add(new Fashion("Модная дамская рубаха"));
+        fashionList1.add(new Fashion("Крестьянская размахайка"));
+        fashionList1.add(new Fashion("Зеленая праздничная рубаха"));
+        fashionList1.add(new Fashion("Платьице"));
+        fashionList1.add(new Fashion("Школьник-стиль"));
+        fashionList1.add(new Fashion("Бесформенная дамская рубашенька"));
+        fashionList1.add(new Fashion("Бесформенная мужская рубашенька"));
+        fashionList1.add(new Fashion("Дарк-сайд"));
+        fashionList1.add(new Fashion("Летняя венская рубашка"));
 
         for(int i =0; i< fashionList1.size();i++)
         {
             fashionService.createFashion(fashionList1.get(i));
             imageService.createImage(new Image(fashionList1.get(i).getName(), i +".jpg","BL" + i));
         }
-
 
         stateService.createState(new State("Отправлен"));
         stateService.createState(new State("Обработка"));
@@ -146,22 +146,43 @@ public class UserController {
         stateService.createState(new State("Магия"));
         stateService.createState(new State("Готово"));
 
-
-
-        recipeService.createRecipe(new Recipe("Алкоголизм", "Алкоголизм лечится рубахой из жестких сортов крапивы"));
+        recipeService.createRecipe(new Recipe("Восполение хитрости", "Восполение хитрости не лечится никак, так что можно наказать проказника - Рубаха с чесоточным эффектом!"));
         recipeService.createRecipe(new Recipe("Курение", "Никотиновые рубахи. Такой рубахи хватает на 1,5 месяца"));
-        recipeService.createRecipe(new Recipe("Простуда", "Теплая рубаха с высоким воротом."));
+        recipeService.createRecipe(new Recipe("Простуда", "Теплая рубаха с высоким воротом"));
+        recipeService.createRecipe(new Recipe("Клаустрофобия", "Необъятных размеров рубашка без рукавов"));
+        recipeService.createRecipe(new Recipe("Троллинг", "Рубаха с затычкой для рта"));
+        recipeService.createRecipe(new Recipe("Невосприятие сарказма", "Рубашка с невидимой подсказкой сарказм, появляющейся в самый нужный момент"));
+        recipeService.createRecipe(new Recipe("Бадун", "Рубаха, пропитанная огуречным рассольчиком"));
+        recipeService.createRecipe(new Recipe("Лентяйство", "Рубаха-пендель"));
+        recipeService.createRecipe(new Recipe("Капракод", "Рубаха с божественным провидением"));
+        recipeService.createRecipe(new Recipe("Кривые руки", "Рубаха с прямыми несгибаемыми рукавами"));
+        recipeService.createRecipe(new Recipe("Розовые очки", "Рубаха некроманта"));
+        recipeService.createRecipe(new Recipe("Ветер в голове", "Уютная утепленная рубашечка с большим капюшоном"));
+        recipeService.createRecipe(new Recipe("Бессоница", "Укутывающая пижамка со снотворным"));
 
         Role guestRole = new Role("ROLE_ANONYMOUS");
         Role adminRole = new Role("ROLE_ADMIN");
         Role userRole = new Role("ROLE_USER");
+        Role taylorRole = new Role("ROLE_TAILOR");
+        Role vahtangRole = new Role("ROLE_VAHTANG");
+        Role handlerRole = new Role("ROLE_HANDLER");
+        Role magicRole = new Role("ROLE_MAGIC");
 
         roleService.createRole(guestRole);
         roleService.createRole(adminRole);
         roleService.createRole(userRole);
+        roleService.createRole(taylorRole);
+        roleService.createRole(vahtangRole);
+        roleService.createRole(handlerRole);
+        roleService.createRole(magicRole);
 
         usersService.createUsers(new User("user@user.com","121","user@user.com",userRole.getId(),true));
         usersService.createUsers(new User("admin@admin.com","121","admin@admin.com",adminRole.getId(),true));
+        usersService.createUsers(new User("taylor@taylor.com","121","taylor@taylor.com",taylorRole.getId(),true));
+        usersService.createUsers(new User("vahtang@vahtang.com","121","vahtang@vahtang.com",vahtangRole.getId(),true));
+        usersService.createUsers(new User("handler@handler.com","121","handler@handler.com",handlerRole.getId(),true));
+        usersService.createUsers(new User("magic@magic.com","121","magic@magic.com",magicRole.getId(),true));
+
         return "first-load";
     }
 

@@ -106,10 +106,10 @@
                                         <label class="control-label">Тип заказа</label>
                                         <div class="controls form-group">
                                                 <label class="radio">
-                                                    <form:radiobutton class = "iCheck" path="priority" value="0"/>Высокий
+                                                    <form:radiobutton class = "iCheck" path="priority" value="0"/>Срочный
                                                 </label>
                                                 <label class="radio">
-                                                    <form:radiobutton class = "iCheck" path="priority" value="1"/>Низкий
+                                                    <form:radiobutton class = "iCheck" path="priority" value="1"/>Обычный
                                                 </label>
                                             <form:errors path="priority" element="span"/>
                                         </div>
@@ -133,8 +133,8 @@
                                     </div>
 
                                     <div class="form-actions">
-                                        <button type="submit" class="btn btn-success btn-lg">Создать</button>
-                                        <button type="button" class="btn btn-inverse btn-lg">Отмена</button>
+                                        <button type="submit" class="btn btn-success btn-lg"><i class="fa fa-check"></i> Создать</button>
+                                        <button type="button" class="btn btn-inverse btn-lg"><i class="fa eicon-cancel"></i> Отмена</button>
                                     </div>
                                 </form>
                             </div>

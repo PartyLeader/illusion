@@ -51,7 +51,7 @@
 				<c:if test="${role=='guest'}">
 				    <a href="<c:url value="/login.jsp" />" style="color:white"><u>Авторизация</u></a>
                     /
-                    <a href="" style="color:white"><u>Регистрация</u>></a>
+                    <a href="" style="color:white"><u>Регистрация</u></a>
 				</c:if>
 				<c:if test="${role !='guest'}">
 			        <c:out value="${role}/" />

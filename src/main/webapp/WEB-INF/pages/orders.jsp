@@ -37,9 +37,13 @@
                 },
                 "bSort": true,
                 "aaSorting": [[ 1, "desc" ]],
+            "aoColumnDefs": [
+                { "sWidth": "20%", "aTargets": [ -1 ] }
+            ],
             "bProcessing": false
         };
         $('#datatable-table').dataTable(default_options);
+        $('#datatable-table2').dataTable(default_options);
     });
 </script>
 <div class="content container wrap">
@@ -56,6 +60,12 @@
                 <a href="<c:url value="/orderfilters"/>" class="btn btn-inverse pull-right">Фильтр</a>
             </div>
             <div class="body">
+                <fieldset>
+                    <legend>
+                        Текущие заказы
+                        <a href="" class="btn-inverse btn pull-right"><i class="fa fa-print"></i> Распечатать лист текущих заказов</a>
+                    </legend>
+                </fieldset>
                 <c:if test="${!empty orders}">
                     <table id="datatable-table" class="table table-striped">
                         <thead>
@@ -70,18 +80,69 @@
                         <thead>
                         <tbody>
                              <c:forEach items="${orders}" var="order" varStatus="index">
-                                    <tr class="${index.count % 2 == 0 ? 'even': 'odd'}"/>
+                                 <c:if test="${order.state != '6'}">
+                                    <tr>
                                         <td>${index.count}</td>
                                         <td>${order.priority}</td>
                                         <td>${order.fashion}</td>
                                         <td>${order.enddate}</td>
-                                        <td>${order.state}</td>
+                                        <td>
+                                            <c:if test="${order.state == '0' || order.state == '1'}">
+                                                <span class="label label-default">
+                                            </c:if>
+                                            <c:if test="${order.state == '2' || order.state == '3' || order.state =='4' || order.state == '5'}">
+                                                <span class="label label-success">
+                                            </c:if>
+                                            ${order.state} </span>
+                                        </td>
                                         <td>
                                             <a href="order/${order.id}" class="btn btn-primary"><i class="fa fa-edit"></i> Редактировать</a>
                                             <a href="delete-order/${order.id}" class="btn-danger btn"><i class="fa eicon-trash"></i> Удалить</a>
                                         </td>
                                      </tr>
+                                 </c:if>
                              </c:forEach>
+                        </tbody>
+                    </table>
+                </c:if>
+                <c:if test="${empty orders}">
+                    <div class="alert alert-info">
+                        <strong><i class="fa fa-info-circle"></i> Внимание!</strong> К сожалению у вас еще нет заказов!
+                    </div>
+                </c:if>
+            </div>
+            <div class="body">
+                <fieldset>
+                    <legend>
+                        Выполненные заказы
+                    </legend>
+                </fieldset>
+                <c:if test="${!empty orders}">
+                    <table id="datatable-table2" class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Статус</th>
+                            <th>Фасон</th>
+                            <th>Срок изготовления</th>
+                            <th>Инструкция</th>
+                        </tr>
+                        <thead>
+                        <tbody>
+                        <c:forEach items="${orders}" var="order" varStatus="index">
+                            <c:if test="${order.state == '6'}">
+                                <tr>
+                                <td>${index.count}</td>
+                                <td>${order.priority}</td>
+                                <td>${order.fashion}</td>
+                                <td>${order.enddate}</td>
+                                <td>
+                                    <a href="instruction/${order.id}" class="btn btn-primary"><i class="fa eicon-right"></i> Просмотр</a>
+                                    <a href="print/${order.id}" class="btn-inverse btn"><i class="fa fa-print"></i> Печать</a>
+                                </td>
+                                </tr>
+                            </c:if>
+                        </c:forEach>
                         </tbody>
                     </table>
                 </c:if>
