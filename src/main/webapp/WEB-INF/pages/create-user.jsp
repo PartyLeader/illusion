@@ -55,18 +55,20 @@
                         <label class="control-label">Роль пользователя</label>
                         <div class="controls form-group">
                             <c:forEach items="${rolelist}" var="item">
-                                <label class="radio">
-                                    <form:radiobutton class = "iCheck" path="role" value="${item.id}"/>${item.role}
-                                </label>
+                                <c:if test="${item.role !='ROLE_ANONYMOUS'}">
+                                    <label class="radio">
+                                        <form:radiobutton class = "iCheck" path="role" value="${item.id}"/>${item.role}
+                                    </label>
+                                </c:if>
                             </c:forEach>
                         </div>
                         <form:errors path="role" element="span"/>
                     </div>
                     <div class="control-group">
-                        <label class="control-label">Редактируемая учетная запись</label>
+                        <label class="control-label">Доступность учетной записи</label>
                         <div class="controls form-group">
                             <label class="checkbox">
-                                    <form:checkbox path="enabled" id="enabled" checked="checked" class="iCheck"/>Редактирование разрешено
+                                    <form:checkbox path="enabled" id="enabled" checked="checked" class="iCheck"/>Учетная запись активна
                             </label>
                         </div>
                     </div>

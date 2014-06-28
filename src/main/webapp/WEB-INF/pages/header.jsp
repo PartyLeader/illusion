@@ -61,10 +61,10 @@
 </div>
 
 <!--head-->
-<nav id="sidebar" class="sidebar nav-collapse collapse">
+<div class="sidebar nav-collapse collapse">
     <ul id="side-nav" class="side-nav">
         <li>
-            <a href="index.html">
+            <a href="<c:url value="index.html"/>">
                 <i class="fa fa-picture-o"></i>
                 <span class="name">Галерея</span>
             </a>
@@ -84,13 +84,13 @@
             </a>
         </li>
         <li>
-            <a href="<c:url value="/index" />" role="button">
+            <a href="<c:url value="" />" role="button">
                 <i class="fa fa-tasks"></i>
                 <span class="name">План работ</span>
             </a>
         </li>
         <li>
-            <a href="<c:url value="/index" />" role="button">
+            <a href="<c:url value="" />" role="button">
                 <i class="fa fa-dropbox"></i>
                 <span class="name">Склад</span>
             </a>
@@ -109,7 +109,7 @@
             </ul>
         </li>
         <li class="accordion-toggle">
-            <a href="index.html">
+            <a href="">
                 <i class="fa fa-home"></i>
                 <span class="name">О нас</span>
             </a>
@@ -125,5 +125,5 @@
     <div class="col-xs-4">
         <a href="<c:url value="/first-load" />" class="btn-icons btn btn-transparent btn-sm">First Load</a>
     </div>
-</nav>
+</div>
 
