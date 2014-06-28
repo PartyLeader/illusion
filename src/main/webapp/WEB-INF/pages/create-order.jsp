@@ -18,6 +18,7 @@
     <meta name="author" content="Illusion team">
 </head>
 <body class="background-dark wysihtml5-supported">
+
     <script type="text/javascript">
         $(document).ready(function () {
         $('.fashioncheck input:radio').change(function () {
@@ -158,6 +159,7 @@
                         </section>
                 </div>
             </div>
+          </div>
         </section>
     </div>
 	</form:form>

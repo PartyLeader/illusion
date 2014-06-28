@@ -58,9 +58,10 @@ public class UserController {
 
     @RequestMapping("/index")
     public String listContacts(Model model) {
-
+        List<Role> roleList =  roleService.getRole();
         List<Image> imageList = imageService.getImage();
         model.addAttribute("sliderImg", imageList);
+        model.addAttribute("rolelist",roleList);
         setModel(model);
         return "index";
     }
@@ -289,7 +290,7 @@ public class UserController {
         System.out.println(order.getId());
         Random rand = new Random();
 
-        return "redirect:/orders";
+        return "redirect:/orders";//что за бред? а если я админ, который создает заказ, я попаду в бездну 404?
     }
 //
 //    @RequestMapping(value = "requestfilters")

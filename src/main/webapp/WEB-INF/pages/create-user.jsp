@@ -29,55 +29,61 @@
     <div class="row">
         <section class="widget">
             <div class="body">
-                <form:form action="controlUsers" modelAttribute="users" method="post" onsubmit="true" class="form-horizontal label-left">
-                    <div class="control-group">
-                        <label for="name" class="control-label">Ник</label>
-                        <div class="controls form-group padding-left">
-                            <input id="name" name="name" class="form-control parsley-validated" required="required">
-                            <form:errors path="name" element="span"/>
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label">E-mail</label>
-                        <div class="controls form-group padding-left">
-                            <input id="email" name="email" class="form-control parsley-validated" required="required" type="email">
-                            <form:errors path="email" element="span"/>
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label">Пароль</label>
-                        <div class="controls form-group padding-left">
-                            <input id="password" name="password" class="form-control parsley-validated" required="required" type="password">
-                            <form:errors path="password" element="span"/>
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label">Роль пользователя</label>
-                        <div class="controls form-group">
-                            <c:forEach items="${rolelist}" var="item">
-                                <c:if test="${item.role !='ROLE_ANONYMOUS'}">
-                                    <label class="radio">
-                                        <form:radiobutton class = "iCheck" path="role" value="${item.id}"/>${item.role}
+                <div class="row">
+                    <div class="col-md-7">
+                    <section class="widget">
+                        <form:form action="controlUsers" modelAttribute="users" method="post" onsubmit="true" class="form-horizontal label-left">
+                            <div class="control-group">
+                                <label for="name" class="control-label">Ник</label>
+                                <div class="controls form-group padding-left">
+                                    <input id="name" name="name" class="form-control parsley-validated" required="required">
+                                    <form:errors path="name" element="span"/>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">E-mail</label>
+                                <div class="controls form-group padding-left">
+                                    <input id="email" name="email" class="form-control parsley-validated" required="required" type="email">
+                                    <form:errors path="email" element="span"/>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Пароль</label>
+                                <div class="controls form-group padding-left">
+                                    <input id="password" name="password" class="form-control parsley-validated" required="required" type="password">
+                                    <form:errors path="password" element="span"/>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Роль пользователя</label>
+                                <div class="controls form-group">
+                                    <c:forEach items="${rolelist}" var="item">
+                                        <c:if test="${item.role !='ROLE_ANONYMOUS'}">
+                                            <label class="radio">
+                                                <form:radiobutton class = "iCheck" path="role" value="${item.id}"/>${item.role}
+                                            </label>
+                                        </c:if>
+                                    </c:forEach>
+                                </div>
+                                <form:errors path="role" element="span"/>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Доступность учетной записи</label>
+                                <div class="controls form-group">
+                                    <label class="checkbox">
+                                            <form:checkbox path="enabled" id="enabled" checked="checked" class="iCheck"/>Учетная запись активна
                                     </label>
-                                </c:if>
-                            </c:forEach>
-                        </div>
-                        <form:errors path="role" element="span"/>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label">Доступность учетной записи</label>
-                        <div class="controls form-group">
-                            <label class="checkbox">
-                                    <form:checkbox path="enabled" id="enabled" checked="checked" class="iCheck"/>Учетная запись активна
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-actions">
-                        <button type="submit" class="btn btn-success btn-lg"><i class="fa fa-check"></i> Добавить</button>
-                        <a href="<c:url value="/controlUsers"/>" class="btn btn-inverse btn-lg"><i class="fa eicon-cancel"></i> Отмена</a>
-                    </div>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-success btn-lg"><i class="fa fa-check"></i> Добавить</button>
+                                <a href="<c:url value="/controlUsers"/>" class="btn btn-inverse btn-lg"><i class="fa eicon-cancel"></i> Отмена</a>
+                            </div>
+                    </form:form>
+                </section>
                 </div>
-            </form:form>
+            </div>
+        </div>
         </section>
     </div>
 </div>
