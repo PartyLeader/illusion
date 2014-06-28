@@ -17,7 +17,7 @@
 <body>
 <jsp:include page="header.jsp">
 
-  <jsp:param name="pageTitle" value="Login" />
+  <jsp:param name="pageTitle" value="Order" />
 </jsp:include>
 
 <div id="leftcol">
