@@ -25,6 +25,12 @@ public class UsersRepository {
                 .list();
     }
 
+    public List<User> getUsersCustomers() {
+        return sessionFactory.getCurrentSession()
+                .createQuery("FROM User where role='3'")
+                .list();
+    }
+
     public void createUser(User item) {
         sessionFactory.getCurrentSession().save(item);
     }

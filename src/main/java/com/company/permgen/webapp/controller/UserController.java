@@ -11,7 +11,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.AbstractController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,7 +31,7 @@ import java.text.SimpleDateFormat;
  * To change this template use File | Settings | File Templates.
  */
 @Controller
-public class UserController {
+public class UserController extends AbstractController {
     @Autowired
     protected OrderService orderService;
     @Autowired
@@ -84,6 +88,25 @@ public class UserController {
         usersService.createUsers(item);
         System.out.println(item.getId());
         return "redirect:/controlUsers";
+    }
+
+    @RequestMapping("/controlUsersCustomers")
+    public String getControlUsersCustomers(Model model) {
+        model.addAttribute("users", new User());
+        model.addAttribute("userslist", usersService.getUsersCustomers());
+        setModel(model);
+
+        return "controlUsersCustomers";
+    }
+
+    @RequestMapping(value = "/controlUsersCustomers", method = RequestMethod.POST)
+    public String createUserCustomersPost(@ModelAttribute("users") User item) {
+        // Size size = new Size(sizeName);
+        item.setRole(3);
+        item.setEnabled(true);
+        usersService.createUsers(item);
+        System.out.println(item.getId());
+        return "redirect:/controlUsersCustomers";
     }
 
     @RequestMapping("/first-load")
@@ -356,5 +379,11 @@ public class UserController {
         stateList =  stateService.getState();
         recipeList =  recipeService.getRecipe();
         magicList =  magicService.getMagic();
+     //   magicList =  magicService.getMagic();
+    }
+
+    @Override
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        return null;
     }
 }

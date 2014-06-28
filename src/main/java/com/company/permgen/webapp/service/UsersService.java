@@ -19,6 +19,11 @@ public class UsersService {
     public List<User> getUsers() {
         return repository.getUsers();
     }
+
+    public List<User> getUsersCustomers() {
+        return repository.getUsersCustomers();
+    }
+
     public void createUsers(User item) {
         repository.createUser(item);
     }
