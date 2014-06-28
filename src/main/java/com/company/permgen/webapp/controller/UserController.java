@@ -187,21 +187,23 @@ public class UserController {
         return "first-load";
     }
 
+    @RequestMapping("/adminPageSize")
+    public String getAdminPageSize(Model model) {
 
-    @RequestMapping(value = "/adminPage/size", method = RequestMethod.POST)
+        model.addAttribute("sizeList", sizeList);
+        setModel(model);
+
+        return "adminPageSize";
+    }
+
+    @RequestMapping(value = "/create-Size", method = RequestMethod.POST)
     public String createSizePost(@ModelAttribute("size") Size size) {
        // Size size = new Size(sizeName);
         sizeService.createSize(size);
         System.out.println(size.getId());
-        return "redirect:/adminPage";
+        return "redirect:/adminPageSize";
     }
-    @RequestMapping(value = "/adminPage/state", method = RequestMethod.POST)
-    public String createStatePost(@ModelAttribute("state") State item) {
-        // Size size = new Size(sizeName);
-        stateService.createState(item);
-        System.out.println(item.getId());
-        return "redirect:/adminPage";
-    }
+
     @RequestMapping(value = "/adminPage/goodType", method = RequestMethod.POST)
     public String createGoodTypePost(@ModelAttribute("goodType") GoodType item) {
         // Size size = new Size(sizeName);
