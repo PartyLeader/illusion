@@ -86,28 +86,6 @@ public class UserController {
         return "redirect:/controlUsers";
     }
 
-    @RequestMapping("/adminPage")
-    public String getAdminPage(Model model) {
-        model.addAttribute("good", new Good());
-
-        model.addAttribute("good", new Good());
-        model.addAttribute("recipe", new Recipe());
-        model.addAttribute("magic", new Magic());
-        model.addAttribute("fashion", new Fashion());
-        model.addAttribute("goodType", new GoodType());
-        model.addAttribute("size", new Size());
-        model.addAttribute("state", new State());
-
-        LoadLists();
-
-        model.addAttribute("sizeList", sizeList);
-        model.addAttribute("stateList", stateList);
-        model.addAttribute("recipeList", recipeList);
-
-        setModel(model);
-        return "adminPage";
-    }
-
     @RequestMapping("/first-load")
     public String getFirstLoadPage(Model model) {
         sizeService.createSize(new Size("S (40)"));
@@ -189,19 +167,25 @@ public class UserController {
 
     @RequestMapping("/adminPageSize")
     public String getAdminPageSize(Model model) {
-
-        model.addAttribute("sizeList", sizeList);
+        model.addAttribute("size", new Size());
+        model.addAttribute("sizeList", sizeService.getSize());
         setModel(model);
-
         return "adminPageSize";
     }
 
-    @RequestMapping(value = "/create-Size", method = RequestMethod.POST)
+    @RequestMapping(value = "/adminPageSize", method = RequestMethod.POST)
     public String createSizePost(@ModelAttribute("size") Size size) {
        // Size size = new Size(sizeName);
         sizeService.createSize(size);
-        System.out.println(size.getId());
         return "redirect:/adminPageSize";
+    }
+
+    @RequestMapping(value = "/create-size")
+    public String getCreateSizes(Model model) {
+        model.addAttribute("size", new Size());
+        model.addAttribute("sizeList", sizeService.getSize());
+        setModel(model);
+        return "create-size";
     }
 
     @RequestMapping(value = "/adminPage/goodType", method = RequestMethod.POST)
