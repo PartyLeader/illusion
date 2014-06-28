@@ -121,7 +121,7 @@
                     </legend>
                 </fieldset>
                 <c:if test="${!empty orders}">
-                    <table id="datatable-table" class="table table-striped">
+                    <table id="datatable-table2" class="table table-striped">
                         <thead>
                         <tr>
                             <th>#</th>
@@ -170,7 +170,7 @@
                     </legend>
                 </fieldset>
                 <c:if test="${!empty orders}">
-                    <table id="datatable-table" class="table table-striped">
+                    <table id="datatable-table3" class="table table-striped">
                         <thead>
                         <tr>
                             <th>#</th>
@@ -218,7 +218,7 @@
                     </legend>
                 </fieldset>
                 <c:if test="${!empty orders}">
-                    <table id="datatable-table2" class="table table-striped">
+                    <table id="datatable-table4" class="table table-striped">
                         <thead>
                         <tr>
                             <th>#</th>

@@ -71,7 +71,7 @@ public class UserController {
         model.addAttribute("userslist", usersService.getUsers());
         List<Role> roleList =  roleService.getRole();
         model.addAttribute("rolelist",roleList);
-
+        model.addAttribute("roleservice", roleService);
         setModel(model);
 
         return "controlUsers";
@@ -345,5 +345,26 @@ public class UserController {
         stateList =  stateService.getState();
         recipeList =  recipeService.getRecipe();
      //   magicList =  magicService.getMagic();
+    }
+
+    public class UserDTO {
+        private User user;
+        private Role role;
+
+        public User getUser() {
+            return user;
+        }
+
+        public void setUser(User user) {
+            this.user = user;
+        }
+
+        public Role getRole() {
+            return role;
+        }
+
+        public void setRole(Role role) {
+            this.role = role;
+        }
     }
 }

@@ -31,6 +31,13 @@ public class RoleRepository {
                 .list();
     }
 
+
+    public Role getRoleById(int id) {
+        return (Role) sessionFactory.getCurrentSession()
+                .createQuery("FROM Role where id = " + id)
+                .list().get(0);
+    }
+
     public void createRole(Role role) {
         sessionFactory.getCurrentSession().save(role);
     }

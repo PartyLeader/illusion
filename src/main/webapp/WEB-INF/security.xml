@@ -30,7 +30,7 @@
         <security:intercept-url pattern="/first-load*" access="ROLE_ADMIN,ROLE_ANONYMOUS" />
         <security:intercept-url pattern="/task*" access="ROLE_ADMIN,ROLE_TAILOR,ROLE_VAHTANG,ROLE_HANDLER,ROLE_MAGIC" />
         <security:intercept-url pattern="/delete-order/*" access="ROLE_ADMIN" />
-        <security:intercept-url pattern="/order/*" access="ROLE_ADMIN" />
+        <security:intercept-url pattern="/order/*" access="ROLE_ADMIN,ROLE_USER" />
         <security:form-login login-page="/login.jsp" default-target-url="/index"
                     authentication-failure-url="/login.jsp?error=true" />
         <security:logout logout-url="/logout" logout-success-url="/index" />

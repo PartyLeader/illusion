@@ -30,4 +30,7 @@ public class RoleService {
     public void updateRole(Role role) {
         repository.updateRole(role);
     }
+    public Role getRoleById(int id) {
+        return repository.getRoleById(id);
+    }
 }
