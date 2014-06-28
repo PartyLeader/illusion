@@ -59,26 +59,30 @@
                 <a href="<c:url value="/create-magic"/>" class="btn btn-success"><i class="fa fa-plus"></i> Добавить свойство</a>
             </div>
             <c:if test="${!empty magicList}">
-            <table id="datatable-table" class="table table-striped">
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Размер</th>
-                </tr>
-                <thead>
-                <tbody>
-                <c:forEach items="${magicList}" var="magics" varStatus="index">
-                <tr>
-                    <td>${index.count}</td>
-                    <td>${magics.name}</td>
-                </tr>
-                </c:forEach>
-                </c:if>
-                <c:if test="${empty magicList}">
+                <table id="datatable-table" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Название</th>
+                            <th>Спецификация</th>
+                        </tr>
+                    <thead>
+                    <tbody>
+                        <c:forEach items="${magicList}" var="magics" varStatus="index">
+                            <tr>
+                                <td>${index.count}</td>
+                                <td>${magics.name}</td>
+                                <td>${magics.specification}</td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+            </c:if>
+            <c:if test="${empty magicList}">
                 <div class="alert alert-info">
-                    <strong><i class="fa fa-info-circle"></i> Внимание!</strong> К сожалению у вас еще нет размеров!
+                    <strong><i class="fa fa-info-circle"></i> Внимание!</strong> К сожалению у вас еще нет магических свойств!
                 </div>
-                </c:if>
+            </c:if>
         </section>
     </div>
 </div>

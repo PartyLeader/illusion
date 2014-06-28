@@ -4,7 +4,7 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <html>
 <head>
-    <title>Ошибка 500</title>
+    <title>Ошибка 404</title>
     <link href="<c:url value="/resources/css/application.min.css"/>" rel="stylesheet">
 
     <script src="<c:url value="/resources/lib/jquery/jquery-2.1.1.js"/>"></script>
@@ -23,11 +23,11 @@
         <div class="body">
             <div class="row">
                 <div class="col-md-5">
-                    <h1 class="text-align-center">500</h1>
+                    <h1 class="text-align-center">404</h1>
                 </div>
                 <div class="col-md-7">
                     <div class="description">
-                        <h3>Извините, нашему серверу немножечко плохо!</h3>
+                        <h3>Извините, такой страницы не существует!</h3>
                     </div>
                 </div>
             </div>

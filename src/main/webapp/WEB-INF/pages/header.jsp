@@ -42,33 +42,34 @@
 <script src="<c:url value="/resources/js/settings.js"/>"></script>
 <script src="<c:url value="/resources/js/forms-elemets.js"/>"></script>
 <script src="<c:url value="/resources/lib/jquery.dataTables.min.js"/>"></script>
-<script src="<c:url value="/resources/js/tables-dynamic.js"/>"></script>
 
 <div class="logo">
     <h3><a href="index.html"><strong>Иллюзия</strong></a></h3>
 </div>
 <div class="container-fluid page-header">
 	<div id="user-menu">
-				<c:if test="${role=='guest'}">
+				<c:if test="${userRole =='ROLE_ANONYMOUS'}">
 				    <a href="<c:url value="/login.jsp" />" style="color:white"><u>Авторизация</u></a>
+                    /
+                    <a href="<c:url value="" />" style="color:white"><u>Регистрация</u></a>
 				</c:if>
-				<c:if test="${role !='guest'}">
-			        <c:out value="${role}/" />
+				<c:if test="${userRole !='ROLE_ANONYMOUS'}">
+			        <c:out value="${userName}/" />
 				    <a href="<c:url value="/logout" />" style="color:white"><u>Выйти</u></a>
 				</c:if>
 	</div>
 </div>
 
 <!--head-->
-<nav id="sidebar" class="sidebar nav-collapse collapse">
+<div class="sidebar nav-collapse collapse">
     <ul id="side-nav" class="side-nav">
         <li>
-            <a href="index.html">
+            <a href="<c:url value="index.html"/>">
                 <i class="fa fa-picture-o"></i>
                 <span class="name">Галерея</span>
             </a>
         </li>
-        <c:if test="${role!='guest'}">
+        <c:if test="${userRole =='ROLE_USER'}">
             <li>
                 <a href="<c:url value="/orders" />">
                     <i class="fa fa-magic"></i>
@@ -76,54 +77,54 @@
                 </a>
             </li>
         </c:if>
-        <li>
-            <a href="<c:url value="/analyticView" />" role="button">
-                <i class="fa fa-star-half-empty"></i>
-                <span class="name">Аналитика</span>
-            </a>
-        </li>
-        <li>
-            <a href="<c:url value="/index" />" role="button">
-                <i class="fa fa-tasks"></i>
-                <span class="name">План работ</span>
-            </a>
-        </li>
-        <li>
-            <a href="<c:url value="/index" />" role="button">
-                <i class="fa fa-dropbox"></i>
-                <span class="name">Склад</span>
-            </a>
-        </li>
-        <li class="panel">
-            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#side-nav" href="form_elements.html#forms-collapse" role="button">
-                <i class="fa fa-wrench"></i>
-                <span class="name">Админка</span>
-            </a>
-            <ul id="forms-collapse" class="panel-collapse collapse">
-                <li><a href="<c:url value="/controlUsers"/>">Пользователи</a></li>
-                <li><a href="<c:url value="/controlUsersCustomers"/>">Заказчики</a></li>
-                <li><a href="<c:url value="/adminPageMagic"/>">Магические свойства</a></li>
-                <li><a href="<c:url value="/adminPageRecipe"/>">Рецепты</a></li>
-                <li><a href="<c:url value="/adminPageFashion"/>">Фасоны</a></li>
-                <li><a href="<c:url value="/adminPageSize"/>">Размеры</a></li>
-            </ul>
-        </li>
+        <c:if test="${userRole =='ROLE_ADMIN'}">
+            <li>
+                <a href="<c:url value="/analyticView" />" role="button">
+                    <i class="fa fa-star-half-empty"></i>
+                    <span class="name">Аналитика</span>
+                </a>
+            </li>
+        </c:if>
+        <c:if test="${userRole !='ROLE_ANONYMOUS' && userRole !='ROLE_USER'}">
+            <li>
+                <a href="<c:url value="" />" role="button">
+                    <i class="fa fa-tasks"></i>
+                    <span class="name">План работ</span>
+                </a>
+            </li>
+        </c:if>
+        <c:if test="${userRole !='ROLE_ANONYMOUS' && userRole !='ROLE_USER'}">
+            <li>
+                <a href="<c:url value="" />" role="button">
+                    <i class="fa fa-dropbox"></i>
+                    <span class="name">Склад</span>
+                </a>
+            </li>
+        </c:if>
+        <c:if test="${userRole =='ROLE_ADMIN'}">
+            <li class="panel">
+                <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#side-nav" href="form_elements.html#forms-collapse" role="button">
+                    <i class="fa fa-wrench"></i>
+                    <span class="name">Админка</span>
+                </a>
+                <ul id="forms-collapse" class="panel-collapse collapse">
+                    <li><a href="<c:url value="/controlUsers"/>">Пользователи</a></li>
+                   <%-- <li><a href="<c:url value="/controlUsersCustomers"/>">Заказчики</a></li> --%>
+                    <li><a href="<c:url value="/adminPageMagic"/>">Магические свойства</a></li>
+                    <li><a href="<c:url value="/adminPageRecipe"/>">Рецепты</a></li>
+                    <li><a href="<c:url value="/adminPageFashion"/>">Фасоны</a></li>
+                    <li><a href="<c:url value="/adminPageSize"/>">Размеры</a></li>
+                </ul>
+            </li>
+        </c:if>
         <li class="accordion-toggle">
             <a href="index.html">
                 <i class="fa fa-home"></i>
                 <span class="name">О нас</span>
             </a>
         </li>
-        <br>
-        <li>
-            <a href="<c:url value="/create-order" />" role="button">
-                <i class="fa fa-magic"></i>
-                <span class="name">Создать заказ</span>
-            </a>
-        </li>
-    </ul>
     <div class="col-xs-4">
         <a href="<c:url value="/first-load" />" class="btn-icons btn btn-transparent btn-sm">First Load</a>
     </div>
-</nav>
+</div>
 

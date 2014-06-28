@@ -4,19 +4,17 @@ import com.company.permgen.webapp.model.*;
 import com.company.permgen.webapp.repository.StateRepository;
 import com.company.permgen.webapp.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -77,7 +75,6 @@ public class UserController extends AbstractController {
         model.addAttribute("userslist", usersService.getUsers());
         List<Role> roleList =  roleService.getRole();
         model.addAttribute("rolelist",roleList);
-        model.addAttribute("roleservice", roleService);
         setModel(model);
 
         return "controlUsers";
@@ -89,6 +86,14 @@ public class UserController extends AbstractController {
         usersService.createUsers(item);
         System.out.println(item.getId());
         return "redirect:/controlUsers";
+    }
+
+    @RequestMapping(value = "/create-user")
+    public String getCreateUsers(Model model) {
+        model.addAttribute("users", new User());
+        model.addAttribute("rolelist", roleService.getRole());
+        setModel(model);
+        return "create-user";
     }
 
     @RequestMapping("/controlUsersCustomers")
@@ -138,6 +143,7 @@ public class UserController extends AbstractController {
         fashionList1.add(new Fashion("Бесформенная мужская рубашенька"));
         fashionList1.add(new Fashion("Дарк-сайд"));
         fashionList1.add(new Fashion("Летняя венская рубашка"));
+        fashionList1.add(new Fashion("Крутая рубашка"));
 
         for(int i =0; i< fashionList1.size();i++)
         {
@@ -243,23 +249,10 @@ public class UserController extends AbstractController {
     public String getAdminPageFashion(Model model) {
         model.addAttribute("fashion", new Fashion());
         model.addAttribute("fashionList", fashionService.getFashion());
+        List<Image> imageList = imageService.getImage();
+        model.addAttribute("images", imageList);
         setModel(model);
         return "adminPageFashion";
-    }
-
-    @RequestMapping(value = "/adminPageFashion", method = RequestMethod.POST)
-    public String createFashionPost(@ModelAttribute("fashion") Fashion fashion) {
-        // Size size = new Size(sizeName);
-        fashionService.createFashion(fashion);
-        return "redirect:/adminPageFashion";
-    }
-
-    @RequestMapping(value = "/create-fashion")
-    public String getCreateFashion(Model model) {
-        model.addAttribute("recipe", new Fashion());
-        model.addAttribute("recipeList", fashionService.getFashion());
-        setModel(model);
-        return "create-fashion";
     }
 
     @RequestMapping("/adminPageRecipe")
@@ -291,19 +284,25 @@ public class UserController extends AbstractController {
         return "redirect:/index";
     }
 
+    @ResponseStatus(value = org.springframework.http.HttpStatus.NOT_FOUND)
+    public final class ResourceNotFoundException extends RuntimeException {
+        //need to be empty
+    }
+
+    @RequestMapping(value = "/op")
+    public void methodWithRequestParams(@RequestParam(value = "param1", required = false) String param1,
+                                        @RequestParam(value = "param2", required = false) String param2) {
+        if (param1 == null || param2 == null) {
+            throw new ResourceNotFoundException();
+        }
+    }
+
     @RequestMapping(value = "/analyticView")
     public String getAdminPageView(Model model) {
         model.addAttribute("orders", orderService.getOrders());
+        model.addAttribute("userList", usersService.getUsers());
         setModel(model);
         return "analyticView";
-    }
-
-    @RequestMapping(value = "/create-user")
-    public String getCreateUsers(Model model) {
-        model.addAttribute("users", new User());
-        model.addAttribute("rolelist", roleService.getRole());
-        setModel(model);
-        return "create-user";
     }
 
     @RequestMapping(value = "/orders")
@@ -312,9 +311,11 @@ public class UserController extends AbstractController {
             return "redirect:/analyticView";
         List<Order> orders = orderService.getOrders();
         model.addAttribute("orders", orders);
+        model.addAttribute("userList", usersService.getUsers());
         setModel(model);
         return "orders";
     }
+
     @RequestMapping(value = "create-order")
     public String createRequestGet(Model model) {
         model.addAttribute("order", new Order());
@@ -332,6 +333,8 @@ public class UserController extends AbstractController {
     @RequestMapping(value = "create-order", method = RequestMethod.POST)
     public String createRequestPost(@ModelAttribute("order") Order order) {
         Date createdate = new Date();
+       // Date enddate = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH).parse();
+
         order.setCreatedate(createdate.toString());
         order.setUser(usersService.getUserId(_userSession.getName()));
         order.setState(0);//send

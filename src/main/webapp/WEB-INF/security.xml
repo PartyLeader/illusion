@@ -14,7 +14,6 @@
           init-method="initialize">
         <property name="dataSource" ref="dataSource" />
     </bean>
-
     <security:http access-denied-page="/error403.jsp">
         <security:intercept-url pattern="/index*" access="ROLE_USER,ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_TAILOR,ROLE_VAHTANG,ROLE_HANDLER,ROLE_MAGIC" />
         <security:intercept-url pattern="/orders*" access="ROLE_USER" />
@@ -42,6 +41,7 @@
         <security:anonymous username="guest" granted-authority="ROLE_ANONYMOUS" />
 
         <security:remember-me />
+
     </security:http>
 
     <security:authentication-manager>
@@ -52,7 +52,6 @@
                     authorities-by-username-query="select u1.username, u2.role from user_authentication u1, role u2 where u1.role_id = u2.role_id and u1.username =?" />
         </security:authentication-provider>
     </security:authentication-manager>
-
 
 
 </beans>  

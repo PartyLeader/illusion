@@ -61,7 +61,7 @@
                 <fieldset>
                     <legend>
                         Текущие заказы
-                        <a href="" class="btn-inverse btn pull-right"><i class="fa fa-print"></i> Распечатать лист текущих заказов</a>
+                            <a href="" class="btn-inverse btn pull-right"><i class="fa fa-print"></i> Распечатать лист текущих заказов</a>
                     </legend>
                 </fieldset>
                 <c:if test="${!empty orders}">
@@ -78,10 +78,11 @@
                         <thead>
                         <tbody>
                              <c:forEach items="${orders}" var="order" varStatus="index">
+                                 <c:if test="${userList[order.user-1].name == userName}">
                                  <c:if test="${order.state != '6'}">
                                     <tr>
                                         <td>${index.count}</td>
-                                        <td>${order.priority}</td>
+                                        <td><c:if test="${order.priority == '0'}">Срочный</c:if><c:if test="${order.priority != '0'}">Обычный</c:if></td>
                                         <td>${order.fashion}</td>
                                         <td>${order.enddate}</td>
                                         <td>
@@ -98,6 +99,7 @@
                                             <a href="delete-order/${order.id}" class="btn-danger btn"><i class="fa eicon-trash"></i> Удалить</a>
                                         </td>
                                      </tr>
+                                 </c:if>
                                  </c:if>
                              </c:forEach>
                         </tbody>
@@ -128,10 +130,11 @@
                         <thead>
                         <tbody>
                         <c:forEach items="${orders}" var="order" varStatus="index">
+                            <c:if test="${userList[order.user-1].name == userName}">
                             <c:if test="${order.state == '6'}">
                                 <tr>
                                 <td>${index.count}</td>
-                                <td>${order.priority}</td>
+                                <td><c:if test="${order.priority == '0'}">Срочный</c:if><c:if test="${order.priority != '0'}">Обычный</c:if></td>
                                 <td>${order.fashion}</td>
                                 <td>${order.enddate}</td>
                                 <td>
@@ -139,6 +142,7 @@
                                     <a href="print/${order.id}" class="btn-inverse btn"><i class="fa fa-print"></i> Печать</a>
                                 </td>
                                 </tr>
+                            </c:if>
                             </c:if>
                         </c:forEach>
                         </tbody>
