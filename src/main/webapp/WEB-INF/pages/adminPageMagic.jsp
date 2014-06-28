@@ -17,13 +17,70 @@
 </head>
 <body>
 <jsp:include page="header.jsp">
-    <jsp:param name="pageTitle" value="Login"/>
+    <jsp:param name="pageTitle" value="adminPageMagic"/>
 </jsp:include>
+<script>
+    $(document).ready(function(){
+        var default_options = {
+            "oLanguage": {
+                "sLengthMenu": "Отображено _MENU_ записей на страницу",
+                "sSearch": "Поиск:",
+                "sZeroRecords": "Ничего не найдено - извините",
+                "sInfo": "Показано с _START_ по _END_ из _TOTAL_ записей",
+                "sInfoEmpty": "Показано с 0 по 0 из 0 записей",
+                "sInfoFiltered": "(filtered from _MAX_ total records)",
+                "oPaginate": {
+                    "sFirst": "Первая",
+                    "sLast":"Посл.",
+                    "sNext":"След.",
+                    "sPrevious":"Пред."
+                }
+            },
+            "bSort": true,
+            "aaSorting": [[ 0, "asc" ]],
+            "aoColumnDefs": [
+                { "sWidth": "50%", "aTargets": [ -1 ] }
+            ],
+            "bProcessing": false
+        };
+        $('#datatable-table').dataTable(default_options);
+    });
+</script>
 
-<div id="leftcol">
-
+<div class="content container wrap">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="page-title">Админка: Магические свойства</h2>
+        </div>
+    </div>
+    <div class="row">
+        <section class="widget padding-bottom">
+            <div class="padding-bottom">
+                <a href="<c:url value="/create-magic"/>" class="btn btn-success"><i class="fa fa-plus"></i> Добавить свойство</a>
+            </div>
+            <c:if test="${!empty magicList}">
+            <table id="datatable-table" class="table table-striped">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Размер</th>
+                </tr>
+                <thead>
+                <tbody>
+                <c:forEach items="${magicList}" var="magics" varStatus="index">
+                <tr>
+                    <td>${index.count}</td>
+                    <td>${magics.name}</td>
+                </tr>
+                </c:forEach>
+                </c:if>
+                <c:if test="${empty magicList}">
+                <div class="alert alert-info">
+                    <strong><i class="fa fa-info-circle"></i> Внимание!</strong> К сожалению у вас еще нет размеров!
+                </div>
+                </c:if>
+        </section>
+    </div>
 </div>
-<h1>Магия</h1>
-
 </body>
 </html>

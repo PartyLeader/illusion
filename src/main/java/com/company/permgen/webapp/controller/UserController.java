@@ -188,32 +188,73 @@ public class UserController {
         return "create-size";
     }
 
-    @RequestMapping(value = "/adminPage/goodType", method = RequestMethod.POST)
-    public String createGoodTypePost(@ModelAttribute("goodType") GoodType item) {
-        // Size size = new Size(sizeName);
-        goodTypeService.createGoodType(item);
-        System.out.println(item.getId());
-        return "redirect:/adminPage";
+    @RequestMapping("/adminPageMagic")
+    public String getAdminPageMagic(Model model) {
+        model.addAttribute("magic", new Magic());
+        model.addAttribute("magicList", magicService.getMagic());
+        setModel(model);
+        return "adminPageMagic";
     }
-    @RequestMapping(value = "/adminPage/fashion", method = RequestMethod.POST)
-         public String createFashionPost(@ModelAttribute("fashion") Fashion item) {
+
+    @RequestMapping(value = "/adminPageMagic", method = RequestMethod.POST)
+    public String createMagicPost(@ModelAttribute("magic") Magic magic) {
         // Size size = new Size(sizeName);
-        fashionService.createFashion(item);
-        System.out.println(item.getId());
-        return "redirect:/adminPage";
+        magicService.createMagic(magic);
+        return "redirect:/adminPageMagic";
     }
-    @RequestMapping(value = "/adminPage/magic", method = RequestMethod.POST)
-    public String createFashionPost(@ModelAttribute("magic") Magic item) {
-        magicService.createMagic(item);
-        System.out.println(item.getId());
-        return "redirect:/adminPage";
+
+    @RequestMapping(value = "/create-magic")
+    public String getCreateMagic(Model model) {
+        model.addAttribute("magic", new Magic());
+        model.addAttribute("magicList", magicService.getMagic());
+        setModel(model);
+        return "create-magic";
     }
-    @RequestMapping(value = "/adminPage/recipe", method = RequestMethod.POST)
-    public String createRecipePost(@ModelAttribute("recipe") Recipe item) {
+
+    @RequestMapping("/adminPageFashion")
+    public String getAdminPageFashion(Model model) {
+        model.addAttribute("fashion", new Fashion());
+        model.addAttribute("fashionList", fashionService.getFashion());
+        setModel(model);
+        return "adminPageFashion";
+    }
+
+    @RequestMapping(value = "/adminPageFashion", method = RequestMethod.POST)
+    public String createFashionPost(@ModelAttribute("fashion") Fashion fashion) {
         // Size size = new Size(sizeName);
-        recipeService.createRecipe(item);
-        System.out.println(item.getId());
-        return "redirect:/adminPage";
+        fashionService.createFashion(fashion);
+        return "redirect:/adminPageFashion";
+    }
+
+    @RequestMapping(value = "/create-fashion")
+    public String getCreateFashion(Model model) {
+        model.addAttribute("recipe", new Fashion());
+        model.addAttribute("recipeList", fashionService.getFashion());
+        setModel(model);
+        return "create-fashion";
+    }
+
+    @RequestMapping("/adminPageRecipe")
+    public String getAdminPageRecipe(Model model) {
+        model.addAttribute("recipe", new Recipe());
+        model.addAttribute("recipeList", recipeService.getRecipe());
+        setModel(model);
+        return "adminPageRecipe";
+    }
+
+    @RequestMapping(value = "/adminPageRecipe", method = RequestMethod.POST)
+    public String createRecipePost(@ModelAttribute("recipe") Recipe recipe) {
+        // Size size = new Size(sizeName);
+        recipeService.createRecipe(recipe);
+        return "redirect:/adminPageRecipe";
+    }
+
+    @RequestMapping(value = "/create-recipe")
+    public String getCreateRecipe(Model model) {
+        model.addAttribute("recipe", new Recipe());
+        model.addAttribute("recipeList", recipeService.getRecipe());
+        setModel(model);
+        return "create-recipe";
     }
 
     @RequestMapping("/")
@@ -221,16 +262,9 @@ public class UserController {
         return "redirect:/index";
     }
 
-    @RequestMapping(value = "/adminPageMagic")
-    public String getAdminPageMagic(Model model) {
-
-        setModel(model);
-        return "adminPageMagic";
-    }
-
     @RequestMapping(value = "/analyticView")
     public String getAdminPageView(Model model) {
-
+        model.addAttribute("orders", orderService.getOrders());
         setModel(model);
         return "analyticView";
     }
@@ -278,24 +312,6 @@ public class UserController {
 
         return "redirect:/orders";//что за бред? а если я админ, который создает заказ, я попаду в бездну 404?
     }
-//
-//    @RequestMapping(value = "requestfilters")
-//    public String createRequestGetFilters(Model model) {
-//        Request request =new Request();
-//        model.addAttribute("request", request);
-//        model.addAttribute("listUrgency", requestService.getUrgency());
-//        System.out.println(requestService.getUrgency());
-//        setModel(model);
-//        return "requestfilters";
-//    }
-//
-//    @RequestMapping(value ="requestfilters", method = RequestMethod.POST)
-//    public String getRequesrsFilter(@ModelAttribute("request") Request request,Model model) {
-//        List<Request> requests = requestService.getRequests(request.getUrgency()) ;
-//        model.addAttribute("requests", requests);
-//        setModel(model);
-//        return "requests";
-//    }
 //    @RequestMapping("/delete-request/{requestId}")
 //    public String deleteRequest(@PathVariable("requestId") int requestId) {
 //        requestService.getRequests(requestId);
@@ -335,31 +351,10 @@ public class UserController {
     {
         fashionList =   fashionService.getFashion();
         goodTypeList = goodTypeService.getGoodType();
-        //    goodList = goodService.getType();
+        //goodList = goodService.getType();
         sizeList =   sizeService.getSize();
         stateList =  stateService.getState();
         recipeList =  recipeService.getRecipe();
-     //   magicList =  magicService.getMagic();
-    }
-
-    public class UserDTO {
-        private User user;
-        private Role role;
-
-        public User getUser() {
-            return user;
-        }
-
-        public void setUser(User user) {
-            this.user = user;
-        }
-
-        public Role getRole() {
-            return role;
-        }
-
-        public void setRole(Role role) {
-            this.role = role;
-        }
+        magicList =  magicService.getMagic();
     }
 }

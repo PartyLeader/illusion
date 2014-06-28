@@ -39,7 +39,7 @@
             "bSort": true,
             "aaSorting": [[ 1, "desc" ]],
             "aoColumnDefs": [
-                { "sWidth": "20%", "aTargets": [ -1 ] }
+                { "sWidth": "40%", "aTargets": [ -1 ] }
             ],
             "bProcessing": false
         };
@@ -60,8 +60,6 @@
             <div class="padding-bottom">
                 <a href="<c:url value="/create-order"/>" class="btn btn-success"><i class="fa fa-plus"></i> Создать заказ</a>
                 <a href="<c:url value="/find-order"/>" class="btn btn-primary"><i class="fa fa-search"></i> Найти заказ</a>
-                <a href="<c:url value="/orders"/>" class="btn btn-inverse pull-right">Снять фильтр</a>
-                <a href="<c:url value="/orderfilters"/>" class="btn btn-inverse pull-right">Фильтр</a>
             </div>
             <div class="body">
                 <fieldset>
@@ -85,7 +83,7 @@
                         <thead>
                         <tbody>
                         <c:forEach items="${orders}" var="order" varStatus="index">
-                            <c:if test="${(order.state == '0' || order.state == '1') && order.block =='1'}">
+                            <c:if test="${(order.state == '0' || order.state == '1') && order.block !='1'}">
                                 <tr>
                                     <td>${index.count}</td>
                                     <td>${order.priority}</td>
@@ -96,6 +94,8 @@
                                     <td>
                                         <a href="order/${order.id}" class="btn btn-primary"><i class="fa fa-edit"></i> Редактировать</a>
                                         <a href="delete-order/${order.id}" class="btn-danger btn"><i class="fa eicon-trash"></i> Удалить</a>
+                                        <a href="order/${order.id}" class="btn btn-success"><i class="fa fa-play"></i> Начать выполнение</a>
+                                        <a href="delete-order/${order.id}" class="btn-default btn"><i class="fa fa-step-forward"></i> Поставить в обработку</a>
                                     </td>
                                 </tr>
                             </c:if>
@@ -108,10 +108,6 @@
                         <strong><i class="fa fa-info-circle"></i> Внимание!</strong> К сожалению у вас еще нет заказов!
                     </div>
                 </c:if>
-                <div>
-                    <a href="order/${order.id}" class="btn btn-success"><i class="fa fa-play"></i> Начать выполнение</a>
-                    <a href="delete-order/${order.id}" class="btn-default btn"><i class="fa fa-step-forward"></i> Поставить в обработку</a>
-                </div>
             </div>
             <div class="body">
                 <fieldset>
@@ -146,6 +142,7 @@
                                     <td>
                                         <a href="order/${order.id}" class="btn btn-primary"><i class="fa fa-edit"></i> Редактировать</a>
                                         <a href="delete-order/${order.id}" class="btn-danger btn"><i class="fa eicon-trash"></i> Удалить</a>
+                                        <a href="order/${order.id}" class="btn btn-info"><i class="fa fa-eject"></i> Продолжить выполнение</a>
                                     </td>
                                 </tr>
                             </c:if>
@@ -158,9 +155,6 @@
                         <strong><i class="fa fa-info-circle"></i> Внимание!</strong> К сожалению у вас еще нет заказов!
                     </div>
                 </c:if>
-                <div>
-                    <a href="order/${order.id}" class="btn btn-info"><i class="fa fa-eject"></i> Продолжить выполнение</a>
-                </div>
             </div>
             <div class="body">
                 <fieldset>
@@ -184,7 +178,7 @@
                         <thead>
                         <tbody>
                         <c:forEach items="${orders}" var="order" varStatus="index">
-                            <c:if test="${(order.state == '2' || order.state == '3' || order.state =='4' || order.state == '5') && order.block =='1'}">
+                            <c:if test="${(order.state == '2' || order.state == '3' || order.state =='4' || order.state == '5') && order.block !='1'}">
                                 <tr>
                                     <td>${index.count}</td>
                                     <td>${order.priority}</td>
@@ -195,6 +189,7 @@
                                     <td>
                                         <a href="order/${order.id}" class="btn btn-primary"><i class="fa fa-edit"></i> Редактировать</a>
                                         <a href="delete-order/${order.id}" class="btn-danger btn"><i class="fa eicon-trash"></i> Удалить</a>
+                                        <a href="order/${order.id}" class="btn btn-danger"><i class="fa fa-pause"></i> Заблокировать</a>
                                     </td>
                                 </tr>
                             </c:if>
@@ -207,9 +202,6 @@
                         <strong><i class="fa fa-info-circle"></i> Внимание!</strong> К сожалению у вас еще нет заказов!
                     </div>
                 </c:if>
-                <div>
-                    <a href="order/${order.id}" class="btn btn-danger"><i class="fa fa-pause"></i> Заблокировать</a>
-                </div>
             </div>
             <div class="body">
                 <fieldset>

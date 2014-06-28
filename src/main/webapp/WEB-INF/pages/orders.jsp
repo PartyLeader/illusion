@@ -56,8 +56,6 @@
         <section class="widget padding-bottom">
             <div class="padding-bottom">
                 <a href="<c:url value="/create-order"/>" class="btn btn-success"><i class="fa fa-plus"></i> Создать заказ</a>
-                <a href="<c:url value="/orders"/>" class="btn btn-inverse pull-right">Снять фильтр</a>
-                <a href="<c:url value="/orderfilters"/>" class="btn btn-inverse pull-right">Фильтр</a>
             </div>
             <div class="body">
                 <fieldset>

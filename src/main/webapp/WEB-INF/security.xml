@@ -22,13 +22,15 @@
         <security:intercept-url pattern="/create-order*" access="ROLE_USER,ROLE_ADMIN" />
         <security:intercept-url pattern="/controlUsers*" access="ROLE_ADMIN" />
         <security:intercept-url pattern="/create-user*" access="ROLE_ADMIN" />
-        <security:intercept-url pattern="/filter-order*" access="ROLE_ADMIN" />
         <security:intercept-url pattern="/adminPageMagic*" access="ROLE_ADMIN" />
+        <security:intercept-url pattern="/create-magic*" access="ROLE_ADMIN" />
         <security:intercept-url pattern="/adminPageSize*" access="ROLE_ADMIN" />
         <security:intercept-url pattern="/create-size*" access="ROLE_ADMIN" />
         <security:intercept-url pattern="/adminPageFashion*" access="ROLE_ADMIN" />
+        <security:intercept-url pattern="/create-fashion*" access="ROLE_ADMIN" />
         <security:intercept-url pattern="/adminPageRecipe*" access="ROLE_ADMIN" />
-        <security:intercept-url pattern="/first-load*" access="ROLE_ADMIN,ROLE_ANONYMOUS" />
+        <security:intercept-url pattern="/create-recipe*" access="ROLE_ADMIN" />
+        <security:intercept-url pattern="/first-load*" access="ROLE_ANONYMOUS" />
         <security:intercept-url pattern="/task*" access="ROLE_ADMIN,ROLE_TAILOR,ROLE_VAHTANG,ROLE_HANDLER,ROLE_MAGIC" />
         <security:intercept-url pattern="/delete-order/*" access="ROLE_ADMIN" />
         <security:intercept-url pattern="/order/*" access="ROLE_ADMIN,ROLE_USER" />
