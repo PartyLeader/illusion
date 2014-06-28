@@ -60,7 +60,7 @@ public class UserController extends AbstractController {
     private List<Fashion> fashionList;
     private List<Recipe> recipeList;
     private List<Magic> magicList;
-
+    private  Authentication _userSession;
     @RequestMapping("/index")
     public String listContacts(Model model) {
         List<Role> roleList =  roleService.getRole();
@@ -114,7 +114,7 @@ public class UserController extends AbstractController {
     public String getFirstLoadPage(Model model) {
         List<Size> list = sizeService.getSize();
         if(list.size() > 0){
-            return "redirect:/index";
+            return "redirect:/";
         }
         sizeService.createSize(new Size("S (40)"));
         sizeService.createSize(new Size("M (44)"));
@@ -286,7 +286,8 @@ public class UserController extends AbstractController {
     }
 
     @RequestMapping("/")
-    public String home() {
+    public String home(Model model) {
+        getFirstLoadPage(model);
         return "redirect:/index";
     }
 
@@ -307,6 +308,8 @@ public class UserController extends AbstractController {
 
     @RequestMapping(value = "/orders")
     public String getOrders(Model model) {
+        if( _userSession.getAuthorities().toArray()[0].equals("ROLE_ADMIN"))
+            return "redirect:/analyticView";
         List<Order> orders = orderService.getOrders();
         model.addAttribute("orders", orders);
         setModel(model);
@@ -329,15 +332,15 @@ public class UserController extends AbstractController {
     @RequestMapping(value = "create-order", method = RequestMethod.POST)
     public String createRequestPost(@ModelAttribute("order") Order order) {
         Date createdate = new Date();
-       // Date enddate = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH).parse();
-
         order.setCreatedate(createdate.toString());
-         order.setState(0);//send
+        order.setUser(usersService.getUserId(_userSession.getName()));
+        order.setState(0);//send
         order.setBlock(0);//unblock
         orderService.createOrder(order);
         System.out.println(order.getId());
         Random rand = new Random();
-
+       if( _userSession.getAuthorities().toArray()[0].equals("ROLE_ADMIN"))
+           return "redirect:/analyticView";
         return "redirect:/orders";//что за бред? а если я админ, который создает заказ, я попаду в бездну 404?
     }
 //
@@ -358,11 +361,16 @@ public class UserController extends AbstractController {
 //        setModel(model);
 //        return "requests";
 //    }
-//    @RequestMapping("/delete-request/{requestId}")
-//    public String deleteRequest(@PathVariable("requestId") int requestId) {
-//        requestService.getRequests(requestId);
-//        return "redirect:/requests";
-//    }
+    @RequestMapping("/block-order/{orderId}")
+    public String blockOrder(@PathVariable("orderId") int orderId) {
+        orderService.blockOrder(orderId);
+        return "redirect:/analyticView";
+    }
+    @RequestMapping("/delete-order/{orderId}")
+    public String deleteOrder(@PathVariable("orderId") int orderId) {
+        orderService.removeOrder(orderId);
+        return "redirect:/analyticView";
+    }
     @RequestMapping("/order/{orderId}")
     public String getOrder(@PathVariable("orderId") int orderId, Model model){
         List<Order> orders = orderService.getOrders((int)orderId);
@@ -370,7 +378,11 @@ public class UserController extends AbstractController {
         setModel(model);
         return "order";
     }
-
+    @RequestMapping("/start-order/{orderId}")
+    public String startOrder(@PathVariable("orderId") int orderId) {
+        orderService.startOrder(orderId);
+        return "redirect:/analyticView";
+    }
     @RequestMapping("/task/{orderId}")
     public String taskGet(@PathVariable("orderId") int orderId,Model model) {
        List<Order> list =  orderService.getOrder(orderId);
@@ -388,9 +400,9 @@ public class UserController extends AbstractController {
     }
 
     private Model setModel(Model model) {
-        Authentication userSession = SecurityContextHolder.getContext().getAuthentication();
-        model.addAttribute("userName",userSession.getName());
-        model.addAttribute("userRole",userSession.getAuthorities().toArray()[0]);
+        _userSession = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("userName",_userSession.getName());
+        model.addAttribute("userRole",_userSession.getAuthorities().toArray()[0]);
         return model;
     }
     private void LoadLists()

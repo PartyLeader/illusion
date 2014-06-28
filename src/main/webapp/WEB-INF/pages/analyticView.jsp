@@ -94,8 +94,8 @@
                                     <td>
                                         <a href="order/${order.id}" class="btn btn-primary"><i class="fa fa-edit"></i> Редактировать</a>
                                         <a href="delete-order/${order.id}" class="btn-danger btn"><i class="fa eicon-trash"></i> Удалить</a>
-                                        <a href="order/${order.id}" class="btn btn-success"><i class="fa fa-play"></i> Начать выполнение</a>
-                                        <a href="delete-order/${order.id}" class="btn-default btn"><i class="fa fa-step-forward"></i> Поставить в обработку</a>
+                                        <a href="start-order/${order.id}" class="btn btn-success"><i class="fa fa-play"></i> Начать выполнение</a>
+                                        <a href="block-order/${order.id}" class="btn-default btn"><i class="fa fa-step-forward"></i> Поставить в обработку</a>
                                     </td>
                                 </tr>
                             </c:if>
@@ -142,7 +142,7 @@
                                     <td>
                                         <a href="order/${order.id}" class="btn btn-primary"><i class="fa fa-edit"></i> Редактировать</a>
                                         <a href="delete-order/${order.id}" class="btn-danger btn"><i class="fa eicon-trash"></i> Удалить</a>
-                                        <a href="order/${order.id}" class="btn btn-info"><i class="fa fa-eject"></i> Продолжить выполнение</a>
+                                        <a href="block-order/${order.id}" class="btn btn-info"><i class="fa fa-eject"></i> Продолжить выполнение</a>
                                     </td>
                                 </tr>
                             </c:if>
@@ -189,7 +189,7 @@
                                     <td>
                                         <a href="order/${order.id}" class="btn btn-primary"><i class="fa fa-edit"></i> Редактировать</a>
                                         <a href="delete-order/${order.id}" class="btn-danger btn"><i class="fa eicon-trash"></i> Удалить</a>
-                                        <a href="order/${order.id}" class="btn btn-danger"><i class="fa fa-pause"></i> Заблокировать</a>
+                                        <a href="block-order/${order.id}" class="btn btn-danger"><i class="fa fa-pause"></i> Заблокировать</a>
                                     </td>
                                 </tr>
                             </c:if>

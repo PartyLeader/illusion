@@ -58,7 +58,17 @@ public class OrderRepository {
             sessionFactory.getCurrentSession().delete(order);
         }
     }
+    public void blockOrder(int id){
+        Order order = (Order) sessionFactory.getCurrentSession().load(Order.class, id);
+        order.setBlock(order.getBlock() == 0 ? 1 : 0);
+        updateOrder(order);
 
+    }
+    public void startOrder(int id){
+        Order order = (Order) sessionFactory.getCurrentSession().load(Order.class, id);
+        order.setState(order.getState()+1);
+        updateOrder(order);
+    }
     public List<Order> getOrders(int requestId) {
         Query query = sessionFactory.getCurrentSession().createQuery("FROM Order b WHERE id = :requestId");
        // Query query = sessionFactory.getCurrentSession().createSQLQuery("select * from Order where id = :requestId").addEntity(Order.class);
