@@ -366,7 +366,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/find-order/{orderid}")
-    public String findOrder(@PathVariable int orderid, Model model) {
+    public String findOrder(@PathVariable("orderid") int orderid, Model model) {
         orderService.getOrder(orderid);
         model.addAttribute("order",orderService.getOrder(orderid));
         return "find-order";
@@ -407,6 +407,12 @@ public class UserController {
         return "redirect:/analyticView";
     }
 
+    @RequestMapping("/start-order/{orderId}")
+    public String startOrder(@PathVariable("orderId") int orderId) {
+        orderService.startOrder(orderId);
+        return "redirect:/analyticView";
+    }
+
     @RequestMapping("/order/{orderId}")
     public String getOrder(@PathVariable("orderId") int orderId, Model model){
         List<Order> orders = orderService.getOrders((int)orderId);
@@ -414,11 +420,16 @@ public class UserController {
         setModel(model);
         return "order";
     }
-    @RequestMapping("/start-order/{orderId}")
-    public String startOrder(@PathVariable("orderId") int orderId) {
-        orderService.startOrder(orderId);
-        return "redirect:/analyticView";
+
+    @RequestMapping("/orderStateView/{orderId}")
+    public String getOrderState(@PathVariable("orderId") int orderId, Model model){
+        model.addAttribute("orderslist", orderService.getOrders());
+        model.addAttribute("orderID", orderId);
+        model.addAttribute("stateList", stateService.getState());
+        setModel(model);
+        return "orderStateView";
     }
+
     @RequestMapping("/task/{orderId}")
     public String taskGet(@PathVariable("orderId") int orderId,Model model) {
        List<Order> list =  orderService.getOrder(orderId);

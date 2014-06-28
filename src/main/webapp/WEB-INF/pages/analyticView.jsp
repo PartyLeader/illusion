@@ -39,7 +39,7 @@
             "bSort": true,
             "aaSorting": [[ 1, "desc" ]],
             "aoColumnDefs": [
-                { "sWidth": "40%", "aTargets": [ -1 ] }
+                { "sWidth": "35%", "aTargets": [ -1 ] }
             ],
             "bProcessing": false
         };
@@ -90,12 +90,12 @@
                                     <td>${userList[order.user-1].name}</td>
                                     <td>${fashionList[order.fashion-1].name}</td>
                                     <td>${order.enddate}</td>
-                                    <td><span class="label label-default">${stateList[order.state].name}</span></td>
+                                    <td><span class="label label-default">${stateList[order.state].name}</span><a href="orderStateView/${order.id}" class="label label-info" style="margin-left: 5px">...</a></td>
                                     <td>
                                         <a href="order/${order.id}" class="btn btn-primary"><i class="fa fa-edit"></i> Редактировать</a>
                                         <a href="delete-order/${order.id}" class="btn-danger btn"><i class="fa eicon-trash"></i> Удалить</a>
                                         <a href="start-order/${order.id}" class="btn btn-success"><i class="fa fa-play"></i> Начать выполнение</a>
-                                        <a href="stay-handler/${order.id}" class="btn-default btn"><i class="fa fa-step-forward"></i> Поставить в обработку</a>
+                                        <a href="stay-handler/${order.id}" class="btn-default btn"><i class="fa fa-step-forward"></i> В обработку</a>
                                     </td>
                                 </tr>
                             </c:if>
@@ -138,7 +138,7 @@
                                     <td>${userList[order.user-1].name}</td>
                                     <td>${fashionList[order.fashion-1].name}</td>
                                     <td>${order.enddate}</td>
-                                    <td><span class="label label-danger">Заблокирован</span></td>
+                                    <td><span class="label label-danger">Заблокирован</span><a href="orderStateView/${order.id}" class="label label-info" style="margin-left: 5px">...</a></td>
                                     <td>
                                         <a href="order/${order.id}" class="btn btn-primary"><i class="fa fa-edit"></i> Редактировать</a>
                                         <a href="delete-order/${order.id}" class="btn-danger btn"><i class="fa eicon-trash"></i> Удалить</a>
@@ -185,7 +185,7 @@
                                     <td>${userList[order.user-1].name}</td>
                                     <td>${fashionList[order.fashion-1].name}</td>
                                     <td>${order.enddate}</td>
-                                    <td><span class="label label-success">${stateList[order.state].name}</span></td>
+                                    <td><span class="label label-success">${stateList[order.state].name}</span><a href="orderStateView/${order.id}" class="label label-info" style="margin-left: 5px">...</a></td>
                                     <td>
                                         <a href="order/${order.id}" class="btn btn-primary"><i class="fa fa-edit"></i> Редактировать</a>
                                         <a href="delete-order/${order.id}" class="btn-danger btn"><i class="fa eicon-trash"></i> Удалить</a>

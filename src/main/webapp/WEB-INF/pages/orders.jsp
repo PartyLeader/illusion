@@ -95,7 +95,8 @@
                                             <c:if test="${order.block == '1'}" >
                                                 <span class="label label-danger">
                                             </c:if>
-                                                    ${stateList[order.state].name}</span>
+                                            ${stateList[order.state].name}</span>
+                                            <a href="orderStateView/${order.id}" class="label label-info" style="margin-left: 5px">...</a>
                                         </td>
                                         <td>
                                             <a href="order/${order.id}" class="btn btn-primary"><i class="fa fa-edit"></i> Редактировать</a>
