@@ -103,10 +103,10 @@
                                         <label class="control-label">Тип заказа</label>
                                         <div class="controls form-group">
                                                 <label class="radio">
-                                                    <form:radiobutton class = "iCheck" path="priority" value="0"/>Высокий
+                                                    <form:radiobutton class = "iCheck" path="priority" value="0"/>Срочный
                                                 </label>
                                                 <label class="radio">
-                                                    <form:radiobutton class = "iCheck" path="priority" value="1"/>Низкий
+                                                    <form:radiobutton class = "iCheck" path="priority" value="1"/>Обычный
                                                 </label>
                                             <form:errors path="priority" element="span"/>
                                         </div>
