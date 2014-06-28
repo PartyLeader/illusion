@@ -9,7 +9,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="Content-Language" content="English"/>
     <link rel="stylesheet" media="all" href="<c:url value="/resources/site.css"/>">
-    <title>Админка: Пользователи</title>
+    <title>Добавление пользователя</title>
         <link href="<c:url value="/resources/css/application.min.css"/>" rel="stylesheet">
          <link rel="shortcut icon" href="<c:url value="/resources/img/favicon.png"/>">
          <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,170 +17,65 @@
 </head>
 <body>
 <jsp:include page="header.jsp">
-  <jsp:param name="pageTitle" value="controlUsers" />
+  <jsp:param name="pageTitle" value="createUser" />
 </jsp:include>
-
-<script>
-    $(document).ready(function(){
-        var default_options = {
-            "oLanguage": {
-                "sLengthMenu": "Отображено _MENU_ записей на страницу",
-                "sSearch": "Поиск:",
-                "sZeroRecords": "Ничего не найдено - извините",
-                "sInfo": "Показано с _START_ по _END_ из _TOTAL_ записей",
-                "sInfoEmpty": "Показано с 0 по 0 из 0 записей",
-                "sInfoFiltered": "(filtered from _MAX_ total records)",
-                "oPaginate": {
-                    "sFirst": "Первая",
-                    "sLast":"Посл.",
-                    "sNext":"След.",
-                    "sPrevious":"Пред.",
-                }
-            },
-            "bSort": true,
-            "aaSorting": [[ 0, "asc" ]],
-            "aoColumnDefs": [
-                { "sWidth": "20%", "aTargets": [ -1 ] }
-            ],
-            "bProcessing": false
-        };
-        $('#datatable-table').dataTable(default_options);
-    });
-</script>
 
 <div class="content container wrap">
     <div class="row">
         <div class="col-md-12">
-            <h2 class="page-title">Админка: Пользователи</h2>
+            <h2 class="page-title">Добавление пользователя</h2>
         </div>
     </div>
     <div class="row">
-        <section class="widget padding-bottom">
-            <div class="padding-bottom">
-                <a href="<c:url value="/create-user"/>" class="btn btn-success"><i class="fa fa-plus"></i> Добавить пользователя</a>
-            </div>
-            <c:if test="${!empty userslist}">
-                <table id="datatable-table" class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Ник</th>
-                        <th>E-mail</th>
-                        <th>Роль</th>
-                    </tr>
-                    <thead>
-                    <tbody>
-                    <c:forEach items="${userslist}" var="users" varStatus="index">
-                            <tr>
-                                <td>${index.count}</td>
-                                <td>${users.name}</td>
-                                <td>${users.email}</td>
-                                <td>${users.role}</td>
-                            </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
-            </c:if>
-            <c:if test="${empty userslist}">
-                <div class="alert alert-info">
-                    <strong><i class="fa fa-info-circle"></i> Внимание!</strong> К сожалению у вас еще нет заказов!
-                </div>
-            </c:if>
-        </section>
         <section class="widget">
-                    <table>
-                        <tr>
-
-                            <%----%>
-                            <td>
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <form:form action="controlUsers" modelAttribute="users" method="post" onsubmit="true">
-                                                <table>
-                                                    <h2> Таблица Пользователи:</h2>
-                                                    <tr>
-                                                        <td width="100рх">Ник:</td>
-                                                        <td>
-                                                            <form:input size="20" path="name"/>
-                                                            <form:errors path="name" element="span"/>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td width="100рх">Пароль:</td>
-                                                        <td>
-                                                            <form:input size="20" path="password"/>
-                                                            <form:errors path="password" element="span"/>
-                                                        </td>
-                                                        </tr>
-                                                    <tr>
-                                                        <td width="100рх">Емайл:</td>
-                                                        <td>
-                                                            <form:input size="20" path="email"/>
-                                                            <form:errors path="email" element="span"/>
-                                                        </td>
-                                                        </tr>
-
-                                                    <tr>
-                                                        <td width="100рх">Роль:</td>
-                                                        <td>
-
-                                                            <form:select path="role">
-                                                                <c:forEach items="${rolelist}" var="item">
-                                                                    <form:option value="${item.id}" label="${item.role}"/>
-                                                                </c:forEach>
-
-                                                            </form:select>
-                                                            <form:errors path="role" element="span"/>
-                                                        </td>
-                                                        </tr>
-                                                    <tr>
-                                                        <td width="100рх">Включено:</td>
-                                                        <td>
-                                                            <form:input size="20" path="role"/>
-                                                            <form:errors path="enabled" element="span"/>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                                <input type="submit" class="button-blue" value="Добавить"/>
-                                            </form:form>
-                                        </td>
-                                        <td>
-
-                                               <c:forEach items="${userslist}" var="item">
-                                                   <table>
-                                                   <tr>
-                                                       <td>
-                                                               ${item.id}
-                                                       </td>
-                                                       <td>
-                                                               ${item.name}
-                                                       </td>
-                                                       <td>
-                                                               ${item.password}
-                                                       </td>
-                                                       <td>
-                                                               ${item.email}
-                                                       </td>
-                                                       <td>
-                                                               ${item.role}
-                                                       </td>
-                                                   </tr>
-                                                       </table>
-                                                   <%--<option value="${item.id}">${item.name}</option>--%>
-                                               </c:forEach>
-                                        </td>
-
-                                    </tr>
-
-                                </table>
-
-                             </td>
-                            <%----%>
-
-                        </tr>
-
-                    </table>
+            <div class="body">
+                <form:form action="controlUsers" modelAttribute="users" method="post" onsubmit="true" class="form-horizontal label-left">
+                    <div class="control-group">
+                        <label for="name" class="control-label">Ник</label>
+                        <div class="controls form-group padding-left">
+                            <input id="name" name="name" class="form-control parsley-validated" required="required">
+                            <form:errors path="name" element="span"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">E-mail</label>
+                        <div class="controls form-group padding-left">
+                            <input id="email" name="email" class="form-control parsley-validated" required="required" type="email">
+                            <form:errors path="email" element="span"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Пароль</label>
+                        <div class="controls form-group padding-left">
+                            <input id="password" name="password" class="form-control parsley-validated" required="required" type="password">
+                            <form:errors path="password" element="span"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Роль пользователя</label>
+                        <div class="controls form-group">
+                            <c:forEach items="${rolelist}" var="item">
+                                <label class="radio">
+                                    <form:radiobutton class = "iCheck" path="role" value="${item.id}"/>${item.role}
+                                </label>
+                            </c:forEach>
+                        </div>
+                        <form:errors path="role" element="span"/>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Редактируемая учетная запись</label>
+                        <div class="controls form-group">
+                            <label class="checkbox">
+                                    <form:checkbox path="enabled" id="enabled" checked="checked" class="iCheck"/>Редактирование разрешено
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-success btn-lg"><i class="fa fa-check"></i> Добавить</button>
+                        <a href="<c:url value="/controlUsers"/>" class="btn btn-inverse btn-lg"><i class="fa eicon-cancel"></i> Отмена</a>
+                    </div>
+                </div>
+            </form:form>
         </section>
     </div>
 </div>

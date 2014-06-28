@@ -21,6 +21,7 @@
         <security:intercept-url pattern="/analyticView*" access="ROLE_ADMIN" />
         <security:intercept-url pattern="/create-order*" access="ROLE_USER,ROLE_ADMIN" />
         <security:intercept-url pattern="/controlUsers*" access="ROLE_ADMIN" />
+        <security:intercept-url pattern="/create-user*" access="ROLE_ADMIN" />
         <security:intercept-url pattern="/filter-order*" access="ROLE_ADMIN" />
         <security:intercept-url pattern="/adminPage*" access="ROLE_ADMIN" />
         <security:intercept-url pattern="/adminPageMagic*" access="ROLE_ADMIN" />

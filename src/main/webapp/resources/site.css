@@ -159,3 +159,7 @@ background: #4477a1;
 .padding-bottom{
     padding-bottom: 25px !important;
 }
+
+select[aria-controls="datatable-table"] {
+    color: #000000;
+}

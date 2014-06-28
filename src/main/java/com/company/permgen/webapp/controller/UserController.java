@@ -248,6 +248,14 @@ public class UserController {
         return "analyticView";
     }
 
+    @RequestMapping(value = "/create-user")
+    public String getCreateUsers(Model model) {
+        model.addAttribute("users", new User());
+        model.addAttribute("rolelist", roleService.getRole());
+        setModel(model);
+        return "create-user";
+    }
+
     @RequestMapping(value = "/orders")
     public String getOrders(Model model) {
         List<Order> orders = orderService.getOrders();

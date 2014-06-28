@@ -46,7 +46,6 @@ public class User {
         this.name = name;
         this.password = password;
         this.email = email;
-        this.enabled = enabled;
     }
 
     public User(String name, String password, String email, int role, Boolean enabled) {
