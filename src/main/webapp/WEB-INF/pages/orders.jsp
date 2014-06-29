@@ -61,7 +61,7 @@
                 <fieldset>
                     <legend>
                         Текущие заказы
-                        <a href="" class="btn-inverse btn pull-right"><i class="fa fa-print"></i> Распечатать лист текущих заказов</a>
+                            <a href="" class="btn-inverse btn pull-right"><i class="fa fa-print"></i> Распечатать лист текущих заказов</a>
                     </legend>
                 </fieldset>
                 <c:if test="${!empty orders}">
@@ -78,26 +78,32 @@
                         <thead>
                         <tbody>
                              <c:forEach items="${orders}" var="order" varStatus="index">
+                                 <c:if test="${userList[order.user-1].name == userName}">
                                  <c:if test="${order.state != '6'}">
                                     <tr>
                                         <td>${index.count}</td>
-                                        <td>${order.priority}</td>
-                                        <td>${order.fashion}</td>
+                                        <td><c:if test="${order.priority == '0'}">Срочный</c:if><c:if test="${order.priority != '0'}">Обычный</c:if></td>
+                                        <td>${fashionList[order.fashion-1].name}</td>
                                         <td>${order.enddate}</td>
                                         <td>
-                                            <c:if test="${order.state == '0' || order.state == '1'}">
+                                            <c:if test="${(order.state == '0' || order.state == '1') && order.block != 1}">
                                                 <span class="label label-default">
                                             </c:if>
-                                            <c:if test="${order.state == '2' || order.state == '3' || order.state =='4' || order.state == '5'}">
+                                            <c:if test="${(order.state == '2' || order.state == '3' || order.state =='4' || order.state == '5') && order.block != 1}">
                                                 <span class="label label-success">
                                             </c:if>
-                                            ${order.state} </span>
+                                            <c:if test="${order.block == '1'}" >
+                                                <span class="label label-danger">
+                                            </c:if>
+                                            ${stateList[order.state].name}</span>
+                                            <a href="orderStateView/${order.id}" class="label label-info" style="margin-left: 5px">...</a>
                                         </td>
                                         <td>
                                             <a href="order/${order.id}" class="btn btn-primary"><i class="fa fa-edit"></i> Редактировать</a>
                                             <a href="delete-order/${order.id}" class="btn-danger btn"><i class="fa eicon-trash"></i> Удалить</a>
                                         </td>
                                      </tr>
+                                 </c:if>
                                  </c:if>
                              </c:forEach>
                         </tbody>
@@ -128,17 +134,19 @@
                         <thead>
                         <tbody>
                         <c:forEach items="${orders}" var="order" varStatus="index">
+                            <c:if test="${userList[order.user-1].name == userName}">
                             <c:if test="${order.state == '6'}">
                                 <tr>
                                 <td>${index.count}</td>
-                                <td>${order.priority}</td>
-                                <td>${order.fashion}</td>
+                                <td><c:if test="${order.priority == '0'}">Срочный</c:if><c:if test="${order.priority != '0'}">Обычный</c:if></td>
+                                <td>${fashionList[order.fashion-1].name}</td>
                                 <td>${order.enddate}</td>
                                 <td>
                                     <a href="instruction/${order.id}" class="btn btn-primary"><i class="fa eicon-right"></i> Просмотр</a>
                                     <a href="print/${order.id}" class="btn-inverse btn"><i class="fa fa-print"></i> Печать</a>
                                 </td>
                                 </tr>
+                            </c:if>
                             </c:if>
                         </c:forEach>
                         </tbody>

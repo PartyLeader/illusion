@@ -47,12 +47,19 @@ public class OrderService {
     public List<Order> getOrder(int id) {
         return repository.getOrder(id);
     }
-
+    public void blockOrder(int id)
+    {
+        repository.blockOrder(id);
+    }
     public void removeOrder(int id)
     {
         repository.removeOrder(id);
     }
-
+    public void startOrder(int id)
+    {
+        repository.startOrder(id);
+    }
+    public void stayHandler(int id) { repository.stayHandler(id);}
     public List<Order> getOrders(int requestId) {
         return repository.getOrders(requestId);
     }

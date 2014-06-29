@@ -74,6 +74,8 @@
                                         <td>${sizes.name}</td>
                                     </tr>
                             </c:forEach>
+                    </tbody>
+                </table>
             </c:if>
             <c:if test="${empty sizeList}">
                 <div class="alert alert-info">

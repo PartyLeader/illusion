@@ -4,18 +4,13 @@ import com.company.permgen.webapp.model.*;
 import com.company.permgen.webapp.repository.StateRepository;
 import com.company.permgen.webapp.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.AbstractController;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -31,7 +26,7 @@ import java.text.SimpleDateFormat;
  * To change this template use File | Settings | File Templates.
  */
 @Controller
-public class UserController extends AbstractController {
+public class UserController {
     @Autowired
     protected OrderService orderService;
     @Autowired
@@ -59,7 +54,7 @@ public class UserController extends AbstractController {
     private List<Fashion> fashionList;
     private List<Recipe> recipeList;
     private List<Magic> magicList;
-
+    private  Authentication _userSession;
     @RequestMapping("/index")
     public String listContacts(Model model) {
         List<Role> roleList =  roleService.getRole();
@@ -76,7 +71,6 @@ public class UserController extends AbstractController {
         model.addAttribute("userslist", usersService.getUsers());
         List<Role> roleList =  roleService.getRole();
         model.addAttribute("rolelist",roleList);
-        model.addAttribute("roleservice", roleService);
         setModel(model);
 
         return "controlUsers";
@@ -88,6 +82,14 @@ public class UserController extends AbstractController {
         usersService.createUsers(item);
         System.out.println(item.getId());
         return "redirect:/controlUsers";
+    }
+
+    @RequestMapping(value = "/create-user")
+    public String getCreateUsers(Model model) {
+        model.addAttribute("users", new User());
+        model.addAttribute("rolelist", roleService.getRole());
+        setModel(model);
+        return "create-user";
     }
 
     @RequestMapping("/controlUsersCustomers")
@@ -111,6 +113,10 @@ public class UserController extends AbstractController {
 
     @RequestMapping("/first-load")
     public String getFirstLoadPage(Model model) {
+        List<Size> list = sizeService.getSize();
+        if(list.size() > 0){
+            return "redirect:/";
+        }
         sizeService.createSize(new Size("S (40)"));
         sizeService.createSize(new Size("M (44)"));
         sizeService.createSize(new Size("L (48)"));
@@ -133,6 +139,7 @@ public class UserController extends AbstractController {
         fashionList1.add(new Fashion("Бесформенная мужская рубашенька"));
         fashionList1.add(new Fashion("Дарк-сайд"));
         fashionList1.add(new Fashion("Летняя венская рубашка"));
+        fashionList1.add(new Fashion("Крутая рубашка"));
 
         for(int i =0; i< fashionList1.size();i++)
         {
@@ -238,23 +245,10 @@ public class UserController extends AbstractController {
     public String getAdminPageFashion(Model model) {
         model.addAttribute("fashion", new Fashion());
         model.addAttribute("fashionList", fashionService.getFashion());
+        List<Image> imageList = imageService.getImage();
+        model.addAttribute("images", imageList);
         setModel(model);
         return "adminPageFashion";
-    }
-
-    @RequestMapping(value = "/adminPageFashion", method = RequestMethod.POST)
-    public String createFashionPost(@ModelAttribute("fashion") Fashion fashion) {
-        // Size size = new Size(sizeName);
-        fashionService.createFashion(fashion);
-        return "redirect:/adminPageFashion";
-    }
-
-    @RequestMapping(value = "/create-fashion")
-    public String getCreateFashion(Model model) {
-        model.addAttribute("recipe", new Fashion());
-        model.addAttribute("recipeList", fashionService.getFashion());
-        setModel(model);
-        return "create-fashion";
     }
 
     @RequestMapping("/adminPageRecipe")
@@ -281,42 +275,75 @@ public class UserController extends AbstractController {
     }
 
     @RequestMapping("/")
-    public String home() {
+    public String home(Model model) {
+        getFirstLoadPage(model);
         return "redirect:/index";
+    }
+
+    @ResponseStatus(value = org.springframework.http.HttpStatus.NOT_FOUND)
+    public final class ResourceNotFoundException extends RuntimeException {
+        //need to be empty
+    }
+
+    @RequestMapping(value = "/op")
+    public void methodWithRequestParams(@RequestParam(value = "param1", required = false) String param1,
+                                        @RequestParam(value = "param2", required = false) String param2) {
+        if (param1 == null || param2 == null) {
+            throw new ResourceNotFoundException();
+        }
     }
 
     @RequestMapping(value = "/analyticView")
     public String getAdminPageView(Model model) {
         model.addAttribute("orders", orderService.getOrders());
+        model.addAttribute("userList", usersService.getUsers());
+        model.addAttribute("fashionList", fashionService.getFashion());
+        model.addAttribute("stateList", stateService.getState());
         setModel(model);
         return "analyticView";
     }
 
-    @RequestMapping(value = "/create-user")
-    public String getCreateUsers(Model model) {
-        model.addAttribute("users", new User());
-        model.addAttribute("rolelist", roleService.getRole());
+    @RequestMapping(value = "/plan-work-anal")
+    public String getPlanAnalPage(Model model) {
+        model.addAttribute("orders", orderService.getOrders());
+        model.addAttribute("userList", usersService.getUsers());
+        model.addAttribute("fashionList", fashionService.getFashion());
+        model.addAttribute("stateList", stateService.getState());
         setModel(model);
-        return "create-user";
+        return "plan-work-anal";
+    }
+
+    @RequestMapping(value = "/find-order")
+    public String getFindOrderPage(Model model) {
+        model.addAttribute("orders", orderService.getOrders());
+        model.addAttribute("userList", usersService.getUsers());
+        model.addAttribute("fashionList", fashionService.getFashion());
+        model.addAttribute("stateList", stateService.getState());
+        setModel(model);
+        return "find-order";
     }
 
     @RequestMapping(value = "/orders")
     public String getOrders(Model model) {
+        if( _userSession.getAuthorities().toArray()[0].equals("ROLE_ADMIN"))
+            return "redirect:/analyticView";
         List<Order> orders = orderService.getOrders();
         model.addAttribute("orders", orders);
+        model.addAttribute("userList", usersService.getUsers());
+        model.addAttribute("fashionList", fashionService.getFashion());
+        model.addAttribute("stateList", stateService.getState());
         setModel(model);
         return "orders";
     }
+
     @RequestMapping(value = "create-order")
     public String createRequestGet(Model model) {
         model.addAttribute("order", new Order());
-
         LoadLists();
         model.addAttribute("fashionList", fashionList);
         model.addAttribute("sizeList", sizeList);
         model.addAttribute("stateList", stateList);
         model.addAttribute("recipeList", recipeList);
-
         setModel(model);
         return "create-order";
     }
@@ -327,28 +354,81 @@ public class UserController extends AbstractController {
        // Date enddate = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH).parse();
 
         order.setCreatedate(createdate.toString());
-         order.setState(0);//send
+        order.setUser(usersService.getUserId(_userSession.getName()));
+        order.setState(0);//send
         order.setBlock(0);//unblock
         orderService.createOrder(order);
         System.out.println(order.getId());
         Random rand = new Random();
-
-        return "redirect:/orders";//что за бред? а если я админ, который создает заказ, я попаду в бездну 404?
+       if( _userSession.getAuthorities().toArray()[0].equals("ROLE_ADMIN"))
+           return "redirect:/analyticView";
+        return "redirect:/orders";
     }
-//    @RequestMapping("/delete-request/{requestId}")
-//    public String deleteRequest(@PathVariable("requestId") int requestId) {
-//        requestService.getRequests(requestId);
-//        return "redirect:/requests";
-//    }
-//    @RequestMapping("/order/{requestId}")
-//    public String getOrder(@PathVariable("requestId") int requestId,Model model){
-//        List<Order> requests = requestService.getRequests((int)requestId) ;
-//        model.addAttribute("requests",requests);
-//        List<Order> orders = orderService.getOrders(requestId);
-//        model.addAttribute("orders",orders);
+
+    @RequestMapping(value = "/find-order/{orderid}")
+    public String findOrder(@PathVariable("orderid") int orderid, Model model) {
+        orderService.getOrder(orderid);
+        model.addAttribute("order",orderService.getOrder(orderid));
+        return "find-order";
+    }
+
+//
+//    @RequestMapping(value = "requestfilters")
+//    public String createRequestGetFilters(Model model) {
+//        Request request =new Request();
+//        model.addAttribute("request", request);
+//        model.addAttribute("listUrgency", requestService.getUrgency());
+//        System.out.println(requestService.getUrgency());
 //        setModel(model);
-//        return "order";
+//        return "requestfilters";
 //    }
+//
+//    @RequestMapping(value ="requestfilters", method = RequestMethod.POST)
+//    public String getRequesrsFilter(@ModelAttribute("request") Request request,Model model) {
+//        List<Request> requests = requestService.getRequests(request.getUrgency()) ;
+//        model.addAttribute("requests", requests);
+//        setModel(model);
+//        return "requests";
+//    }
+    @RequestMapping("/block-order/{orderId}")
+    public String blockOrder(@PathVariable("orderId") int orderId) {
+        orderService.blockOrder(orderId);
+        return "redirect:/analyticView";
+    }
+    @RequestMapping("/delete-order/{orderId}")
+    public String deleteOrder(@PathVariable("orderId") int orderId) {
+        orderService.removeOrder(orderId);
+        return "redirect:/analyticView";
+    }
+
+    @RequestMapping("/stay-handler/{orderId}")
+    public String stayHandler(@PathVariable("orderId") int orderId){
+        orderService.stayHandler(orderId);
+        return "redirect:/analyticView";
+    }
+
+    @RequestMapping("/start-order/{orderId}")
+    public String startOrder(@PathVariable("orderId") int orderId) {
+        orderService.startOrder(orderId);
+        return "redirect:/analyticView";
+    }
+
+    @RequestMapping("/order/{orderId}")
+    public String getOrder(@PathVariable("orderId") int orderId, Model model){
+        List<Order> orders = orderService.getOrders((int)orderId);
+        model.addAttribute("orders",orders);
+        setModel(model);
+        return "order";
+    }
+
+    @RequestMapping("/orderStateView/{orderId}")
+    public String getOrderState(@PathVariable("orderId") int orderId, Model model){
+        model.addAttribute("orderslist", orderService.getOrders());
+        model.addAttribute("orderID", orderId);
+        model.addAttribute("stateList", stateService.getState());
+        setModel(model);
+        return "orderStateView";
+    }
 
     @RequestMapping("/task/{orderId}")
     public String taskGet(@PathVariable("orderId") int orderId,Model model) {
@@ -367,7 +447,9 @@ public class UserController extends AbstractController {
     }
 
     private Model setModel(Model model) {
-        model.addAttribute("role",SecurityContextHolder.getContext().getAuthentication().getName());
+        _userSession = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("userName",_userSession.getName());
+        model.addAttribute("userRole",_userSession.getAuthorities().toArray()[0]);
         return model;
     }
     private void LoadLists()
@@ -380,10 +462,5 @@ public class UserController extends AbstractController {
         recipeList =  recipeService.getRecipe();
         magicList =  magicService.getMagic();
      //   magicList =  magicService.getMagic();
-    }
-
-    @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        return null;
     }
 }

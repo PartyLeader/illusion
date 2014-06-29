@@ -73,25 +73,14 @@
                     </tr>
                     <thead>
                     <tbody>
-                <%--
-                    <c:forEach items="${userslist}" var="users" varStatus="index">
-                            <tr>
-                                <td>${index.count}</td>
-                                <td>${users.name}</td>
-                                <td>${users.email}</td>
-                                <td>${users.role}</td>
-                                <td><%= request.getAttribute("roleservice").getRoleById(users.getRole()) %></td>
-                            </tr>
-                    </c:forEach>
-                --%>
-                    <% int i = 0; for(User users : ((List<User>) request.getAttribute("userslist"))) { i++; %>
-                        <tr>
-                            <td><%= i %></td>
-                            <td><%= users.getName() %></td>
-                            <td><%= users.getEmail() %></td>
-                            <td><%= ((RoleService) request.getAttribute("roleservice")).getRoleById(users.getRole()).getRole() %></td>
-                        </tr>
-                    <% } %>
+                        <c:forEach items="${userslist}" var="users" varStatus="index">
+                                <tr>
+                                    <td>${index.count}</td>
+                                    <td>${users.name}</td>
+                                    <td>${users.email}</td>
+                                    <td>${rolelist[users.role-1].role}</td>
+                                </tr>
+                        </c:forEach>
                     </tbody>
                 </table>
             </c:if>

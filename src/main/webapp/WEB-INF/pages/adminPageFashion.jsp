@@ -19,190 +19,70 @@
 <jsp:include page="header.jsp">
     <jsp:param name="pageTitle" value="Login"/>
 </jsp:include>
+<script>
+    $(document).ready(function(){
+        var default_options = {
+            "oLanguage": {
+                "sLengthMenu": "Отображено _MENU_ записей на страницу",
+                "sSearch": "Поиск:",
+                "sZeroRecords": "Ничего не найдено - извините",
+                "sInfo": "Показано с _START_ по _END_ из _TOTAL_ записей",
+                "sInfoEmpty": "Показано с 0 по 0 из 0 записей",
+                "sInfoFiltered": "(filtered from _MAX_ total records)",
+                "oPaginate": {
+                    "sFirst": "Первая",
+                    "sLast":"Посл.",
+                    "sNext":"След.",
+                    "sPrevious":"Пред."
+                }
+            },
+            "bSort": true,
+            "aaSorting": [[ 0, "asc" ]],
+            "aoColumnDefs": [
+                { "sWidth": "50%", "aTargets": [ -1 ] }
+            ],
+            "bProcessing": false
+        };
+        $('#datatable-table').dataTable(default_options);
+    });
+</script>
 
-<div id="leftcol">
-
-</div>
-<table>
-    <tr>
-
-        <%----%>
-        <td>
-            <table>
-                <tr>
-                    <td>
-                        <form:form action="adminPage/state" modelAttribute="state" method="post" onsubmit="true">
-                            <table>
-                                <h2> Таблица статусы:</h2>
-                                <tr>
-                                    <td width="100рх">Наименование статуса:</td>
-                                    <td>
-                                        <form:input size="20" path="name"/>
-                                        <form:errors path="name" element="span"/>
-                                    </td>
-                                </tr>
-                            </table>
-                            <input type="submit" class="button-blue" value="Добавить"/>
-                        </form:form>
-                    </td>
-                    <td>
-                         <select>
-                           <c:forEach items="${stateList}" var="item">
-                            <option value="${item.id}">${item.name}</option>
-                           </c:forEach>
-                        </select>
-                    </td>
-
-                </tr>
-
-            </table>
-
-         </td>
-        <%----%>
-
-    </tr>
-
-</table>
-
-<table>
-    <tr>
-        <td>
-            <form:form action="adminPage/magic" modelAttribute="magic" method="post" onsubmit="true">
-                <table>
-                    <h2> Таблица Магических свойств:</h2>
+<div class="content container wrap">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="page-title">Админка: Фасоны</h2>
+        </div>
+    </div>
+    <div class="row">
+        <section class="widget padding-bottom">
+            <c:if test="${!empty fashionList}">
+                <table id="datatable-table" class="table table-striped">
+                    <thead>
                     <tr>
-                        <td width="100рх">Наименование свойства:</td>
-                        <td>
-                            <form:input size="20" path="name"/>
-                            <form:errors path="name" element="span"/>
-                        </td>
+                        <th>#</th>
+                        <th>Название</th>
+                        <th>Картинка</th>
                     </tr>
-                    <tr>
-                        <td width="100рх">Описание свойства:</td>
-                        <td>
-                            <form:textarea path="specification" rows="5" cols="30" />
-                            <form:errors path="specification" element="span"/>
-                        </td>
-                    </tr>
-                </table>
-                <input type="submit" class="button-blue" value="Добавить"/>
-            </form:form>
-        </td>
-       <td>
-             <select>
-               <c:forEach items="${magicList}" var="item">
-                <option value="${item.id}">${item.name}</option>
-               </c:forEach>
-             </select>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <form:form action="adminPage/fashion" modelAttribute="fashion" method="post" onsubmit="true">
-                <table>
-                    <h2> Таблица Фасоны:</h2>
-                    <tr>
-                        <td width="100рх">Наименование фасона:</td>
-                        <td>
-                            <form:input size="20" path="name"/>
-                            <form:errors path="name" element="span"/>
-                        </td>
-                    </tr>
-                </table>
-                <input type="submit" class="button-blue" value="Добавить"/>
-            </form:form>
-        </td>
-        <td>
-                     <select>
-                       <c:forEach items="${fashionList}" var="item">
-                        <option value="${item.id}">${item.name}</option>
-                       </c:forEach>
-                    </select>
-                </td>
-    </tr>
-    <tr>
-        <td>
-            <form:form action="adminPage/goodType" modelAttribute="goodType" method="post" onsubmit="true">
-                <table>
-                    <h2> Таблица тип материала:</h2>
-                    <tr>
-                        <td width="100рх">Тип материала:</td>
-                        <td>
-                            <form:input size="20" path="name"/>
-                            <form:errors path="name" element="span"/>
-                        </td>
-                    </tr>
-                </table>
-                <input type="submit" class="button-blue" value="Добавить"/>
-            </form:form>
-        </td>
-        <td>
-                     <select>
-                       <c:forEach items="${goodTypeList}" var="item">
-                        <option value="${item.id}">${item.name}</option>
-                       </c:forEach>
-                    </select>
-                </td>
-    </tr>
-    <tr>
-        <td>
-            <form:form action="adminPage/size" modelAttribute="size" method="post" onsubmit="true">
-                <table>
-                    <h2> Таблица Размеры:</h2>
-                    <tr>
-                        <td width="100рх">Размер:</td>
-                        <td>
-                            <form:input size="20" path="name"/>
-                            <form:errors path="name" element="span"/>
-                        </td>
-                    </tr>
-                </table>
-                <input type="submit" class="button-blue" value="Добавить"/>
-            </form:form>
-
-        </td>
-        <td>
-             <select>
-               <c:forEach items="${sizeList}" var="item">
-                <option value="${item.id}">${item.name}</option>
-               </c:forEach>
-            </select>
-        </td>
-    </tr>
-     <tr>
-            <td>
-                <form:form action="adminPage/recipe" modelAttribute="recipe" method="post" onsubmit="true">
-                    <table>
-                        <h2> Таблица рецептов:</h2>
+                    <thead>
+                    <tbody>
+                    <c:forEach items="${fashionList}" var="fashions" varStatus="index">
                         <tr>
-                            <td width="100рх">Симптом:</td>
-                            <td>
-                                <form:input size="20" path="name"/>
-
-                                <form:errors path="name" element="span"/>
+                            <td>${index.count}</td>
+                            <td>${fashions.name}</td>
+                            <td><img src="<c:url value="/resources/img/fashionPictures/${images[fashions.id - 1].link}"/>">
                             </td>
                         </tr>
-                         <tr>
-                            <td width="100рх">Описание свойства:</td>
-                            <td>
-                                <form:textarea path="specification" rows="5" cols="30" />
-                                <form:errors path="specification" element="span"/>
-                            </td>
-                        </tr>
-                    </table>
-                    <input type="submit" class="button-blue" value="Добавить"/>
-                </form:form>
-
-            </td>
-            <td>
-                 <select>
-                   <c:forEach items="${recipeList}" var="item">
-                    <option value="${item.id}">${item.name}</option>
-                   </c:forEach>
-                </select>
-            </td>
-        </tr>
-</table>
-
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </c:if>
+            <c:if test="${empty fashionList}">
+                <div class="alert alert-info">
+                    <strong><i class="fa fa-info-circle"></i> Внимание!</strong> К сожалению у вас еще нет фасонов!
+                </div>
+            </c:if>
+        </section>
+    </div>
+</div>
 </body>
 </html>

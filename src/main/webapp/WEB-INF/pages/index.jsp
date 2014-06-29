@@ -269,9 +269,11 @@
                     <!-- Thumbnail Navigator Skin End -->
                 </div>
                 <!-- Jssor Slider End -->
-                <div class="form-actions">
-                    <a href="<c:url value="/create-order" />" class="btn btn-primary btn-lg">Сделать заказ прямо сейчас!</a>
-                </div>
+                <c:if test="${userRole =='ROLE_USER'}">
+                    <div class="form-actions">
+                        <a href="<c:url value="/create-order" />" class="btn btn-primary btn-lg">Сделать заказ прямо сейчас!</a>
+                    </div>
+                </c:if>
         </section>
     </div>
 </div>
