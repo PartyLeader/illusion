@@ -59,11 +59,11 @@
                     <div><label class="control-label padding-left">${orderID}</label></div>
                     <div>
                         <label class="control-label padding-left">
-                            <c:if test="${orderslist[orderID-1].block == '1'}">
+                            <c:if test="${ordersList[orderID-1].block == '1'}">
                                 Заблокирован
                             </c:if>
-                            <c:if test="${orderslist[orderID-1].block != '1'}">
-                                ${stateList[orderslist[orderID-1].state].name}
+                            <c:if test="${ordersList[orderID-1].block == '0'}">
+                                ${stateList[ordersList[orderID-1].state].name}
                             </c:if>
                         </label>
                     </div>
@@ -86,19 +86,19 @@
                                 <tr>
                                     <td>${index.count}</td>
                                     <td>
-                                        <c:if test="${orderslist[orderID-1].block != '0' && states.id == orderslist[orderID-1].state + 1}">
+                                        <c:if test="${ordersList[orderID-1].block == '1' && states.id == ordersList[orderID-1].state + 1}">
                                             <b>Заблокирован в состоянии: </b>
                                         </c:if>
                                             ${states.name}
                                     </td>
                                     <td>
-                                        <c:if test="${states.id < orderslist[orderID-1].state + 1}">
+                                        <c:if test="${states.id < ordersList[orderID-1].state + 1}">
                                             <div class="badge badge-success">Выполнено</div>
                                         </c:if>
-                                        <c:if test="${states.id == orderslist[orderID-1].state + 1}">
+                                        <c:if test="${states.id == ordersList[orderID-1].state + 1}">
                                             <div class="badge badge-warning">В процессе</div>
                                         </c:if>
-                                        <c:if test="${states.id > orderslist[orderID-1].state + 1}">
+                                        <c:if test="${states.id > ordersList[orderID-1].state + 1}">
                                             <div class="badge badge-danger">Не выполнено</div>
                                         </c:if>
                                     </td>

@@ -70,6 +70,20 @@
                         <section class="widget">
                             <div class="body">
                                  <form:form modelAttribute="order" method="post" class="form-horizontal label-left" onsubmit="return checkform(this)">
+                                    <c:if test="${userRole == 'ROLE_ADMIN'}">
+                                         <div class="control-group">
+                                             <label for="description" class="control-label">Заказчик</label>
+                                             <div class="controls form-group padding-left">
+                                                 <select name="user" class="selectpicker " data-style="btn-default">
+                                                     <c:forEach items="${userList}" var="item">
+                                                         <c:if test="${item.role == '3'}">
+                                                            <option value="${item.id}">${item.name}</option>
+                                                         </c:if>
+                                                     </c:forEach>
+                                                 </select>
+                                             </div>
+                                         </div>
+                                    </c:if>
                                     <div class="control-group">
                                         <label for="description" class="control-label">Контакты</label>
                                         <div class="controls form-group padding-left">
@@ -135,7 +149,12 @@
 
                                     <div class="form-actions">
                                         <button type="submit" class="btn btn-success btn-lg"><i class="fa fa-check"></i> Создать</button>
-                                        <button type="button" class="btn btn-inverse btn-lg"><i class="fa eicon-cancel"></i> Отмена</button>
+                                        <c:if test="${userRole == 'ROLE_USER'}">
+                                            <a href="<c:url value="/orders"/>" class="btn btn-inverse btn-lg"><i class="fa eicon-cancel"></i> Отмена</a>
+                                        </c:if>
+                                        <c:if test="${userRole == 'ROLE_ADMIN'}">
+                                            <a href="<c:url value="/analyticView"/>" class="btn btn-inverse btn-lg"><i class="fa eicon-cancel"></i> Отмена</a>
+                                        </c:if>
                                     </div>
                                 </form>
                             </div>

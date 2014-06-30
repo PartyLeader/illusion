@@ -33,16 +33,17 @@
                     <div class="body no-margin">
                         <div class="row">
                             <div class="col-md-10 col-md-offset-1">
-                                    <form class="form-inline form-search no-margin text-align-center" role="form">
+                                <form:form action="find-order" modelAttribute="orderId" method="post" onsubmit="true" class="form-inline form-search no-margin text-align-center">
                                         <div class="input-group">
-                                            <input path="orderid" id="orderid" name="orderid" type="search" class="form-control" placeholder="Введите поисковой запрос...">
+                                            <input path="orderId" id="orderId" name="orderId" type="search" class="form-control" placeholder="Введите поисковой запрос...">
                                             <span class="input-group-btn padding-left">
-                                                <a href="find-order/${orderid}" class="btn btn-primary pad">
+                                                <a href="find-order" class="btn btn-primary pad">
                                                     <i class="fa fa-search"></i> Найти
                                                 </a>
                                             </span>
+                                            <button type="submit" class="btn btn-success btn-lg"><i class="fa fa-check"></i> Создать</button>
                                         </div>
-                                    </form>
+                                </form:form>
                             </div>
                         </div>
                     </div>

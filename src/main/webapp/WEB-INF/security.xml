@@ -16,13 +16,14 @@
     </bean>
     <security:http access-denied-page="/error403.jsp">
         <security:intercept-url pattern="/index*" access="ROLE_USER,ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_TAILOR,ROLE_VAHTANG,ROLE_HANDLER,ROLE_MAGIC" />
+        <security:intercept-url pattern="/aboutUs*" access="ROLE_USER,ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_TAILOR,ROLE_VAHTANG,ROLE_HANDLER,ROLE_MAGIC" />
+        <security:intercept-url pattern="/controlUsersCustomers*" access="ROLE_USER,ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_TAILOR,ROLE_VAHTANG,ROLE_HANDLER,ROLE_MAGIC" />
         <security:intercept-url pattern="/orders*" access="ROLE_USER" />
         <security:intercept-url pattern="/analyticView*" access="ROLE_ADMIN" />
         <security:intercept-url pattern="/plan-work-anal*" access="ROLE_ADMIN" />
         <security:intercept-url pattern="/find-order*" access="ROLE_ADMIN" />
         <security:intercept-url pattern="/create-order*" access="ROLE_USER,ROLE_ADMIN" />
         <security:intercept-url pattern="/controlUsers*" access="ROLE_ADMIN" />
-        <security:intercept-url pattern="/controlUsersCustomers*" access="ROLE_ADMIN,ROLE_ANONYMOUS " />
         <security:intercept-url pattern="/create-user*" access="ROLE_ADMIN" />
         <security:intercept-url pattern="/adminPageMagic*" access="ROLE_ADMIN" />
         <security:intercept-url pattern="/create-magic*" access="ROLE_ADMIN" />
@@ -52,8 +53,8 @@
         <security:authentication-provider>
             <security:jdbc-user-service
                     data-source-ref="dataSource"
-                    users-by-username-query="select username,password,enabled from user_authentication where username=?"
-                    authorities-by-username-query="select u1.username, u2.role from user_authentication u1, role u2 where u1.role_id = u2.role_id and u1.username =?" />
+                    users-by-username-query="select email,password,enabled from user_authentication where email=?"
+                    authorities-by-username-query="select u1.email, u2.role from user_authentication u1, role u2 where u1.role_id = u2.role_id and u1.email =?" />
         </security:authentication-provider>
     </security:authentication-manager>
 

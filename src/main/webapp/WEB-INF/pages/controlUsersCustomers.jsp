@@ -9,7 +9,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="Content-Language" content="English"/>
     <link rel="stylesheet" media="all" href="<c:url value="/resources/site.css"/>">
-    <title>Админка: Пользователи</title>
+    <title>Регистрация</title>
         <link href="<c:url value="/resources/css/application.min.css"/>" rel="stylesheet">
          <link rel="shortcut icon" href="<c:url value="/resources/img/favicon.png"/>">
          <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,92 +17,51 @@
 </head>
 <body>
 <jsp:include page="header.jsp">
-  <jsp:param name="pageTitle" value="controlUsersCustomers" />
+  <jsp:param name="pageTitle" value="registry" />
 </jsp:include>
 <div class="content container wrap">
     <div class="row">
         <div class="col-md-12">
-            <h2 class="page-title">Админка: Пользователи</h2>
+            <h2 class="page-title">Регистрация</h2>
         </div>
     </div>
     <div class="row">
         <section class="widget">
-
-        </section>
-        <section class="widget">
-                    <table>
-                        <tr>
-
-                            <%----%>
-                            <td>
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <form:form action="controlUsersCustomers" modelAttribute="users" method="post" onsubmit="true">
-                                                <table>
-                                                    <h2> Таблица Заказчики:</h2>
-                                                    <tr>
-                                                        <td width="100рх">Ник:</td>
-                                                        <td>
-                                                            <form:input size="20" path="name"/>
-                                                            <form:errors path="name" element="span"/>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td width="100рх">Пароль:</td>
-                                                        <td>
-                                                            <form:input size="20" path="password"/>
-                                                            <form:errors path="password" element="span"/>
-                                                        </td>
-                                                        </tr>
-                                                    <tr>
-                                                        <td width="100рх">Емайл:</td>
-                                                        <td>
-                                                            <form:input size="20" path="email"/>
-                                                            <form:errors path="email" element="span"/>
-                                                        </td>
-                                                        </tr>
-
-
-                                                </table>
-                                                <input type="submit" class="button-blue" value="Добавить"/>
-                                                <%--<input type="submit" class="button-blue" value="Create Letter"/>--%>
-                                            </form:form>
-                                        </td>
-                                        <td>
-
-                                               <c:forEach items="${userslist}" var="item">
-                                                   <table>
-                                                   <tr>
-                                                       <td>
-                                                               ${item.id}
-                                                       </td>
-                                                       <td>
-                                                               ${item.name}
-                                                       </td>
-                                                       <td>
-                                                               ${item.password}
-                                                       </td>
-                                                       <td>
-                                                               ${item.email}
-                                                       </td>
-
-                                                   </tr>
-                                                       </table>
-                                                   <%--<option value="${item.id}">${item.name}</option>--%>
-                                               </c:forEach>
-                                        </td>
-
-                                    </tr>
-
-                                </table>
-
-                             </td>
-                            <%----%>
-
-                        </tr>
-
-                    </table>
+            <div class="body">
+                <div class="row">
+                    <div class="col-md-7">
+                        <section class="widget">
+                            <form:form action="controlUsersCustomers" modelAttribute="users" method="post" onsubmit="true" class="form-horizontal label-left">
+                                <div class="control-group">
+                                    <label for="name" class="control-label">Ник</label>
+                                    <div class="controls form-group">
+                                        <form:input path="name" id="name" name="name" class="form-control parsley-validated" required="required"/>
+                                        <form:errors path="name" element="span"/>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">E-mail</label>
+                                    <div class="controls form-group">
+                                        <form:input path="email" id="email" name="email" class="form-control parsley-validated" required="required" type="email"/>
+                                        <form:errors path="email" element="span"/>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Пароль</label>
+                                    <div class="controls form-group">
+                                        <form:input path="password" id="password" name="password" class="form-control parsley-validated" required="required" type="password"/>
+                                        <form:errors path="password" element="span"/>
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-success btn-lg"><i class="fa fa-check"></i> Добавить</button>
+                                    <a href="<c:url value="/index"/>" class="btn btn-inverse btn-lg"><i class="fa eicon-cancel"></i> Отмена</a>
+                                </div>
+                            </form:form>
+                        </section>
+                    </div>
+                </div>
+            </div>
         </section>
     </div>
 </div>

@@ -51,7 +51,7 @@
 				<c:if test="${userRole =='ROLE_ANONYMOUS'}">
 				    <a href="<c:url value="/login.jsp" />" style="color:white"><u>Авторизация</u></a>
                     /
-                    <a href="<c:url value="" />" style="color:white"><u>Регистрация</u></a>
+                    <a href="<c:url value="/controlUsersCustomers" />" style="color:white"><u>Регистрация</u></a>
 				</c:if>
 				<c:if test="${userRole !='ROLE_ANONYMOUS'}">
 			        <c:out value="${userName}/" />
@@ -111,7 +111,6 @@
                 </a>
                 <ul id="forms-collapse" class="panel-collapse collapse">
                     <li><a href="<c:url value="/controlUsers"/>">Пользователи</a></li>
-                   <%-- <li><a href="<c:url value="/controlUsersCustomers"/>">Заказчики</a></li> --%>
                     <li><a href="<c:url value="/adminPageMagic"/>">Магические свойства</a></li>
                     <li><a href="<c:url value="/adminPageRecipe"/>">Рецепты</a></li>
                     <li><a href="<c:url value="/adminPageFashion"/>">Фасоны</a></li>
@@ -120,9 +119,15 @@
             </li>
         </c:if>
         <li class="accordion-toggle">
-            <a href="index.html">
+            <a href="<c:url value="/aboutUs"/>">
                 <i class="fa fa-home"></i>
                 <span class="name">О нас</span>
+            </a>
+        </li>
+        <li class="accordion-toggle">
+            <a href="<c:url value="/controlUsersCustomers"/>">
+                <i class="fa fa-home"></i>
+                <span class="name">Registrate</span>
             </a>
         </li>
     <div class="col-xs-4">

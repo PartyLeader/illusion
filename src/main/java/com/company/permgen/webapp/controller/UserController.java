@@ -55,6 +55,7 @@ public class UserController {
     private List<Recipe> recipeList;
     private List<Magic> magicList;
     private  Authentication _userSession;
+
     @RequestMapping("/index")
     public String listContacts(Model model) {
         List<Role> roleList =  roleService.getRole();
@@ -63,6 +64,12 @@ public class UserController {
         model.addAttribute("rolelist",roleList);
         setModel(model);
         return "index";
+    }
+
+    @RequestMapping("/aboutUs")
+    public String getAboutUs(Model model) {
+        setModel(model);
+        return "aboutUs";
     }
 
     @RequestMapping("/controlUsers")
@@ -94,10 +101,8 @@ public class UserController {
 
     @RequestMapping("/controlUsersCustomers")
     public String getControlUsersCustomers(Model model) {
-        model.addAttribute("users", new User());
-        model.addAttribute("userslist", usersService.getUsersCustomers());
         setModel(model);
-
+        model.addAttribute("users", new User());
         return "controlUsersCustomers";
     }
 
@@ -108,7 +113,7 @@ public class UserController {
         item.setEnabled(true);
         usersService.createUsers(item);
         System.out.println(item.getId());
-        return "redirect:/controlUsersCustomers";
+        return "redirect:/";
     }
 
     @RequestMapping("/first-load")
@@ -117,6 +122,7 @@ public class UserController {
         if(list.size() > 0){
             return "redirect:/";
         }
+
         sizeService.createSize(new Size("S (40)"));
         sizeService.createSize(new Size("M (44)"));
         sizeService.createSize(new Size("L (48)"));
@@ -313,15 +319,6 @@ public class UserController {
         return "plan-work-anal";
     }
 
-    @RequestMapping(value = "/find-order")
-    public String getFindOrderPage(Model model) {
-        model.addAttribute("orders", orderService.getOrders());
-        model.addAttribute("userList", usersService.getUsers());
-        model.addAttribute("fashionList", fashionService.getFashion());
-        model.addAttribute("stateList", stateService.getState());
-        setModel(model);
-        return "find-order";
-    }
 
     @RequestMapping(value = "/orders")
     public String getOrders(Model model) {
@@ -344,6 +341,7 @@ public class UserController {
         model.addAttribute("sizeList", sizeList);
         model.addAttribute("stateList", stateList);
         model.addAttribute("recipeList", recipeList);
+        model.addAttribute("userList", usersService.getUsers());
         setModel(model);
         return "create-order";
     }
@@ -352,53 +350,33 @@ public class UserController {
     public String createRequestPost(@ModelAttribute("order") Order order) {
         Date createdate = new Date();
        // Date enddate = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH).parse();
-
         order.setCreatedate(createdate.toString());
-        order.setUser(usersService.getUserId(_userSession.getName()));
+        if (_userSession.getAuthorities().toArray()[0].equals("ROLE_USER"))
+            order.setUser(usersService.getUserId(_userSession.getName()));
         order.setState(0);//send
-        order.setBlock(0);//unblock
+        order.setBlock(0);
         orderService.createOrder(order);
         System.out.println(order.getId());
         Random rand = new Random();
        if( _userSession.getAuthorities().toArray()[0].equals("ROLE_ADMIN"))
            return "redirect:/analyticView";
-        return "redirect:/orders";
+        else
+            return "redirect:/orders";
     }
 
-    @RequestMapping(value = "/find-order/{orderid}")
-    public String findOrder(@PathVariable("orderid") int orderid, Model model) {
-        orderService.getOrder(orderid);
-        model.addAttribute("order",orderService.getOrder(orderid));
-        return "find-order";
-    }
-
-//
-//    @RequestMapping(value = "requestfilters")
-//    public String createRequestGetFilters(Model model) {
-//        Request request =new Request();
-//        model.addAttribute("request", request);
-//        model.addAttribute("listUrgency", requestService.getUrgency());
-//        System.out.println(requestService.getUrgency());
-//        setModel(model);
-//        return "requestfilters";
-//    }
-//
-//    @RequestMapping(value ="requestfilters", method = RequestMethod.POST)
-//    public String getRequesrsFilter(@ModelAttribute("request") Request request,Model model) {
-//        List<Request> requests = requestService.getRequests(request.getUrgency()) ;
-//        model.addAttribute("requests", requests);
-//        setModel(model);
-//        return "requests";
-//    }
     @RequestMapping("/block-order/{orderId}")
     public String blockOrder(@PathVariable("orderId") int orderId) {
         orderService.blockOrder(orderId);
         return "redirect:/analyticView";
     }
+
     @RequestMapping("/delete-order/{orderId}")
     public String deleteOrder(@PathVariable("orderId") int orderId) {
         orderService.removeOrder(orderId);
-        return "redirect:/analyticView";
+        if( _userSession.getAuthorities().toArray()[0].equals("ROLE_ADMIN"))
+            return "redirect:/analyticView";
+        else
+            return "redirect:/orders";
     }
 
     @RequestMapping("/stay-handler/{orderId}")
@@ -415,15 +393,37 @@ public class UserController {
 
     @RequestMapping("/order/{orderId}")
     public String getOrder(@PathVariable("orderId") int orderId, Model model){
-        List<Order> orders = orderService.getOrders((int)orderId);
-        model.addAttribute("orders",orders);
+        List<Order> orders = orderService.getOrders();
+        model.addAttribute("order", orders.get(0));
+        model.addAttribute("orderID", orderId);
+        LoadLists();
+        model.addAttribute("fashionList", fashionList);
+        model.addAttribute("sizeList", sizeList);
+        model.addAttribute("stateList", stateList);
+        model.addAttribute("recipeList", recipeList);
+        model.addAttribute("userList", usersService.getUsers());
         setModel(model);
         return "order";
     }
 
+    @RequestMapping(value = "/order/{orderId}", method = RequestMethod.POST)
+    public String editRequestPost(@ModelAttribute("order") Order order,@PathVariable("orderId") int orderId,Model model) {
+        List<Order> list =  orderService.getOrders(orderId);
+        Order oldOrder = list.get(0);
+        oldOrder.setBlock(1);
+        oldOrder.setFashion(order.getFashion());
+        orderService.updateOrder(oldOrder);
+        setModel(model);
+        if( _userSession.getAuthorities().toArray()[0].equals("ROLE_ADMIN"))
+            return "redirect:/analyticView";
+        else
+            return "redirect:/orders";
+
+    }
+
     @RequestMapping("/orderStateView/{orderId}")
     public String getOrderState(@PathVariable("orderId") int orderId, Model model){
-        model.addAttribute("orderslist", orderService.getOrders());
+        model.addAttribute("ordersList", orderService.getOrders());
         model.addAttribute("orderID", orderId);
         model.addAttribute("stateList", stateService.getState());
         setModel(model);
@@ -463,4 +463,39 @@ public class UserController {
         magicList =  magicService.getMagic();
      //   magicList =  magicService.getMagic();
     }
+
+    @RequestMapping(value = "/find-order")
+    public String getFindOrderPage(Model model) {
+        model.addAttribute("orders", orderService.getOrders());
+        model.addAttribute("userList", usersService.getUsers());
+        model.addAttribute("fashionList", fashionService.getFashion());
+        model.addAttribute("stateList", stateService.getState());
+        setModel(model);
+        return "find-order";
+    }
+
+    @RequestMapping(value = "/find-order", method = RequestMethod.POST)
+    public String findOrder(@ModelAttribute("orderId") int orderId,Model model) {
+        model.addAttribute("orders",orderService.getOrders(orderId));
+        return "find-order";
+    }
+
+    //
+//    @RequestMapping(value = "requestfilters")
+//    public String createRequestGetFilters(Model model) {
+//        Request request =new Request();
+//        model.addAttribute("request", request);
+//        model.addAttribute("listUrgency", requestService.getUrgency());
+//        System.out.println(requestService.getUrgency());
+//        setModel(model);
+//        return "requestfilters";
+//    }
+//
+//    @RequestMapping(value ="requestfilters", method = RequestMethod.POST)
+//    public String getRequesrsFilter(@ModelAttribute("request") Request request,Model model) {
+//        List<Request> requests = requestService.getRequests(request.getUrgency()) ;
+//        model.addAttribute("requests", requests);
+//        setModel(model);
+//        return "requests";
+//    }
 }

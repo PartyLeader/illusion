@@ -24,14 +24,14 @@
                   method="POST" action="<c:url value="/j_spring_security_check" />">
                 <fieldset>
                     <div class="form-group no-margin">
-                        <label for="name">Логин(e-mail)</label>
+                        <label for="email">Логин(e-mail)</label>
 
                         <div class="input-group input-group-lg">
                                 <span class="input-group-addon">
                                     <i class="fa fa-user"></i>
                                 </span>
-                            <input id="name" name="j_username" type="email" class="form-control input-lg placeholder_size"
-                                   placeholder="Введите логин...">
+                            <input id="email" name="j_username" type="email" class="form-control input-lg placeholder_size"
+                                   placeholder="Введите e-mail...">
                         </div>
                     </div>
                     <div class="form-group">
