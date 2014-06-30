@@ -107,6 +107,14 @@
                     </tbody>
                 </table>
             </div>
+            <div class="form-actions">
+                <c:if test="${userRole == 'ROLE_USER'}">
+                    <a href="<c:url value="/orders"/>" class="btn btn-inverse btn-lg"><i class="fa eicon-cancel"></i> Закрыть</a>
+                </c:if>
+                <c:if test="${userRole == 'ROLE_ADMIN'}">
+                    <a href="<c:url value="/analyticView"/>" class="btn btn-inverse btn-lg"><i class="fa eicon-cancel"></i> Закрыть</a>
+                </c:if>
+            </div>
         </section>
     </div>
 </div>
