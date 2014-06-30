@@ -25,6 +25,23 @@
                             <div class="body">
                                 <form:form modelAttribute="order" method="post" class="form-horizontal label-left" onsubmit="true">
                                     <div class="control-group">
+                                        <c:if test="${userRole == 'ROLE_ADMIN'}">
+                                            <div class="control-group">
+                                                <label for="description" class="control-label">Заказчик</label>
+                                                <div class="controls form-group padding-left">
+                                                    <select name="user" class="selectpicker " data-style="btn-default" id="user" path="user">
+                                                        <c:forEach items="${userList}" var="item">
+                                                            <c:if test="${item.role == '3'}">
+                                                                <c:if test="${item.id == order.user}">
+                                                                    <span class="filter-option">${item.name}</span>
+                                                                </c:if>
+                                                                <option value="${item.id}" path="user">${item.name}</option>
+                                                            </c:if>
+                                                        </c:forEach>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </c:if>
                                         <label for="description" class="control-label">Контакты</label>
                                         <div class="controls form-group padding-left">
                                             <textarea id="description" rows="3" name="text" class="form-control parsley-validated" required="required"></textarea>
@@ -42,8 +59,13 @@
                                     </div>
 
                                     <div class="form-actions">
-                                        <button type="submit" class="btn btn-success btn-lg"><i class="fa fa-check"></i> Создать</button>
-                                        <button type="button" class="btn btn-inverse btn-lg"><i class="fa eicon-cancel"></i> Отмена</button>
+                                        <button type="submit" class="btn btn-success btn-lg"><i class="fa fa-check"></i> Сохранить</button>
+                                        <c:if test="${userRole == 'ROLE_USER'}">
+                                            <a href="<c:url value="/orders"/>" class="btn btn-inverse btn-lg"><i class="fa eicon-cancel"></i> Отмена</a>
+                                        </c:if>
+                                        <c:if test="${userRole == 'ROLE_ADMIN'}">
+                                            <a href="<c:url value="/analyticView"/>" class="btn btn-inverse btn-lg"><i class="fa eicon-cancel"></i> Отмена</a>
+                                        </c:if>
                                     </div>
                                 </form:form>
                             </div>

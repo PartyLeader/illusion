@@ -394,7 +394,7 @@ public class UserController {
     @RequestMapping("/order/{orderId}")
     public String getOrder(@PathVariable("orderId") int orderId, Model model){
         List<Order> orders = orderService.getOrders();
-        model.addAttribute("order", orders.get(0));
+        model.addAttribute("order", orders.get(orderId-1));
         model.addAttribute("orderID", orderId);
         LoadLists();
         model.addAttribute("fashionList", fashionList);

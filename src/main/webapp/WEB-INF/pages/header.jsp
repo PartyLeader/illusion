@@ -124,12 +124,6 @@
                 <span class="name">О нас</span>
             </a>
         </li>
-        <li class="accordion-toggle">
-            <a href="<c:url value="/controlUsersCustomers"/>">
-                <i class="fa fa-home"></i>
-                <span class="name">Registrate</span>
-            </a>
-        </li>
     <div class="col-xs-4">
         <a href="<c:url value="/first-load" />" class="btn-icons btn btn-transparent btn-sm">First Load</a>
     </div>
