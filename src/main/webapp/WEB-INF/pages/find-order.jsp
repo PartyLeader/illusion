@@ -19,48 +19,44 @@
 <jsp:include page="header.jsp">
   <jsp:param name="pageTitle" value="findOrder" />
 </jsp:include>
-
+<script>
+    $(document).ready(function(){
+        var default_options = {
+            "oLanguage": {
+                "sLengthMenu": "Отображено _MENU_ записей на страницу",
+                "sSearch": "Поиск:",
+                "sZeroRecords": "Ничего не найдено - извините",
+                "sInfo": "Показано с _START_ по _END_ из _TOTAL_ записей",
+                "sInfoEmpty": "Показано с 0 по 0 из 0 записей",
+                "sInfoFiltered": "(filtered from _MAX_ total records)",
+                "oPaginate": {
+                    "sFirst": "Первая",
+                    "sLast":"Посл.",
+                    "sNext":"След.",
+                    "sPrevious":"Пред."
+                }
+            },
+            "bSort": true,
+            "aaSorting": [[ 1, "desc" ]],
+            "aoColumnDefs": [
+                { "sWidth": "40%", "aTargets": [ -1 ] }
+            ],
+            "bProcessing": false
+        };
+        $('#datatable-table').dataTable(default_options);
+    });
+</script>
 <div class="content container wrap">
     <div class="row">
         <div class="col-md-12">
             <h2 class="page-title">Поиск заказа</h2>
         </div>
     </div>
-
-    <div class="row">
-        <section class="widget padding-bottom">
-            <section class="widget">
-                    <div class="body no-margin">
-                        <div class="row">
-                            <div class="col-md-10 col-md-offset-1">
-                                <form:form action="find-order" modelAttribute="orderId" method="post" onsubmit="true" class="form-inline form-search no-margin text-align-center">
-                                        <div class="input-group">
-                                            <input path="orderId" id="orderId" name="orderId" type="search" class="form-control" placeholder="Введите поисковой запрос...">
-                                            <span class="input-group-btn padding-left">
-                                                <a href="find-order" class="btn btn-primary pad">
-                                                    <i class="fa fa-search"></i> Найти
-                                                </a>
-                                            </span>
-                                            <button type="submit" class="btn btn-success btn-lg"><i class="fa fa-check"></i> Создать</button>
-                                        </div>
-                                </form:form>
-                            </div>
-                        </div>
-                    </div>
-            </section>
-        </section>
-    </div>
     <div class="row">
         <section class="widget padding-bottom">
             <div class="body">
-                <fieldset>
-                    <legend>
-                        Найденные заказы ${order.id}
-                        <a href="" class="btn-inverse btn pull-right"><i class="fa fa-print"></i> Распечатать лист найденных заказов</a>
-                    </legend>
-                </fieldset>
                 <c:if test="${!empty orders}">
-                    <table id="table" class="table table-striped">
+                    <table id="datatable-table" class="table table-striped">
                         <thead>
                         <tr>
                             <th>#</th>
@@ -74,16 +70,14 @@
                         <thead>
                         <tbody>
                         <c:forEach items="${orders}" var="orders" varStatus="index">
-
-                           <%-- <c:if test="${orders.id == order.id}"> --%>
-                                <tr>
-                                    <td>${index.count}</td>
-                                    <td><c:if test="${orders.priority == '0'}">Срочный</c:if><c:if test="${orders.priority != '0'}">Обычный</c:if></td>
-                                    <td>${userList[orders.user-1].name}</td>
-                                    <td>${fashionList[orders.fashion-1].name}</td>
-                                    <td>${orders.enddate}</td>
-                                    <td>
-                                        <c:if test="${(orders.state == '0' || orders.state == '1') && orders.block != 1}">
+                            <tr>
+                                <td>${index.count}</td>
+                                <td><c:if test="${orders.priority == '0'}">Срочный</c:if><c:if test="${orders.priority != '0'}">Обычный</c:if></td>
+                                <td>${userList[orders.user-1].name}</td>
+                                <td>${fashionList[orders.fashion-1].name}</td>
+                                <td>${orders.enddate}</td>
+                                <td>
+                                    <c:if test="${(orders.state == '0' || orders.state == '1') && orders.block != 1}">
                                             <span class="label label-default">
                                         </c:if>
                                         <c:if test="${(orders.state == '2' || orders.state == '3' || orders.state =='4' || orders.state == '5') && orders.block != 1}">
@@ -95,32 +89,32 @@
                                         <c:if test="${orders.state == '6'}">
                                             <span class="label label-info">
                                         </c:if>
-                                        ${stateList[orders.state].name}</span>
-                                    </td>
-                                    <td>
+                                                    ${stateList[orders.state].name}</span>
+                                </td>
+                                <td>
                                     <c:if test="${(orders.state == '0' || orders.state == '1') && orders.block != 1}">
                                         <a href="order/${orders.id}" class="btn btn-primary"><i class="fa fa-edit"></i> Редактировать</a>
                                         <a href="delete-order/${orders.id}" class="btn-danger btn"><i class="fa eicon-trash"></i> Удалить</a>
                                         <a href="start-order/${orders.id}" class="btn btn-success"><i class="fa fa-play"></i> Начать выполнение</a>
                                         <a href="stay-handler/${orders.id}" class="btn-default btn"><i class="fa fa-step-forward"></i> Поставить в обработку</a>
                                     </c:if>
-                                        <c:if test="${(orders.state == '2' || orders.state == '3' || orders.state =='4' || orders.state == '5') && orders.block != 1}">
-                                            <a href="order/${orders.id}" class="btn btn-primary"><i class="fa fa-edit"></i> Редактировать</a>
-                                            <a href="delete-order/${orders.id}" class="btn-danger btn"><i class="fa eicon-trash"></i> Удалить</a>
-                                            <a href="block-order/${orders.id}" class="btn btn-danger"><i class="fa fa-pause"></i> Заблокировать</a>
-                                        </c:if>
-                                        <c:if test="${orders.block == '1'}" >
-                                            <a href="order/${orders.id}" class="btn btn-primary"><i class="fa fa-edit"></i> Редактировать</a>
-                                            <a href="delete-order/${orders.id}" class="btn-danger btn"><i class="fa eicon-trash"></i> Удалить</a>
-                                            <a href="block-order/${orders.id}" class="btn btn-info"><i class="fa fa-eject"></i> Продолжить выполнение</a>
-                                        </c:if>
-                                        <c:if test="${orders.state == '6'}">
-                                            <a href="instruction/${orders.id}" class="btn btn-primary"><i class="fa eicon-right"></i> Просмотр</a>
-                                            <a href="print/${orders.id}" class="btn-inverse btn"><i class="fa fa-print"></i> Печать</a>
-                                        </c:if>
-                                    </td>
-                                </tr>
-                         </c:forEach>
+                                    <c:if test="${(orders.state == '2' || orders.state == '3' || orders.state =='4' || orders.state == '5') && orders.block != 1}">
+                                        <a href="order/${orders.id}" class="btn btn-primary"><i class="fa fa-edit"></i> Редактировать</a>
+                                        <a href="delete-order/${orders.id}" class="btn-danger btn"><i class="fa eicon-trash"></i> Удалить</a>
+                                        <a href="block-order/${orders.id}" class="btn btn-danger"><i class="fa fa-pause"></i> Заблокировать</a>
+                                    </c:if>
+                                    <c:if test="${orders.block == '1'}" >
+                                        <a href="order/${orders.id}" class="btn btn-primary"><i class="fa fa-edit"></i> Редактировать</a>
+                                        <a href="delete-order/${orders.id}" class="btn-danger btn"><i class="fa eicon-trash"></i> Удалить</a>
+                                        <a href="block-order/${orders.id}" class="btn btn-info"><i class="fa fa-eject"></i> Продолжить выполнение</a>
+                                    </c:if>
+                                    <c:if test="${orders.state == '6'}">
+                                        <a href="instruction/${orders.id}" class="btn btn-primary"><i class="fa eicon-right"></i> Просмотр</a>
+                                        <a href="print/${orders.id}" class="btn-inverse btn"><i class="fa fa-print"></i> Печать</a>
+                                    </c:if>
+                                </td>
+                            </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
                 </c:if>
