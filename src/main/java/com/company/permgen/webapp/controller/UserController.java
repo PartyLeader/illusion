@@ -1,16 +1,37 @@
 package com.company.permgen.webapp.controller;
 
+import com.artofsolving.jodconverter.DocumentConverter;
+import com.artofsolving.jodconverter.DocumentFormat;
+import com.artofsolving.jodconverter.DocumentFormatRegistry;
 import com.company.permgen.webapp.model.*;
 import com.company.permgen.webapp.repository.StateRepository;
 import com.company.permgen.webapp.service.*;
+import freemarker.ext.servlet.HttpRequestParametersHashModel;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.output.ByteArrayOutputStream;
+import org.aspectj.lang.annotation.Before;
+import org.jodreports.templates.DocumentTemplate;
+import org.jodreports.templates.DocumentTemplateException;
+import org.jodreports.templates.DocumentTemplateFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.core.io.Resource;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.AbstractController;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,7 +47,7 @@ import java.text.SimpleDateFormat;
  * To change this template use File | Settings | File Templates.
  */
 @Controller
-public class UserController {
+public class UserController extends AbstractController {
     @Autowired
     protected OrderService orderService;
     @Autowired
@@ -93,7 +114,7 @@ public class UserController {
     }
 
     @RequestMapping("/controlUsersCustomers")
-    public String getControlUsersCustomers(Model model) {
+    public String getControlUsersCustomers(Model model, HttpServletRequest request, HttpServletResponse response) {
         model.addAttribute("users", new User());
         model.addAttribute("userslist", usersService.getUsersCustomers());
         setModel(model);
@@ -102,12 +123,22 @@ public class UserController {
     }
 
     @RequestMapping(value = "/controlUsersCustomers", method = RequestMethod.POST)
-    public String createUserCustomersPost(@ModelAttribute("users") User item) {
-        // Size size = new Size(sizeName);
-        item.setRole(3);
-        item.setEnabled(true);
-        usersService.createUsers(item);
-        System.out.println(item.getId());
+    public String createUserCustomersPost(@ModelAttribute("users") User item, HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+       // item.setRole(3);
+      //  item.setEnabled(true);
+       // usersService.createUsers(item);
+      //  System.out.println(item.getId());
+        request.setCharacterEncoding("UTF-8");
+//        AbstractDocumentGenerator abstractDocumentGenerator = new AbstractDocumentGenerator();
+//        try {
+//            abstractDocumentGenerator.renderDocuments(item, request,response);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
+        this.handleRequestInternal(request, response);
+
         return "redirect:/controlUsersCustomers";
     }
 
@@ -251,6 +282,21 @@ public class UserController {
         return "adminPageFashion";
     }
 
+    @RequestMapping(value = "/adminPageFashion", method = RequestMethod.POST)
+    public String createFashionPost(@ModelAttribute("fashion") Fashion fashion) {
+        // Size size = new Size(sizeName);
+        fashionService.createFashion(fashion);
+        return "redirect:/adminPageFashion";
+    }
+
+    @RequestMapping(value = "/create-fashion")
+    public String getCreateFashion(Model model) {
+        model.addAttribute("recipe", new Fashion());
+        model.addAttribute("recipeList", fashionService.getFashion());
+        setModel(model);
+        return "create-fashion";
+    }
+
     @RequestMapping("/adminPageRecipe")
     public String getAdminPageRecipe(Model model) {
         model.addAttribute("recipe", new Recipe());
@@ -303,15 +349,7 @@ public class UserController {
         return "analyticView";
     }
 
-    @RequestMapping(value = "/plan-work-anal")
-    public String getPlanAnalPage(Model model) {
-        model.addAttribute("orders", orderService.getOrders());
-        model.addAttribute("userList", usersService.getUsers());
-        model.addAttribute("fashionList", fashionService.getFashion());
-        model.addAttribute("stateList", stateService.getState());
-        setModel(model);
-        return "plan-work-anal";
-    }
+
 
     @RequestMapping(value = "/find-order")
     public String getFindOrderPage(Model model) {
@@ -371,24 +409,19 @@ public class UserController {
         model.addAttribute("order",orderService.getOrder(orderid));
         return "find-order";
     }
-
-//
-//    @RequestMapping(value = "requestfilters")
-//    public String createRequestGetFilters(Model model) {
-//        Request request =new Request();
-//        model.addAttribute("request", request);
-//        model.addAttribute("listUrgency", requestService.getUrgency());
-//        System.out.println(requestService.getUrgency());
-//        setModel(model);
-//        return "requestfilters";
+//    @RequestMapping("/delete-request/{requestId}")
+//    public String deleteRequest(@PathVariable("requestId") int requestId) {
+//        requestService.getRequests(requestId);
+//        return "redirect:/requests";
 //    }
-//
-//    @RequestMapping(value ="requestfilters", method = RequestMethod.POST)
-//    public String getRequesrsFilter(@ModelAttribute("request") Request request,Model model) {
-//        List<Request> requests = requestService.getRequests(request.getUrgency()) ;
-//        model.addAttribute("requests", requests);
+//    @RequestMapping("/order/{requestId}")
+//    public String getOrder(@PathVariable("requestId") int requestId,Model model){
+//        List<Order> requests = requestService.getRequests((int)requestId) ;
+//        model.addAttribute("requests",requests);
+//        List<Order> orders = orderService.getOrders(requestId);
+//        model.addAttribute("orders",orders);
 //        setModel(model);
-//        return "requests";
+//        return "order";
 //    }
     @RequestMapping("/block-order/{orderId}")
     public String blockOrder(@PathVariable("orderId") int orderId) {
@@ -462,5 +495,73 @@ public class UserController {
         recipeList =  recipeService.getRecipe();
         magicList =  magicService.getMagic();
      //   magicList =  magicService.getMagic();
+    }
+
+    @Override
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        renderDocument(request, response);
+        return null;
+    }
+
+    private void renderDocument( HttpServletRequest request, HttpServletResponse response) throws Exception {
+        DocumentConverter converter = (DocumentConverter) getApplicationContext().getBean("documentConverter");
+        DocumentFormatRegistry formatRegistry = (DocumentFormatRegistry) getApplicationContext().getBean("documentFormatRegistry");
+        String requestURI = request.getRequestURI();
+        if (requestURI.split(".").length ==0 ) {
+            requestURI = requestURI+".odt";
+        }
+        String outputExtension = FilenameUtils.getExtension(requestURI);
+        DocumentFormat outputFormat = formatRegistry.getFormatByFileExtension(outputExtension);
+        if (outputFormat == null) {
+            throw new ServletException("unsupported output format: " + outputExtension);
+        }
+        File templateFile = null;
+        String documentName = FilenameUtils.getBaseName(request.getRequestURI());
+        Resource templateDirectory = getTemplateDirectory(documentName);
+        if (templateDirectory.exists()) {
+            templateFile = templateDirectory.getFile();
+        }
+        else {
+            templateFile = getTemplateFile(documentName).getFile();
+            if (!templateFile.exists()) {
+                throw new ServletException("template not found: " + documentName);
+            }
+        }
+
+        DocumentTemplateFactory documentTemplateFactory = new DocumentTemplateFactory();
+        DocumentTemplate template = documentTemplateFactory.getTemplate(templateFile);
+
+        ByteArrayOutputStream odtOutputStream = new ByteArrayOutputStream();
+        try {
+
+            template.createDocument(new HttpRequestParametersHashModel(request), odtOutputStream);
+            Thread.currentThread().sleep(3000) ;
+        }
+        catch (DocumentTemplateException exception) {
+            throw new ServletException(exception);
+        }
+        response.setContentType(outputFormat.getMimeType());
+        response.setHeader("Content-Disposition", "inline; filename=" + documentName + "." + outputFormat.getFileExtension());
+
+        if ("odt".equals(outputFormat.getFileExtension())) {
+            // no need to convert
+            response.getOutputStream().write(odtOutputStream.toByteArray());
+//            response.sendRedirect("controlUsersCustomers");
+        }
+        else {
+            ByteArrayInputStream odtInputStream = new ByteArrayInputStream(odtOutputStream.toByteArray());
+            DocumentFormat inputFormat = formatRegistry.getFormatByFileExtension("odt");
+            converter.convert(odtInputStream, inputFormat, response.getOutputStream(), outputFormat);
+        }
+    }
+
+    private Resource getTemplateDirectory(String documentName) throws IOException {
+        String directoryName = "WEB-INF/templates/" + documentName + "-template";
+        return getApplicationContext().getResource(directoryName);
+    }
+
+    private Resource getTemplateFile(String documentName) throws IOException {
+        String templateName = "WEB-INF/templates/" + documentName + "-template.odt";
+        return getApplicationContext().getResource(templateName);
     }
 }

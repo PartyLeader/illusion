@@ -18,13 +18,84 @@
 
     <mvc:resources mapping="/resources/**" location="/resources/"/>
 
+    <bean id="httpParametersDocumentGenerator" class="com.company.permgen.webapp.controller.HttpParametersDocumentGenerator"/>
 
-    <bean id="jspViewResolver"
-          class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="viewClass"
-                  value="org.springframework.web.servlet.view.JstlView" />
-        <property name="prefix" value="/WEB-INF/pages/" />
-        <property name="suffix" value=".jsp" />
+    <bean id="letterFormController" class="com.company.permgen.webapp.controller.LetterFormController">
+        <property name="formView" value="letterFormView"/>
+        <!--<property name="successView" value="letterView"/>-->
+    </bean>
+
+
+    <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+            <props>
+                <prop key="/controlUsersCustomers.html">letterFormController</prop>
+                <prop key="letter.*">httpParametersDocumentGenerator</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="documentFormatRegistry" class="com.artofsolving.jodconverter.DefaultDocumentFormatRegistry"/>
+
+    <bean id="documentConverter" class="com.artofsolving.jodconverter.openoffice.converter.OpenOfficeDocumentConverter">
+        <constructor-arg index="0">
+            <ref bean="openOfficeConnection"/>
+        </constructor-arg>
+        <constructor-arg index="1">
+            <ref bean="documentFormatRegistry"/>
+        </constructor-arg>
+    </bean>
+
+    <bean id="openOfficeConnection" class="com.artofsolving.jodconverter.openoffice.connection.SocketOpenOfficeConnection" destroy-method="disconnect">
+        <!-- host -->
+        <constructor-arg index="0">
+            <value>localhost</value>
+        </constructor-arg>
+        <!-- port -->
+        <constructor-arg index="1">
+            <value>8100</value>
+        </constructor-arg>
+    </bean>
+
+    <!--<bean id="jspViewResolver"-->
+          <!--class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
+        <!--<property name="viewClass"-->
+                  <!--value="org.springframework.web.servlet.view.JstlView" />-->
+        <!--<property name="prefix" value="/WEB-INF/pages/" />-->
+        <!--<property name="suffix" value=".jsp" />-->
+    <!--</bean>-->
+
+    <!--<bean id="openOfficeConnection" class="com.artofsolving.jodconverter.openoffice.connection.SocketOpenOfficeConnection" destroy-method="disconnect">-->
+        <!--&lt;!&ndash; host &ndash;&gt;-->
+        <!--<constructor-arg index="0">-->
+            <!--<value>localhost</value>-->
+        <!--</constructor-arg>-->
+        <!--&lt;!&ndash; port &ndash;&gt;-->
+        <!--<constructor-arg index="1">-->
+            <!--<value>8100</value>-->
+        <!--</constructor-arg>-->
+    <!--</bean>-->
+
+    <!--<bean id="documentFormatRegistry" class="com.artofsolving.jodconverter.DefaultDocumentFormatRegistry"/>-->
+
+    <!--<bean id="documentConverter" class="com.artofsolving.jodconverter.openoffice.converter.OpenOfficeDocumentConverter">-->
+        <!--<constructor-arg index="0">-->
+            <!--<ref bean="openOfficeConnection"/>-->
+        <!--</constructor-arg>-->
+        <!--<constructor-arg index="1">-->
+            <!--<ref bean="documentFormatRegistry"/>-->
+        <!--</constructor-arg>-->
+    <!--</bean>-->
+
+    <!--<bean id="viewResolver" class="org.springframework.web.servlet.view.ResourceBundleViewResolver">-->
+    <!--<bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">-->
+        <!--<property name="prefix" value=""/>-->
+
+    <!--</bean>-->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/pages/"/>
+        <property name="suffix" value=".jsp"/>
     </bean>
 
 </beans>

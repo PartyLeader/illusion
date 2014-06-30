@@ -74,4 +74,31 @@
         <location>/error404.jsp</location>
     </error-page>
 
+    <servlet-mapping>
+        <servlet-name>ClassicWebApplication</servlet-name>
+        <url-pattern>*.pdf</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ClassicWebApplication</servlet-name>
+        <url-pattern>*.odt</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ClassicWebApplication</servlet-name>
+        <url-pattern>*.doc</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ClassicWebApplication</servlet-name>
+        <url-pattern>*.rtf</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ClassicWebApplication</servlet-name>
+        <url-pattern>/spring/*</url-pattern>
+    </servlet-mapping>
+
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>ClassicWebApplication</servlet-name>-->
+        <!--<url-pattern>*.html</url-pattern>-->
+    <!--</servlet-mapping>-->
+
 </web-app>
