@@ -319,6 +319,16 @@ public class UserController {
         return "plan-work-anal";
     }
 
+    @RequestMapping(value = "/plan-work-work")
+         public String getPlanWorkPage(Model model) {
+        model.addAttribute("orders", orderService.getOrders());
+        model.addAttribute("userList", usersService.getUsers());
+        model.addAttribute("fashionList", fashionService.getFashion());
+        model.addAttribute("stateList", stateService.getState());
+        setModel(model);
+        return "plan-work-work";
+    }
+
 
     @RequestMapping(value = "/orders")
     public String getOrders(Model model) {
