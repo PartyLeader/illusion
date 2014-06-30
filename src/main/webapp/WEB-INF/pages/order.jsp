@@ -32,9 +32,7 @@
                                                     <select name="user" class="selectpicker " data-style="btn-default" id="user" path="user">
                                                         <c:forEach items="${userList}" var="item">
                                                             <c:if test="${item.role == '3'}">
-                                                                <c:if test="${item.id == order.user}">
-                                                                    <span class="filter-option">${item.name}</span>
-                                                                </c:if>
+
                                                                 <option value="${item.id}" path="user">${item.name}</option>
                                                             </c:if>
                                                         </c:forEach>
