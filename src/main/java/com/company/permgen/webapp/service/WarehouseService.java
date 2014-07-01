@@ -24,4 +24,5 @@ public class WarehouseService {
     public void updateWarehouse(Warehouse item) {
         repository.updateWarehouse(item);
     }
+    public void changeCount(int newCount,int goodId){repository.changeCount(newCount,goodId);};
 }

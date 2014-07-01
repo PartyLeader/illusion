@@ -174,6 +174,7 @@ public class UserController {
         warehouseService.createWarehouse(new Warehouse(_goodList.get(0).getName(),_goodList.get(0).getId(),5));
         warehouseService.createWarehouse(new Warehouse(_goodList.get(2).getName(),_goodList.get(2).getId(),9));
         warehouseService.createWarehouse(new Warehouse(_goodList.get(3).getName(),_goodList.get(3).getId(),2));
+        warehouseService.createWarehouse(new Warehouse(_goodList.get(4).getName(), _goodList.get(4).getId(),88));
 
         sizeService.createSize(new Size("S (40)",40));
         sizeService.createSize(new Size("M (44)",44));
@@ -215,16 +216,7 @@ public class UserController {
         stateService.createState(new State("Готово"));
         Random rand = new Random();
 
-        recipeService.createRecipe(new Recipe(
-                "Восполение хитрости",
-                "Восполение хитрости не лечится никак, так что можно наказать проказника - Рубаха с чесоточным эффектом!",
-                _goodList.get(4).getId(),
-                rand.nextInt(42),
-                _goodList.get(11).getId(),
-                rand.nextInt(42),
-                _goodList.get(29).getId(),
-                rand.nextInt(42)
-        ));
+        recipeService.createRecipe(new Recipe("Восполение хитрости","Восполение хитрости не лечится никак, так что можно наказать проказника - Рубаха с чесоточным эффектом!",_goodList.get(4).getId(),21,_goodList.get(11).getId(),15,_goodList.get(28).getId(),1));
         recipeService.createRecipe(new Recipe(
                 "Курение",
                 "Никотиновые рубахи. Такой рубахи хватает на 1,5 месяца",
@@ -232,8 +224,8 @@ public class UserController {
                 rand.nextInt(42),
                 _goodList.get(15).getId(),
                 rand.nextInt(42),
-                _goodList.get(24).getId(),
-                rand.nextInt(42)
+                _goodList.get(23).getId(),
+                1
         ));
         recipeService.createRecipe(new Recipe(
                 "Простуда",
@@ -242,8 +234,8 @@ public class UserController {
                 rand.nextInt(42),
                 _goodList.get(16).getId(),
                 rand.nextInt(42),
-                _goodList.get(22).getId(),
-                rand.nextInt(42)
+                _goodList.get(21).getId(),
+                1
         ));
         recipeService.createRecipe(new Recipe(
                 "Клаустрофобия",
@@ -252,8 +244,8 @@ public class UserController {
                 rand.nextInt(42),
                 _goodList.get(17).getId(),
                 rand.nextInt(42),
-                _goodList.get(28).getId(),
-                rand.nextInt(42)
+                _goodList.get(27).getId(),
+                1
         ));
         recipeService.createRecipe(new Recipe(
                 "Троллинг",
@@ -262,18 +254,18 @@ public class UserController {
                 rand.nextInt(42),
                 _goodList.get(11).getId(),
                 rand.nextInt(42),
-                _goodList.get(25).getId(),
-                rand.nextInt(42)
+                _goodList.get(24).getId(),
+                1
         ));
         recipeService.createRecipe(new Recipe(
                 "Невосприятие сарказма",
                 "Рубашка с невидимой подсказкой сарказм, появляющейся в самый нужный момент",
                 _goodList.get(7).getId(),
                 rand.nextInt(42),
-                _goodList.get(19).getId(),
+                _goodList.get(18).getId(),
                 rand.nextInt(42),
-                _goodList.get(27).getId(),
-                rand.nextInt(42)
+                _goodList.get(26).getId(),
+                1
         ));
         recipeService.createRecipe(new Recipe(
                 "Бадун",
@@ -282,8 +274,8 @@ public class UserController {
                 rand.nextInt(42),
                 _goodList.get(12).getId(),
                 rand.nextInt(42),
-                _goodList.get(20).getId(),
-                rand.nextInt(42)
+                _goodList.get(19).getId(),
+                1
         ));
         recipeService.createRecipe(new Recipe(
                 "Лентяйство",
@@ -292,8 +284,8 @@ public class UserController {
                 rand.nextInt(42),
                 _goodList.get(14).getId(),
                 rand.nextInt(42),
-                _goodList.get(26).getId(),
-                rand.nextInt(42)
+                _goodList.get(25).getId(),
+                1
         ));
         recipeService.createRecipe(new Recipe(
                 "Капракод",
@@ -302,8 +294,8 @@ public class UserController {
                 rand.nextInt(42),
                 _goodList.get(13).getId(),
                 rand.nextInt(42),
-                _goodList.get(29).getId(),
-                rand.nextInt(42)
+                _goodList.get(28).getId(),
+                1
         ));
         recipeService.createRecipe(new Recipe(
                 "Кривые руки",
@@ -312,8 +304,8 @@ public class UserController {
                 rand.nextInt(42),
                 _goodList.get(10).getId(),
                 rand.nextInt(42),
-                _goodList.get(29).getId(),
-                rand.nextInt(42)
+                _goodList.get(28).getId(),
+                 1
         ));
         recipeService.createRecipe(new Recipe(
                 "Розовые очки",
@@ -322,8 +314,8 @@ public class UserController {
                 rand.nextInt(42),
                 _goodList.get(17).getId(),
                 rand.nextInt(42),
-                _goodList.get(22).getId(),
-                rand.nextInt(42)
+                _goodList.get(21).getId(),
+                1
         ));
         recipeService.createRecipe(new Recipe(
                 "Ветер в голове",
@@ -332,8 +324,8 @@ public class UserController {
                 rand.nextInt(42),
                 _goodList.get(16).getId(),
                 rand.nextInt(42),
-                _goodList.get(28).getId(),
-                rand.nextInt(42)
+                _goodList.get(27).getId(),
+                1
         ));
         recipeService.createRecipe(new Recipe(
                 "Бессоница",
@@ -342,8 +334,8 @@ public class UserController {
                 rand.nextInt(42),
                 _goodList.get(16).getId(),
                 rand.nextInt(42),
-                _goodList.get(27).getId(),
-                rand.nextInt(42)
+                _goodList.get(26).getId(),
+                1
         ));
 
         Role guestRole = new Role("ROLE_ANONYMOUS");
@@ -432,6 +424,7 @@ public class UserController {
     public String getAdminPageRecipe(Model model) {
         model.addAttribute("recipe", new Recipe());
         model.addAttribute("recipeList", recipeService.getRecipe());
+        model.addAttribute("goodsList", goodService.getGood());
         setModel(model);
         return "adminPageRecipe";
     }
@@ -499,6 +492,7 @@ public class UserController {
         model.addAttribute("sizeList", sizeService.getSize());
         model.addAttribute("recipes", recipeService.getRecipe());
         model.addAttribute("goodList", goodService.getGood());
+        model.addAttribute("warehouse",warehouseService.getWarehouse());
         setModel(model);
         return "plan-work-work";
     }
@@ -526,6 +520,7 @@ public class UserController {
         model.addAttribute("stateList", stateList);
         model.addAttribute("recipeList", recipeList);
         model.addAttribute("userList", usersService.getUsers());
+        model.addAttribute("imageList", imageService.getImage());
         setModel(model);
         return "create-order";
     }

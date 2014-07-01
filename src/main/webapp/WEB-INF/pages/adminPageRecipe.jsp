@@ -39,7 +39,7 @@
             "bSort": true,
             "aaSorting": [[ 0, "asc" ]],
             "aoColumnDefs": [
-                { "sWidth": "50%", "aTargets": [ -1 ] }
+                { "sWidth": "10%", "aTargets": [ -1 ] }
             ],
             "bProcessing": false
         };
@@ -55,9 +55,6 @@
     </div>
     <div class="row">
         <section class="widget padding-bottom">
-            <div class="padding-bottom">
-                <a href="<c:url value="/create-recipe"/>" class="btn btn-success"><i class="fa fa-plus"></i> Добавить рецепт</a>
-            </div>
             <c:if test="${!empty recipeList}">
                 <table id="datatable-table" class="table table-striped">
                     <thead>
@@ -65,6 +62,13 @@
                         <th>#</th>
                         <th>Название</th>
                         <th>Спецификация</th>
+                        <th>Крапива</th>
+                        <th>Количество</th>
+                        <th>Нити</th>
+                        <th>Количество</th>
+                        <th>Изделия</th>
+                        <th>Количество</th>
+
                     </tr>
                     <thead>
                     <tbody>
@@ -73,6 +77,12 @@
                             <td>${index.count}</td>
                             <td>${recipes.name}</td>
                             <td>${recipes.specification}</td>
+                            <td>${goodsList[recipes.goodsVah-1].name}</td>
+                            <td>${recipes.countVah}</td>
+                            <td>${goodsList[recipes.goodsHan-1].name}</td>
+                            <td>${recipes.countHan}</td>
+                            <td>${goodsList[recipes.goodsTai-1].name}</td>
+                            <td>${recipes.countTai}</td>
                         </tr>
                     </c:forEach>
                     </tbody>

@@ -40,10 +40,6 @@
                                                 </div>
                                             </div>
                                         </c:if>
-                                        <label for="description" class="control-label">Контакты</label>
-                                        <div class="controls form-group padding-left">
-                                            <textarea id="description" rows="3" name="text" class="form-control parsley-validated" required="required"></textarea>
-                                        </div>
                                     </div>
                                     <div class="control-group">
                                         <label class="control-label">Фасон изделия</label>

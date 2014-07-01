@@ -1,6 +1,7 @@
 package com.company.permgen.webapp.repository;
 
 import com.company.permgen.webapp.model.Warehouse;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -23,7 +24,13 @@ public class WarehouseRepository {
                 .createQuery("FROM Warehouse")
                 .list();
     }
-
+    public void changeCount(int newCount,int goodId){
+        Query query = sessionFactory.getCurrentSession().createQuery("FROM Warehouse b WHERE good = :goodId");
+        List<Warehouse> house =  query.setString("goodId", goodId+"").list();
+        Warehouse newValue = house.get(0);
+        newValue.setCount(newCount);
+        updateWarehouse(newValue);
+    };
     public void createWarehouse(Warehouse item) {
         sessionFactory.getCurrentSession().save(item);
     }

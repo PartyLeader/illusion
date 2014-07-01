@@ -20,12 +20,10 @@
 <body class="background-dark wysihtml5-supported">
 
     <script type="text/javascript">
-        $(document).ready(function () {
-        $('.fashioncheck input:radio').change(function () {
-                alert("Radio button selection changed. Selected: ");
-            });
-        });
 
+        function refreshImage(img){
+            document.getElementById("showImg").src="<c:url value="/resources/img/fashionPictures/"/>" + (img-1) + ".jpg";
+        }
         function dtval(d,e) {
             var pK = e ? e.which : window.event.keyCode;
             if (pK == 8) {d.value = substr(0,d.value.length-1); return;}
@@ -84,17 +82,11 @@
                                              </div>
                                          </div>
                                     </c:if>
-                                    <div class="control-group">
-                                        <label for="description" class="control-label">Контакты</label>
-                                        <div class="controls form-group padding-left">
-                                            <textarea id="description" rows="3" name="text" class="form-control parsley-validated" required="required"></textarea>
-                                        </div>
-                                    </div>
                                    <div class="control-group">
                                         <label class="control-label">Фасон изделия</label>
                                         <div class="controls form-group">
                                              <c:forEach items="${fashionList}" var="item">
-                                                <label class="radio" id="fashion">
+                                                <label class="radio" id="fashion" onclick="refreshImage(${item.id})">
                                                     <form:radiobutton class = "iCheck fashioncheck" path="fashion" value="${item.id}"/>${item.name}
                                                 </label>
                                             </c:forEach>
@@ -165,13 +157,13 @@
                             <header>
                                 <h4>
                                     <i class="fa fa-star"></i>
-                                    Предпросмотр
+                                    Предпросмотр ${recipe}
                                 </h4>
                             </header>
                              <div class="body">
                                 <ul class="row thumbnails">
                                     <li class="col-sm-4">
-                                            <img src="<c:url value="/resources/img/fashionPictures/1.jpg"/>" alt="">
+                                            <img id="showImg" src="<c:url value="/resources/img/fashionPictures/1.jpg"/>" alt="">
                                     </li>
                                 </ul>
                              </div>

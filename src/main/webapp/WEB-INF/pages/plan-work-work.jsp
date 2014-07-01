@@ -81,11 +81,15 @@
                                     <td>${order.id}</td>
                                     <td><c:if test="${order.priority == '0'}">Срочный</c:if><c:if test="${order.priority != '0'}">Обычный</c:if></td>
                                     <td>${userList[order.user-1].name}</td>
-                                    <td>$</td>
-                                    <td>${sizeList[order.size-1].value * recipes[order.recipe-1].count}</td>
+                                    <td>${goodList[recipes[order.recipe-1].goodsVah-1].name}</td>
+                                    <td>${sizeList[order.size-1].value * recipes[order.recipe-1].countVah}</td>
                                     <td>${order.enddate}</td>
                                     <td>
-                                        <a href="change-order-state/${order.id}" class="btn btn-success"><i class="fa fa-check-circle"></i> Выполнено</a>
+                                        <c:forEach items="${warehouse}" var="warehouse">
+                                            <c:if test="${warehouse.good == recipes[order.recipe-1].goodsVah && warehouse.count >= recipes[order.recipe-1].countVah}">
+                                                <a href="change-order-state/${order.id}" class="btn btn-success"><i class="fa fa-check-circle"></i> Выполнено</a>
+                                            </c:if>
+                                        </c:forEach>
                                     </td>
                                 </tr>
                             </c:if>
@@ -94,11 +98,15 @@
                                     <td>${order.id}</td>
                                     <td><c:if test="${order.priority == '0'}">Срочный</c:if><c:if test="${order.priority != '0'}">Обычный</c:if></td>
                                     <td>${userList[order.user-1].name}</td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>${goodList[recipes[order.recipe-1].goodsHan-1].name}</td>
+                                    <td>${sizeList[order.size-1].value * recipes[order.recipe-1].countHan}</td>
                                     <td>${order.enddate}</td>
                                     <td>
-                                        <a href="change-order-state/${order.id}" class="btn btn-success"><i class="fa fa-check-circle"></i> Выполнено</a>
+                                        <c:forEach items="${warehouse}" var="warehouse">
+                                            <c:if test="${warehouse.good == recipes[order.recipe-1].goodsHan && warehouse.count >= recipes[order.recipe-1].countHan}">
+                                                <a href="change-order-state/${order.id}" class="btn btn-success"><i class="fa fa-check-circle"></i> Выполнено</a>
+                                            </c:if>
+                                        </c:forEach>
                                     </td>
                                 </tr>
                             </c:if>
@@ -107,11 +115,15 @@
                                     <td>${order.id}</td>
                                     <td><c:if test="${order.priority == '0'}">Срочный</c:if><c:if test="${order.priority != '0'}">Обычный</c:if></td>
                                     <td>${userList[order.user-1].name}</td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>${goodList[recipes[order.recipe-1].goodsTai-1].name}</td>
+                                    <td>${recipes[order.recipe-1].countTai}</td>
                                     <td>${order.enddate}</td>
                                     <td>
-                                        <a href="change-order-state/${order.id}" class="btn btn-success"><i class="fa fa-check-circle"></i> Выполнено</a>
+                                        <c:forEach items="${warehouse}" var="warehouse">
+                                            <c:if test="${warehouse.good == recipes[order.recipe-1].goodsTai && warehouse.count >= recipes[order.recipe-1].countTai}">
+                                                <a href="change-order-state/${order.id}" class="btn btn-success"><i class="fa fa-check-circle"></i> Выполнено</a>
+                                            </c:if>
+                                        </c:forEach>
                                         <a href="write-description/${order.id}" class="btn btn-inverse"><i class="fa fa-edit"></i> Описание товара</a>
                                     </td>
                                 </tr>
@@ -121,8 +133,8 @@
                                     <td>${order.id}</td>
                                     <td><c:if test="${order.priority == '0'}">Срочный</c:if><c:if test="${order.priority != '0'}">Обычный</c:if></td>
                                     <td>${userList[order.user-1].name}</td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>${recipes[order.recipe-1].specification}</td>
+                                    <td>1</td>
                                     <td>${order.enddate}</td>
                                     <td>
                                         <a href="change-order-state/${order.id}" class="btn btn-success"><i class="fa fa-check-circle"></i> Выполнено</a>
