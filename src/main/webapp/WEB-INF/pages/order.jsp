@@ -29,13 +29,14 @@
                                             <div class="control-group">
                                                 <label for="description" class="control-label">Заказчик</label>
                                                 <div class="controls form-group padding-left">
-                                                    <select name="user" class="selectpicker " data-style="btn-default" id="user" path="user">
+
+                                                    <form:select path="user" class="selectpicker " data-style="btn-default" id="user">
                                                         <c:forEach items="${userList}" var="item">
                                                             <c:if test="${item.role == '3'}">
-                                                                <option value="${item.id}" path="user">${item.name}</option>
+                                                                <form:option value="${item.id}" label="${item.name}"/>
                                                             </c:if>
                                                         </c:forEach>
-                                                    </select>
+                                                    </form:select>
                                                 </div>
                                             </div>
                                         </c:if>

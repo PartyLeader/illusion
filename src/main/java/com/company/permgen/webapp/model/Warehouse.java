@@ -42,6 +42,12 @@ public class Warehouse {
         this.count = count;
     }
 
+    public Warehouse(String name, int good, int count) {
+        this.name = name;
+        this.good = good;
+        this.count = count;
+    }
+
     public int getId() {
         return id;
     }

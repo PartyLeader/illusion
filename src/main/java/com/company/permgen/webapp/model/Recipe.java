@@ -21,9 +21,23 @@ public class Recipe {
     @Column(name = "RECIPE_SPECIFICATION", nullable = false, length = 255)
     private String specification;
 
+    @Column(name = "RECIPE_GOOD_VA", nullable = false)
+    private int goodsVah;
 
-    @Column(name = "RECIPE_GOOD", nullable = false)
-    private int goods;
+    @Column(name = "RECIPE_COUNT_VA", nullable = false)
+    private int countVah;
+
+    @Column(name = "RECIPE_GOOD_HANDLER", nullable = false)
+    private int goodsHan;
+
+    @Column(name = "RECIPE_COUNT_HANDLER", nullable = false)
+    private int countHan;
+
+    @Column(name = "RECIPE_GOOD_TAILOR", nullable = false)
+    private int goodsTai;
+
+    @Column(name = "RECIPE_COUNT_TAILOR", nullable = false)
+    private int countTai;
 
     public Recipe() {
     }
@@ -33,11 +47,47 @@ public class Recipe {
         this.specification = specification;
     }
 
-    public Recipe(int id, String name, String specification, int goods) {
-        this.id = id;
+    public Recipe(String name, String specification, int goodsVah, int countVah, int goodsHan, int countHan, int goodsTai, int countTai) {
         this.name = name;
         this.specification = specification;
-        this.goods = goods;
+        this.goodsVah = goodsVah;
+        this.countVah = countVah;
+        this.goodsHan = goodsHan;
+        this.countHan = countHan;
+        this.goodsTai = goodsTai;
+        this.countTai = countTai;
+    }
+
+    public int getCountVah() {
+        return countVah;
+    }
+
+    public void setCountVah(int countVah) {
+        this.countVah = countVah;
+    }
+
+    public int getCountHan() {
+        return countHan;
+    }
+
+    public void setCountHan(int countHan) {
+        this.countHan = countHan;
+    }
+
+    public int getCountTai() {
+        return countTai;
+    }
+
+    public void setCountTai(int countTai) {
+        this.countTai = countTai;
+    }
+
+    public int getCount() {
+        return countVah;
+    }
+
+    public void setCount(int countVah) {
+        this.countVah = countVah;
     }
 
     public int getId() {
@@ -64,11 +114,27 @@ public class Recipe {
         this.specification = specification;
     }
 
-    public int getGoods() {
-        return goods;
+    public int getGoodsVah() {
+        return goodsVah;
     }
 
-    public void setGoods(int goods) {
-        this.goods = goods;
+    public void setGoodsVah(int goodsVah) {
+        this.goodsVah = goodsVah;
+    }
+
+    public int getGoodsHan() {
+        return goodsHan;
+    }
+
+    public void setGoodsHan(int goodsHan) {
+        this.goodsHan = goodsHan;
+    }
+
+    public int getGoodsTai() {
+        return goodsTai;
+    }
+
+    public void setGoodsTai(int goodsTai) {
+        this.goodsTai = goodsTai;
     }
 }

@@ -36,6 +36,8 @@ public class UserController {
     @Autowired
     protected GoodTypeService goodTypeService;
     @Autowired
+    protected GoodService goodService;
+    @Autowired
     protected FashionService fashionService;
     @Autowired
     protected MagicService magicService;
@@ -47,10 +49,14 @@ public class UserController {
     protected RecipeService recipeService;
     @Autowired
     protected ImageService imageService;
+    @Autowired
+    protected WarehouseService warehouseService;
+
 
     private List<Size> sizeList;
     private List<State> stateList;
     private List<GoodType> goodTypeList;
+    private List<Good> goodList;
     private List<Fashion> fashionList;
     private List<Recipe> recipeList;
     private List<Magic> magicList;
@@ -122,14 +128,60 @@ public class UserController {
         if(list.size() > 0){
             return "redirect:/";
         }
+        List<GoodType> _goodTypeList = new ArrayList<GoodType>();
+        _goodTypeList.add(new GoodType("Крапива"));
+        _goodTypeList.add(new GoodType("Нити"));
+        _goodTypeList.add(new GoodType("Изделия"));
+        for(int i =0; i< _goodTypeList.size();i++) {
+            goodTypeService.createGoodType(_goodTypeList.get(i));
+        }
 
-        sizeService.createSize(new Size("S (40)"));
-        sizeService.createSize(new Size("M (44)"));
-        sizeService.createSize(new Size("L (48)"));
-        sizeService.createSize(new Size("XL (50)"));
-        sizeService.createSize(new Size("XXL (52)"));
-        sizeService.createSize(new Size("XXXL (54)"));
-        sizeService.createSize(new Size("X (100)"));
+        List<Good> _goodList = new ArrayList<Good>();
+        _goodList.add(new Good("Трава отборная", true, _goodTypeList.get(0).getId() ));                         //0
+        _goodList.add(new Good("Крапива простая", false, _goodTypeList.get(0).getId() ));                       //1
+        _goodList.add(new Good("Горная крапива", false, _goodTypeList.get(0).getId() ));                        //2
+        _goodList.add(new Good("Постапокаллиптическая крапива", false, _goodTypeList.get(0).getId() ));         //3
+        _goodList.add(new Good("Крапива, которой нет", false, _goodTypeList.get(0).getId() ));                  //4
+        _goodList.add(new Good("Влажная крапива", false, _goodTypeList.get(0).getId() ));                       //5
+        _goodList.add(new Good("Крапивница азиатская", false, _goodTypeList.get(0).getId() ));                  //6
+        _goodList.add(new Good("Вареная крапива", false, _goodTypeList.get(0).getId() ));                       //7
+        _goodList.add(new Good("Крапивы весны 1985", false, _goodTypeList.get(0).getId() ));                    //8
+        _goodList.add(new Good("Шелковая крапива", false, _goodTypeList.get(0).getId() ));                      //9
+        _goodList.add(new Good("Коноплянная нить", true, _goodTypeList.get(1).getId() ));                       //10
+        _goodList.add(new Good("Пачесей", false, _goodTypeList.get(1).getId() ));                               //11
+        _goodList.add(new Good("Вычесок", false, _goodTypeList.get(1).getId() ));                               //12
+        _goodList.add(new Good("Поурет", true, _goodTypeList.get(1).getId() ));                                 //13
+        _goodList.add(new Good("Крапивный канат", true, _goodTypeList.get(1).getId() ));                        //14
+        _goodList.add(new Good("Нитки на веселе", true, _goodTypeList.get(1).getId() ));                        //15
+        _goodList.add(new Good("Шерстяные крапивные нитки", true, _goodTypeList.get(1).getId() ));              //16
+        _goodList.add(new Good("Тонкая крапивная ниточка", false, _goodTypeList.get(1).getId() ));               //17
+        _goodList.add(new Good("Стебель-нитка", false, _goodTypeList.get(1).getId() ));                          //19
+        _goodList.add(new Good("Рубаха", false, _goodTypeList.get(2).getId()));                                  //20
+        _goodList.add(new Good("Поло", true, _goodTypeList.get(2).getId()));                                     //21
+        _goodList.add(new Good("Плащ", true, _goodTypeList.get(2).getId()));                                 //22
+        _goodList.add(new Good("Бесшовная рубаха", true, _goodTypeList.get(2).getId()));                                 //23
+        _goodList.add(new Good("Рубаха-топор", true, _goodTypeList.get(2).getId()));                                 //24
+        _goodList.add(new Good("Рубаха-макарена", true, _goodTypeList.get(2).getId()));                                 //25
+        _goodList.add(new Good("Футболка", true, _goodTypeList.get(2).getId()));                                 //26
+        _goodList.add(new Good("Платьице неженское", true, _goodTypeList.get(2).getId()));                                 //27
+        _goodList.add(new Good("Парашют", true, _goodTypeList.get(2).getId()));                                 //28
+        _goodList.add(new Good("Скафандр", true, _goodTypeList.get(2).getId()));                                 //29
+        for(int i =0; i< _goodList.size();i++) {
+            goodService.createGood(_goodList.get(i));
+        }
+
+
+        warehouseService.createWarehouse(new Warehouse(_goodList.get(0).getName(),_goodList.get(0).getId(),5));
+        warehouseService.createWarehouse(new Warehouse(_goodList.get(2).getName(),_goodList.get(2).getId(),9));
+        warehouseService.createWarehouse(new Warehouse(_goodList.get(3).getName(),_goodList.get(3).getId(),2));
+
+        sizeService.createSize(new Size("S (40)",40));
+        sizeService.createSize(new Size("M (44)",44));
+        sizeService.createSize(new Size("L (48)",48));
+        sizeService.createSize(new Size("XL (50)",50));
+        sizeService.createSize(new Size("XXL (52)",52));
+        sizeService.createSize(new Size("XXXL (54)",54));
+        sizeService.createSize(new Size("X (100)",100));
         sizeList = sizeService.getSize();
         model.addAttribute("sizeName", sizeList.get(0).getName());
         model.addAttribute("sizeList", sizeList);
@@ -151,6 +203,7 @@ public class UserController {
         {
             fashionService.createFashion(fashionList1.get(i));
             imageService.createImage(new Image(fashionList1.get(i).getName(), i +".jpg","BL" + i));
+            goodService.createGood(new Good(fashionList1.get(i).getName(), true, _goodTypeList.get(2).getId()));
         }
 
         stateService.createState(new State("Отправлен"));
@@ -160,20 +213,138 @@ public class UserController {
         stateService.createState(new State("Изготовление"));
         stateService.createState(new State("Магия"));
         stateService.createState(new State("Готово"));
+        Random rand = new Random();
 
-        recipeService.createRecipe(new Recipe("Восполение хитрости", "Восполение хитрости не лечится никак, так что можно наказать проказника - Рубаха с чесоточным эффектом!"));
-        recipeService.createRecipe(new Recipe("Курение", "Никотиновые рубахи. Такой рубахи хватает на 1,5 месяца"));
-        recipeService.createRecipe(new Recipe("Простуда", "Теплая рубаха с высоким воротом"));
-        recipeService.createRecipe(new Recipe("Клаустрофобия", "Необъятных размеров рубашка без рукавов"));
-        recipeService.createRecipe(new Recipe("Троллинг", "Рубаха с затычкой для рта"));
-        recipeService.createRecipe(new Recipe("Невосприятие сарказма", "Рубашка с невидимой подсказкой сарказм, появляющейся в самый нужный момент"));
-        recipeService.createRecipe(new Recipe("Бадун", "Рубаха, пропитанная огуречным рассольчиком"));
-        recipeService.createRecipe(new Recipe("Лентяйство", "Рубаха-пендель"));
-        recipeService.createRecipe(new Recipe("Капракод", "Рубаха с божественным провидением"));
-        recipeService.createRecipe(new Recipe("Кривые руки", "Рубаха с прямыми несгибаемыми рукавами"));
-        recipeService.createRecipe(new Recipe("Розовые очки", "Рубаха некроманта"));
-        recipeService.createRecipe(new Recipe("Ветер в голове", "Уютная утепленная рубашечка с большим капюшоном"));
-        recipeService.createRecipe(new Recipe("Бессоница", "Укутывающая пижамка со снотворным"));
+        recipeService.createRecipe(new Recipe(
+                "Восполение хитрости",
+                "Восполение хитрости не лечится никак, так что можно наказать проказника - Рубаха с чесоточным эффектом!",
+                _goodList.get(4).getId(),
+                rand.nextInt(42),
+                _goodList.get(11).getId(),
+                rand.nextInt(42),
+                _goodList.get(29).getId(),
+                rand.nextInt(42)
+        ));
+        recipeService.createRecipe(new Recipe(
+                "Курение",
+                "Никотиновые рубахи. Такой рубахи хватает на 1,5 месяца",
+                _goodList.get(0).getId(),
+                rand.nextInt(42),
+                _goodList.get(15).getId(),
+                rand.nextInt(42),
+                _goodList.get(24).getId(),
+                rand.nextInt(42)
+        ));
+        recipeService.createRecipe(new Recipe(
+                "Простуда",
+                "Теплая рубаха с высоким воротом",
+                _goodList.get(2).getId(),
+                rand.nextInt(42),
+                _goodList.get(16).getId(),
+                rand.nextInt(42),
+                _goodList.get(22).getId(),
+                rand.nextInt(42)
+        ));
+        recipeService.createRecipe(new Recipe(
+                "Клаустрофобия",
+                "Необъятных размеров рубашка без рукавов",
+                _goodList.get(7).getId(),
+                rand.nextInt(42),
+                _goodList.get(17).getId(),
+                rand.nextInt(42),
+                _goodList.get(28).getId(),
+                rand.nextInt(42)
+        ));
+        recipeService.createRecipe(new Recipe(
+                "Троллинг",
+                "Рубаха с затычкой для рта",
+                _goodList.get(8).getId(),
+                rand.nextInt(42),
+                _goodList.get(11).getId(),
+                rand.nextInt(42),
+                _goodList.get(25).getId(),
+                rand.nextInt(42)
+        ));
+        recipeService.createRecipe(new Recipe(
+                "Невосприятие сарказма",
+                "Рубашка с невидимой подсказкой сарказм, появляющейся в самый нужный момент",
+                _goodList.get(7).getId(),
+                rand.nextInt(42),
+                _goodList.get(19).getId(),
+                rand.nextInt(42),
+                _goodList.get(27).getId(),
+                rand.nextInt(42)
+        ));
+        recipeService.createRecipe(new Recipe(
+                "Бадун",
+                "Рубаха, пропитанная огуречным рассольчиком",
+                _goodList.get(5).getId(),
+                rand.nextInt(42),
+                _goodList.get(12).getId(),
+                rand.nextInt(42),
+                _goodList.get(20).getId(),
+                rand.nextInt(42)
+        ));
+        recipeService.createRecipe(new Recipe(
+                "Лентяйство",
+                "Рубаха-пендель",
+                _goodList.get(0).getId(),
+                rand.nextInt(42),
+                _goodList.get(14).getId(),
+                rand.nextInt(42),
+                _goodList.get(26).getId(),
+                rand.nextInt(42)
+        ));
+        recipeService.createRecipe(new Recipe(
+                "Капракод",
+                "Рубаха с божественным провидением",
+                _goodList.get(0).getId(),
+                rand.nextInt(42),
+                _goodList.get(13).getId(),
+                rand.nextInt(42),
+                _goodList.get(29).getId(),
+                rand.nextInt(42)
+        ));
+        recipeService.createRecipe(new Recipe(
+                "Кривые руки",
+                "Рубаха с прямыми несгибаемыми рукавами",
+                _goodList.get(6).getId(),
+                rand.nextInt(42),
+                _goodList.get(10).getId(),
+                rand.nextInt(42),
+                _goodList.get(29).getId(),
+                rand.nextInt(42)
+        ));
+        recipeService.createRecipe(new Recipe(
+                "Розовые очки",
+                "Рубаха некроманта",
+                _goodList.get(3).getId(),
+                rand.nextInt(42),
+                _goodList.get(17).getId(),
+                rand.nextInt(42),
+                _goodList.get(22).getId(),
+                rand.nextInt(42)
+        ));
+        recipeService.createRecipe(new Recipe(
+                "Ветер в голове",
+                "Уютная утепленная рубашечка с большим капюшоном",
+                _goodList.get(6).getId(),
+                rand.nextInt(42),
+                _goodList.get(16).getId(),
+                rand.nextInt(42),
+                _goodList.get(28).getId(),
+                rand.nextInt(42)
+        ));
+        recipeService.createRecipe(new Recipe(
+                "Бессоница",
+                "Укутывающая пижамка со снотворным",
+                _goodList.get(9).getId(),
+                rand.nextInt(42),
+                _goodList.get(16).getId(),
+                rand.nextInt(42),
+                _goodList.get(27).getId(),
+                rand.nextInt(42)
+        ));
 
         Role guestRole = new Role("ROLE_ANONYMOUS");
         Role adminRole = new Role("ROLE_ADMIN");
@@ -325,6 +496,9 @@ public class UserController {
         model.addAttribute("userList", usersService.getUsers());
         model.addAttribute("fashionList", fashionService.getFashion());
         model.addAttribute("stateList", stateService.getState());
+        model.addAttribute("sizeList", sizeService.getSize());
+        model.addAttribute("recipes", recipeService.getRecipe());
+        model.addAttribute("goodList", goodService.getGood());
         setModel(model);
         return "plan-work-work";
     }
@@ -372,6 +546,11 @@ public class UserController {
            return "redirect:/analyticView";
         else
             return "redirect:/orders";
+    }
+    @RequestMapping("/change-order-state/{orderId}")
+    public String changeOrderState(@PathVariable("orderId") int orderId) {
+        orderService.upState(orderId);
+        return "redirect:/plan-work-work";
     }
 
     @RequestMapping("/block-order/{orderId}")
@@ -421,6 +600,7 @@ public class UserController {
         List<Order> list =  orderService.getOrders(orderId);
         Order oldOrder = list.get(0);
         oldOrder.setBlock(1);
+        oldOrder.setUser(order.getUser());
         oldOrder.setFashion(order.getFashion());
         orderService.updateOrder(oldOrder);
         setModel(model);
@@ -488,6 +668,14 @@ public class UserController {
     public String findOrder(@ModelAttribute("orderId") int orderId,Model model) {
         model.addAttribute("orders",orderService.getOrders(orderId));
         return "find-order";
+    }
+    @RequestMapping(value = "/warehouse")
+    public String getWarehousePage(Model model) {
+        model.addAttribute("warehouses", warehouseService.getWarehouse());
+        model.addAttribute("goodList", goodService.getGood());
+        model.addAttribute("goodTypeList", goodTypeService.getGoodType());
+        setModel(model);
+        return "warehouse";
     }
 
     //

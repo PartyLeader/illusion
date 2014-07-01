@@ -60,6 +60,7 @@ public class OrderService {
         repository.startOrder(id);
     }
     public void stayHandler(int id) { repository.stayHandler(id);}
+    public void upState(int id){repository.upState(id);}
     public List<Order> getOrders(int requestId) {
         return repository.getOrders(requestId);
     }

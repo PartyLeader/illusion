@@ -81,8 +81,8 @@
                                     <td>${order.id}</td>
                                     <td><c:if test="${order.priority == '0'}">Срочный</c:if><c:if test="${order.priority != '0'}">Обычный</c:if></td>
                                     <td>${userList[order.user-1].name}</td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>$</td>
+                                    <td>${sizeList[order.size-1].value * recipes[order.recipe-1].count}</td>
                                     <td>${order.enddate}</td>
                                     <td>
                                         <a href="change-order-state/${order.id}" class="btn btn-success"><i class="fa fa-check-circle"></i> Выполнено</a>

@@ -80,6 +80,12 @@ public class OrderRepository {
         order.setState(order.getState() == 0 ? 1 : 1);
         updateOrder(order);
     }
+    public void upState(int id){
+        Order order = (Order) sessionFactory.getCurrentSession().load(Order.class, id);
+        order.setState(order.getState() + 1);
+        updateOrder(order);
+    }
+
 
     public List<Order> getOrders(int requestId) {
         Query query = sessionFactory.getCurrentSession().createQuery("FROM Order b WHERE id = :requestId");

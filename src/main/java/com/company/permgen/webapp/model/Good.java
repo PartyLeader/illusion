@@ -38,6 +38,12 @@ public class Good {
         this.type = type;
     }
 
+    public Good( String name, boolean quality, int type) {
+        this.quality = quality;
+        this.type = type;
+        this.name = name;
+    }
+
     public int getId() {
         return id;
     }

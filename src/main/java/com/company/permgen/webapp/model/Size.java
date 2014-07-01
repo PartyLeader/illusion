@@ -18,12 +18,28 @@ public class Size {
     @Column(name = "SIZE_NAME",nullable = false, length = 255)
     private String name;
 
+    @Column(name = "SIZE_VALUE",nullable = false)
+    private int value;
+
     public Size() {
     }
 
     public Size(int id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public Size(String name, int value) {
+        this.name = name;
+        this.value = value;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
     }
 
     public Size(String name) {

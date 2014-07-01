@@ -36,6 +36,7 @@
         <security:intercept-url pattern="/create-recipe*" access="ROLE_ADMIN" />
         <security:intercept-url pattern="/first-load*" access="ROLE_ANONYMOUS" />
         <security:intercept-url pattern="/task*" access="ROLE_ADMIN,ROLE_TAILOR,ROLE_VAHTANG,ROLE_HANDLER,ROLE_MAGIC" />
+        <security:intercept-url pattern="/warehouse*" access="ROLE_ADMIN,ROLE_TAILOR,ROLE_VAHTANG,ROLE_HANDLER,ROLE_MAGIC" />
         <security:intercept-url pattern="/delete-order/*" access="ROLE_ADMIN,ROLE_USER" />
         <security:intercept-url pattern="/order/*" access="ROLE_ADMIN,ROLE_USER" />
         <security:intercept-url pattern="/orderStateView/*" access="ROLE_ADMIN,ROLE_USER" />

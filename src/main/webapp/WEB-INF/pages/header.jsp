@@ -100,7 +100,7 @@
         </c:if>
         <c:if test="${userRole !='ROLE_ANONYMOUS' && userRole !='ROLE_USER'}">
             <li>
-                <a href="<c:url value="" />" role="button">
+                <a href="<c:url value="/warehouse" />" role="button">
                     <i class="fa fa-dropbox"></i>
                     <span class="name">Склад</span>
                 </a>
@@ -127,8 +127,5 @@
                 <span class="name">О нас</span>
             </a>
         </li>
-    <div class="col-xs-4">
-        <a href="<c:url value="/first-load" />" class="btn-icons btn btn-transparent btn-sm">First Load</a>
-    </div>
 </div>
 
