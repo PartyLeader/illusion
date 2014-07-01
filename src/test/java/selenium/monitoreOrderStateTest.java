@@ -1,21 +1,18 @@
 package selenium;
 
+
 import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
 
-//import org.aspectj.weaver.ast.*;
+import junit.framework.TestCase;
 import org.junit.*;
 import static org.junit.Assert.*;
-import junit.framework.TestCase;
 import static org.hamcrest.CoreMatchers.*;
-
-import org.junit.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
-import java.lang.annotation.Annotation;
 
-public class AutorizationPassedTest extends TestCase{
+public class monitoreOrderStateTest extends TestCase {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
@@ -29,7 +26,7 @@ public class AutorizationPassedTest extends TestCase{
   }
 
   @Test
-  public void testAutorizationPassed() throws Exception {
+  public void testMonitoreOrderState() throws Exception {
     driver.get(baseUrl + "/ClassicWebApplication/index");
     driver.findElement(By.cssSelector("u")).click();
     driver.findElement(By.id("email")).clear();
@@ -37,12 +34,14 @@ public class AutorizationPassedTest extends TestCase{
     driver.findElement(By.id("password")).clear();
     driver.findElement(By.id("password")).sendKeys("121");
     driver.findElement(By.xpath("//button[@type='submit']")).click();
-    assertEquals("user@user.com/ Выйти", driver.findElement(By.id("user-menu")).getText());
+    driver.findElement(By.linkText("Заказы")).click();
+    driver.findElement(By.id("statelink")).click();
+    driver.findElement(By.cssSelector("u")).click();
+    assertEquals("Отправлен", driver.findElement(By.id("curstate")).getText());
   }
 
   @After
   public void tearDown() throws Exception {
-    driver.findElement(By.cssSelector("u")).click();
     driver.quit();
     String verificationErrorString = verificationErrors.toString();
     if (!"".equals(verificationErrorString)) {

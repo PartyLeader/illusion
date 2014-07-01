@@ -58,7 +58,7 @@
                 <div class="control-group col-lg-3"><h4>
                     <div><label class="control-label padding-left">${orderID}</label></div>
                     <div>
-                        <label class="control-label padding-left">
+                        <label class="control-label padding-left" id="curstate">
                             <c:if test="${ordersList[orderID-1].block == '1'}">
                                 Заблокирован
                             </c:if>

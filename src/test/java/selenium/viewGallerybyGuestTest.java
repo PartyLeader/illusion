@@ -1,14 +1,15 @@
+package selenium;
+
 import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
-//import org.aspectj.weaver.ast.Test;
+
+import junit.framework.TestCase;
 import org.junit.*;
 import static org.junit.Assert.*;
-import junit.framework.TestCase;
 import static org.hamcrest.CoreMatchers.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
-import java.lang.annotation.Annotation;
 
 public class viewGallerybyGuestTest extends TestCase {
   private WebDriver driver;

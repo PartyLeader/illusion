@@ -96,7 +96,7 @@
                                                 <span class="label label-danger">Заблокирован</span>
                                             </c:if>
 
-                                            <a href="orderStateView/${order.id}" class="label label-info" style="margin-left: 5px">...</a>
+                                            <a href="orderStateView/${order.id}" class="label label-info" style="margin-left: 5px" id="statelink">...</a>
                                         </td>
                                         <td>
                                             <c:if test="${order.block == '0'}">

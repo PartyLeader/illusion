@@ -62,14 +62,14 @@
                 </c:if>
                 <c:if test="${userRole == 'ROLE_HANDLER'}">
                     <a href="<c:url value="/add-good"/>" class="btn btn-success"><i class="fa fa-plus"></i> Добавить нити на склад</a>
-                    <a href="<c:url value="/get-good"/>" class="btn btn-success"><i class="fa fa-minus"></i> Взять крапиву со склада</a>
+                    <a href="<c:url value="/down-good"/>" class="btn btn-success"><i class="fa fa-minus"></i> Взять крапиву со склада</a>
                 </c:if>
                 <c:if test="${userRole == 'ROLE_TAILOR'}">
                     <a href="<c:url value="/add-good"/>" class="btn btn-success"><i class="fa fa-plus"></i> Добавить изделие на склад</a>
-                    <a href="<c:url value="/get-good"/>" class="btn btn-success"><i class="fa fa-minus"></i> Взять нити со склада</a>
+                    <a href="<c:url value="/down-good"/>" class="btn btn-success"><i class="fa fa-minus"></i> Взять нити со склада</a>
                 </c:if>
                 <c:if test="${userRole == 'ROLE_MAGIC'}">
-                    <a href="<c:url value="/get-good"/>" class="btn btn-success"><i class="fa fa-minus"></i> Взять изделие со склада</a>
+                    <a href="<c:url value="/down-good"/>" class="btn btn-success"><i class="fa fa-minus"></i> Взять изделие со склада</a>
                 </c:if>
             </div>
             <c:if test="${userRole == 'ROLE_ADMIN' || userRole == 'ROLE_HANDLER' || userRole == 'ROLE_VAHTANG'}">

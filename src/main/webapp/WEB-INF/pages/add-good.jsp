@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ page language="java" contentType="text/html; charset=utf8" pageEncoding="utf8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page trimDirectiveWhitespaces="true" %>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -40,21 +41,27 @@
                                 <div class="control-group">
                                     <label class="control-label">Наименование</label>
                                     <div class="controls form-group">
-                                        <select name="name" class="selectpicker " data-style="btn-default">
+                                        <select name="good" class="selectpicker " data-style="btn-default">
                                             <c:forEach items="${goodList}" var="item">
-                                                <c:if test="${item.type == '1'}">
+                                                <c:if test="${ userRole=='ROLE_VAHTANG' && item.type == '1'}">
+                                                    <option value="${item.id}">${item.name}</option>
+                                                </c:if>
+                                                <c:if test="${ userRole=='ROLE_HANDLER' && item.type == '2'}">
+                                                    <option value="${item.id}">${item.name}</option>
+                                                </c:if>
+                                                <c:if test="${ userRole=='ROLE_TAILOR' && item.type == '3'}">
                                                     <option value="${item.id}">${item.name}</option>
                                                 </c:if>
                                             </c:forEach>
                                         </select>
-                                        <form:errors path="name" element="span"/>
+                                        <form:errors path="good" element="span"/>
                                     </div>
                                 </div>
                                 <div class="control-group">
                                     <label class="control-label">Количество</label>
                                     <div class="controls form-group">
                                         <input id="count" name="count" class="form-control parsley-validated" required="required" type="number">
-                                        <form:errors path="name" element="span"/>
+                                        <form:errors path="count" element="span"/>
                                     </div>
                                 </div>
                                 <div class="form-actions">

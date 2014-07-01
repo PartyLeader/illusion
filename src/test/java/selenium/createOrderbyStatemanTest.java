@@ -1,14 +1,15 @@
+package selenium;
+
 import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
-//import org.aspectj.weaver.ast.Test;
+
+import junit.framework.TestCase;
 import org.junit.*;
 import static org.junit.Assert.*;
-import junit.framework.TestCase;
 import static org.hamcrest.CoreMatchers.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
-import java.lang.annotation.Annotation;
 
 public class createOrderbyStatemanTest extends TestCase {
   private WebDriver driver;
@@ -27,17 +28,15 @@ public class createOrderbyStatemanTest extends TestCase {
   public void testCreateOrderCreationPassed() throws Exception {
     driver.get(baseUrl + "/ClassicWebApplication/index");
     driver.findElement(By.cssSelector("u")).click();
-    driver.findElement(By.id("name")).clear();
-    driver.findElement(By.id("name")).sendKeys("user@user.com");
+    driver.findElement(By.id("email")).clear();
+    driver.findElement(By.id("email")).sendKeys("user@user.com");
     driver.findElement(By.id("password")).clear();
     driver.findElement(By.id("password")).sendKeys("121");
     driver.findElement(By.xpath("//button[@type='submit']")).click();
     driver.findElement(By.xpath("//div[@id='slider1_container']/div/div/div[4]/div/div/div[2]/div[6]/div[2]/div[2]")).click();
     driver.findElement(By.linkText("Сделать заказ прямо сейчас!")).click();
-    driver.findElement(By.id("description")).clear();
-    driver.findElement(By.id("description")).sendKeys("89991613678");
     driver.findElement(By.xpath("(//label[@id='fashion'])[4]")).click();
-    driver.findElement(By.xpath("//form[@id='order']/div[3]/div/span/div/button")).click();
+    driver.findElement(By.xpath("//form[@id='order']/div[2]/div/span/div/button")).click();
     driver.findElement(By.linkText("XL (50)")).click();
     driver.findElement(By.id("in-place-date")).click();
     driver.findElement(By.id("in-place-date")).clear();

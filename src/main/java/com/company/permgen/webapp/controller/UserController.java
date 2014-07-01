@@ -124,6 +124,7 @@ public class UserController {
 
     @RequestMapping("/first-load")
     public String getFirstLoadPage(Model model) {
+        Random rand = new Random();
         List<Size> list = sizeService.getSize();
         if(list.size() > 0){
             return "redirect:/";
@@ -165,16 +166,14 @@ public class UserController {
         _goodList.add(new Good("Футболка", true, _goodTypeList.get(2).getId()));                                 //26
         _goodList.add(new Good("Платьице неженское", true, _goodTypeList.get(2).getId()));                                 //27
         _goodList.add(new Good("Парашют", true, _goodTypeList.get(2).getId()));                                 //28
-        _goodList.add(new Good("Скафандр", true, _goodTypeList.get(2).getId()));                                 //29
+        _goodList.add(new Good("Скафандр", true, _goodTypeList.get(2).getId()));                                 //2а8щк
         for(int i =0; i< _goodList.size();i++) {
             goodService.createGood(_goodList.get(i));
         }
 
-
-        warehouseService.createWarehouse(new Warehouse(_goodList.get(0).getName(),_goodList.get(0).getId(),5));
-        warehouseService.createWarehouse(new Warehouse(_goodList.get(2).getName(),_goodList.get(2).getId(),9));
-        warehouseService.createWarehouse(new Warehouse(_goodList.get(3).getName(),_goodList.get(3).getId(),2));
-        warehouseService.createWarehouse(new Warehouse(_goodList.get(4).getName(), _goodList.get(4).getId(),88));
+for(int i=0;i< _goodList.size();i++) {
+    warehouseService.createWarehouse(new Warehouse(_goodList.get(i).getName(), _goodList.get(i).getId(), 0));
+}
 
         sizeService.createSize(new Size("S (40)",40));
         sizeService.createSize(new Size("M (44)",44));
@@ -214,7 +213,7 @@ public class UserController {
         stateService.createState(new State("Изготовление"));
         stateService.createState(new State("Магия"));
         stateService.createState(new State("Готово"));
-        Random rand = new Random();
+
 
         recipeService.createRecipe(new Recipe("Восполение хитрости","Восполение хитрости не лечится никак, так что можно наказать проказника - Рубаха с чесоточным эффектом!",_goodList.get(4).getId(),21,_goodList.get(11).getId(),15,_goodList.get(28).getId(),1));
         recipeService.createRecipe(new Recipe(
@@ -514,7 +513,8 @@ public class UserController {
     @RequestMapping(value = "add-good")
     public String addGoodToWarehouse(Model model) {
         LoadLists();
-        model.addAttribute("warehouse",warehouseService.getWarehouse());
+        List<Warehouse> list = warehouseService.getWarehouse();
+        model.addAttribute("warehouse",list.get(0));
         model.addAttribute("goodList",goodService.getGood());
         model.addAttribute("goodTypeList",goodTypeService.getGoodType());
         model.addAttribute("orderList",orderService.getOrders());
@@ -525,25 +525,43 @@ public class UserController {
 
     @RequestMapping(value = "add-good", method = RequestMethod.POST)
     public String addGoodRequestPost(@ModelAttribute("warehouse") Warehouse warehouse) {
-        warehouseService.changeCount(warehouse.getCount(),warehouse.getGood());
+        List <Warehouse> wh = warehouseService.getWarehouse();
+        int curcount = 0;
+        for (int i =0; i< wh.size(); i++) {
+            if(wh.get(i).getGood() == warehouse.getGood()){
+                curcount = wh.get(i).getCount();
+            }
+        }
+        warehouseService.changeCount(curcount + warehouse.getCount(),warehouse.getGood());
         return "redirect:/warehouse";
     }
 
-    @RequestMapping(value = "get-good")
+    @RequestMapping(value = "down-good")
     public String getGoodFromWarehouse(Model model) {
         LoadLists();
-        model.addAttribute("warehouse",warehouseService.getWarehouse());
+        List<Warehouse> list = warehouseService.getWarehouse();
+        model.addAttribute("warehouse",list.get(0));
         model.addAttribute("goodList",goodService.getGood());
         model.addAttribute("goodTypeList",goodTypeService.getGoodType());
         model.addAttribute("orderList",orderService.getOrders());
         model.addAttribute("recipeList",recipeService.getRecipe());
         setModel(model);
-        return "get-good";
+        return "down-good";
     }
 
-    @RequestMapping(value = "get-good", method = RequestMethod.POST)
-    public String getGoodRequestPOST(@ModelAttribute("warehouse") Warehouse warehouse) {
-        warehouseService.changeCount(warehouse.getCount(),warehouse.getGood());
+    @RequestMapping(value = "down-good", method = RequestMethod.POST)
+    public String downGoodRequestPOST(@ModelAttribute("warehouse") Warehouse warehouse) {
+        List <Warehouse> wh = warehouseService.getWarehouse();
+        int curcount = 0;
+        for (int i =0; i< wh.size(); i++) {
+            if(wh.get(i).getGood() == warehouse.getGood()){
+                curcount = wh.get(i).getCount();
+            }
+        }
+        if(curcount>=warehouse.getCount())
+            warehouseService.changeCount(curcount-warehouse.getCount(),warehouse.getGood());
+        else
+            warehouseService.changeCount(curcount,warehouse.getGood());
         return "redirect:/warehouse";
     }
 
@@ -636,8 +654,11 @@ public class UserController {
             oldOrder.setEnddate(order.getEnddate());
         }
         else {
+            _userSession = SecurityContextHolder.getContext().getAuthentication();
+            if( _userSession.getAuthorities().toArray()[0].equals("ROLE_ADMIN")) {
+                oldOrder.setUser(order.getUser());
+            }
             oldOrder.setBlock(1);
-            oldOrder.setUser(order.getUser());
             oldOrder.setFashion(order.getFashion());
             oldOrder.setEnddate(order.getEnddate());
             oldOrder.setPriority(order.getPriority());
