@@ -70,7 +70,7 @@
                                  <form:form modelAttribute="order" method="post" class="form-horizontal label-left" onsubmit="return checkform(this)">
                                     <c:if test="${userRole == 'ROLE_ADMIN'}">
                                          <div class="control-group">
-                                             <label for="description" class="control-label">Заказчик</label>
+                                             <label class="control-label">Заказчик</label>
                                              <div class="controls form-group padding-left">
                                                  <select name="user" class="selectpicker " data-style="btn-default">
                                                      <c:forEach items="${userList}" var="item">
@@ -93,7 +93,7 @@
                                         </div>
                                     </div>
                                    <div class="control-group">
-                                        <label for="description" class="control-label">Парамерты</label>
+                                        <label class="control-label">Парамерты</label>
                                        <div class="control-label padding-left">
                                         <span class="padding-left">
                                             <select name="size" class="selectpicker " data-style="btn-default">
@@ -122,7 +122,7 @@
                                         </div>
                                     </div>
                                     <div class="control-group">
-                                        <label for="description" class="control-label">Срок изготовления (dd/mm/yyyy)</label>
+                                        <label class="control-label">Срок изготовления (dd/mm/yyyy)</label>
                                         <div class="controls form-group padding-left">
                                            <input id="in-place-date" class="form-control date-picker parsley-validated" required="required" type="text" name="enddate" value="">
                                            <form:errors path="enddate" element="span"/>
@@ -157,7 +157,7 @@
                             <header>
                                 <h4>
                                     <i class="fa fa-star"></i>
-                                    Предпросмотр ${recipe}
+                                    Предпросмотр
                                 </h4>
                             </header>
                              <div class="body">

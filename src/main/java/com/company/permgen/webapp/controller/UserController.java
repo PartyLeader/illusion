@@ -594,10 +594,21 @@ public class UserController {
     public String editRequestPost(@ModelAttribute("order") Order order,@PathVariable("orderId") int orderId,Model model) {
         List<Order> list =  orderService.getOrders(orderId);
         Order oldOrder = list.get(0);
-        oldOrder.setBlock(1);
-        oldOrder.setUser(order.getUser());
-        oldOrder.setFashion(order.getFashion());
-        orderService.updateOrder(oldOrder);
+        if(oldOrder.getState()>=2)
+        {
+            oldOrder.setEnddate(order.getEnddate());
+        }
+        else {
+            oldOrder.setBlock(1);
+            oldOrder.setUser(order.getUser());
+            oldOrder.setFashion(order.getFashion());
+            oldOrder.setEnddate(order.getEnddate());
+            oldOrder.setPriority(order.getPriority());
+            oldOrder.setSize(order.getSize());
+            oldOrder.setGen(order.getGen());
+            oldOrder.setRecipe(order.getRecipe());
+        }
+            orderService.updateOrder(oldOrder);
         setModel(model);
         if( _userSession.getAuthorities().toArray()[0].equals("ROLE_ADMIN"))
             return "redirect:/analyticView";
