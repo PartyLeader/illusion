@@ -180,7 +180,10 @@
                                         <div class="control-group">
                                             <label class="control-label">Тип заказа</label>
                                             <div class="controls form-group  padding-left">
-                                                <label>${order.priority}</label>
+                                                <label>
+                                                    <c:if test="${order.priority == '0'}">Срочный</c:if>
+                                                    <c:if test="${order.priority == '1'}">Обычный</c:if>
+                                                </label>
                                             </div>
                                         </div>
                                         <div class="control-group">
