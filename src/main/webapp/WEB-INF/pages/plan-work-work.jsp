@@ -86,7 +86,7 @@
                                     <td>${order.enddate}</td>
                                     <td>
                                         <c:forEach items="${warehouse}" var="warehouse">
-                                            <c:if test="${warehouse.good == recipes[order.recipe-1].goodsVah && warehouse.count >= recipes[order.recipe-1].countVah}">
+                                            <c:if test="${warehouse.good == recipes[order.recipe-1].goodsVah && warehouse.count >= sizeList[order.size-1].value * recipes[order.recipe-1].countVah}">
                                                 <a href="change-order-state/${order.id}" class="btn btn-success"><i class="fa fa-check-circle"></i> Выполнено</a>
                                             </c:if>
                                         </c:forEach>
@@ -103,7 +103,7 @@
                                     <td>${order.enddate}</td>
                                     <td>
                                         <c:forEach items="${warehouse}" var="warehouse">
-                                            <c:if test="${warehouse.good == recipes[order.recipe-1].goodsHan && warehouse.count >= recipes[order.recipe-1].countHan}">
+                                            <c:if test="${warehouse.good == recipes[order.recipe-1].goodsHan && warehouse.count >= sizeList[order.size-1].value * recipes[order.recipe-1].countHan}">
                                                 <a href="change-order-state/${order.id}" class="btn btn-success"><i class="fa fa-check-circle"></i> Выполнено</a>
                                             </c:if>
                                         </c:forEach>

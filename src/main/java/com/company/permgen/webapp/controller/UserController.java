@@ -511,6 +511,42 @@ public class UserController {
         return "orders";
     }
 
+    @RequestMapping(value = "add-good")
+    public String addGoodToWarehouse(Model model) {
+        LoadLists();
+        model.addAttribute("warehouse",warehouseService.getWarehouse());
+        model.addAttribute("goodList",goodService.getGood());
+        model.addAttribute("goodTypeList",goodTypeService.getGoodType());
+        model.addAttribute("orderList",orderService.getOrders());
+        model.addAttribute("recipeList",recipeService.getRecipe());
+        setModel(model);
+        return "add-good";
+    }
+
+    @RequestMapping(value = "add-good", method = RequestMethod.POST)
+    public String addGoodRequestPost(@ModelAttribute("warehouse") Warehouse warehouse) {
+        warehouseService.changeCount(warehouse.getCount(),warehouse.getGood());
+        return "redirect:/warehouse";
+    }
+
+    @RequestMapping(value = "get-good")
+    public String getGoodFromWarehouse(Model model) {
+        LoadLists();
+        model.addAttribute("warehouse",warehouseService.getWarehouse());
+        model.addAttribute("goodList",goodService.getGood());
+        model.addAttribute("goodTypeList",goodTypeService.getGoodType());
+        model.addAttribute("orderList",orderService.getOrders());
+        model.addAttribute("recipeList",recipeService.getRecipe());
+        setModel(model);
+        return "get-good";
+    }
+
+    @RequestMapping(value = "get-good", method = RequestMethod.POST)
+    public String getGoodRequestPOST(@ModelAttribute("warehouse") Warehouse warehouse) {
+        warehouseService.changeCount(warehouse.getCount(),warehouse.getGood());
+        return "redirect:/warehouse";
+    }
+
     @RequestMapping(value = "create-order")
     public String createRequestGet(Model model) {
         model.addAttribute("order", new Order());
@@ -542,6 +578,7 @@ public class UserController {
         else
             return "redirect:/orders";
     }
+
     @RequestMapping("/change-order-state/{orderId}")
     public String changeOrderState(@PathVariable("orderId") int orderId) {
         orderService.upState(orderId);

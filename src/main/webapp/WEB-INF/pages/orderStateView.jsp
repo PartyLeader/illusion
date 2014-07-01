@@ -96,7 +96,12 @@
                                             <div class="badge badge-success">Выполнено</div>
                                         </c:if>
                                         <c:if test="${states.id == ordersList[orderID-1].state + 1}">
-                                            <div class="badge badge-warning">В процессе</div>
+                                            <c:if test="${ordersList[orderID-1].id == '6'}">
+                                                <div class="badge badge-success">Выполнено</div>
+                                            </c:if>
+                                            <c:if test="${ordersList[orderID-1].id != '6'}">
+                                                <div class="badge badge-warning">В процессе</div>
+                                            </c:if>
                                         </c:if>
                                         <c:if test="${states.id > ordersList[orderID-1].state + 1}">
                                             <div class="badge badge-danger">Не выполнено</div>
