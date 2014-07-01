@@ -14,6 +14,7 @@ import org.jodreports.templates.DocumentTemplate;
 import org.jodreports.templates.DocumentTemplateException;
 import org.jodreports.templates.DocumentTemplateFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.core.io.Resource;
@@ -499,69 +500,8 @@ public class UserController extends AbstractController {
 
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        renderDocument(request, response);
+       new DocumentGenerator(getApplicationContext(), request, response);
         return null;
     }
 
-    private void renderDocument( HttpServletRequest request, HttpServletResponse response) throws Exception {
-        DocumentConverter converter = (DocumentConverter) getApplicationContext().getBean("documentConverter");
-        DocumentFormatRegistry formatRegistry = (DocumentFormatRegistry) getApplicationContext().getBean("documentFormatRegistry");
-        String requestURI = request.getRequestURI();
-        if (requestURI.split(".").length ==0 ) {
-            requestURI = requestURI+".odt";
-        }
-        String outputExtension = FilenameUtils.getExtension(requestURI);
-        DocumentFormat outputFormat = formatRegistry.getFormatByFileExtension(outputExtension);
-        if (outputFormat == null) {
-            throw new ServletException("unsupported output format: " + outputExtension);
-        }
-        File templateFile = null;
-        String documentName = FilenameUtils.getBaseName(request.getRequestURI());
-        Resource templateDirectory = getTemplateDirectory(documentName);
-        if (templateDirectory.exists()) {
-            templateFile = templateDirectory.getFile();
-        }
-        else {
-            templateFile = getTemplateFile(documentName).getFile();
-            if (!templateFile.exists()) {
-                throw new ServletException("template not found: " + documentName);
-            }
-        }
-
-        DocumentTemplateFactory documentTemplateFactory = new DocumentTemplateFactory();
-        DocumentTemplate template = documentTemplateFactory.getTemplate(templateFile);
-
-        ByteArrayOutputStream odtOutputStream = new ByteArrayOutputStream();
-        try {
-
-            template.createDocument(new HttpRequestParametersHashModel(request), odtOutputStream);
-            Thread.currentThread().sleep(3000) ;
-        }
-        catch (DocumentTemplateException exception) {
-            throw new ServletException(exception);
-        }
-        response.setContentType(outputFormat.getMimeType());
-        response.setHeader("Content-Disposition", "inline; filename=" + documentName + "." + outputFormat.getFileExtension());
-
-        if ("odt".equals(outputFormat.getFileExtension())) {
-            // no need to convert
-            response.getOutputStream().write(odtOutputStream.toByteArray());
-//            response.sendRedirect("controlUsersCustomers");
-        }
-        else {
-            ByteArrayInputStream odtInputStream = new ByteArrayInputStream(odtOutputStream.toByteArray());
-            DocumentFormat inputFormat = formatRegistry.getFormatByFileExtension("odt");
-            converter.convert(odtInputStream, inputFormat, response.getOutputStream(), outputFormat);
-        }
-    }
-
-    private Resource getTemplateDirectory(String documentName) throws IOException {
-        String directoryName = "WEB-INF/templates/" + documentName + "-template";
-        return getApplicationContext().getResource(directoryName);
-    }
-
-    private Resource getTemplateFile(String documentName) throws IOException {
-        String templateName = "WEB-INF/templates/" + documentName + "-template.odt";
-        return getApplicationContext().getResource(templateName);
-    }
 }
