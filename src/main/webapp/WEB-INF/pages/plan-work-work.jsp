@@ -124,7 +124,11 @@
                                                 <a href="change-order-state/${order.id}" class="btn btn-success"><i class="fa fa-check-circle"></i> Выполнено</a>
                                             </c:if>
                                         </c:forEach>
-                                        <a href="write-description/${order.id}" class="btn btn-inverse"><i class="fa fa-edit"></i> Описание товара</a>
+                                        <c:forEach items="${product}" var="products">
+                                            <c:if test="${products.order == order.id}">
+                                                <a href="write-description/${products.id}" class="btn btn-inverse"><i class="fa fa-edit"></i> Описание товара</a>
+                                            </c:if>
+                                        </c:forEach>
                                     </td>
                                 </tr>
                             </c:if>

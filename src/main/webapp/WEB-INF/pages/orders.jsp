@@ -144,7 +144,7 @@
                                 <td>${fashionList[order.fashion-1].name}</td>
                                 <td>${order.enddate}</td>
                                 <td>
-                                    <a href="instruction/${order.id}" class="btn btn-primary"><i class="fa eicon-right"></i> Просмотр</a>
+                                    <a href="description/${order.id}" class="btn btn-primary"><i class="fa eicon-right"></i> Просмотр</a>
                                     <a href="print/${order.id}" class="btn-inverse btn"><i class="fa fa-print"></i> Печать</a>
                                 </td>
                                 </tr>

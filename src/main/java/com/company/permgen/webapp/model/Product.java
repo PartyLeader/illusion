@@ -23,32 +23,32 @@ public class Product {
     @Column(name = "PRODUCT_SPECIFICATION",nullable = false, length = 255)
     private String specification;
 
+    @Column(name = "PRODUCT_QUALITY",nullable = false, length = 255)
+    private String quality;
+
     @Column(name = "MAGIC_ID", nullable = false)
     private int magic;
 
     @Column(name = "PRODUCT_FASHION", nullable = false)
     private int fashion;
 
-    @Column(name = "PRODUCT_PERIODUSE",nullable = false)
-    private Date periodUse;
-
-    @Column(name = "PRODUCT_FINISHDATE",nullable = false)
-    private Date finishDate;
-
     @Column(name = "PRODUCT_ORDER", nullable = false)
     private int order;
+
+    @Column(name = "PRODUCT_GEN",nullable = false)
+    private String gen;
 
     public Product() {
     }
 
-    public Product(int id, String specification, int magic, int fashion, Date periodUse, Date finishDate, int order) {
+    public Product(int id, String specification, String quality, int magic, int fashion, int order, String gen) {
         this.id = id;
         this.specification = specification;
+        this.quality = quality;
         this.magic = magic;
         this.fashion = fashion;
-        this.periodUse = periodUse;
-        this.finishDate = finishDate;
         this.order = order;
+        this.gen = gen;
     }
 
     public int getId() {
@@ -83,27 +83,27 @@ public class Product {
         this.fashion = fashion;
     }
 
-    public Date getPeriodUse() {
-        return periodUse;
-    }
-
-    public void setPeriodUse(Date periodUse) {
-        this.periodUse = periodUse;
-    }
-
-    public Date getFinishDate() {
-        return finishDate;
-    }
-
-    public void setFinishDate(Date finishDate) {
-        this.finishDate = finishDate;
-    }
-
     public int getOrder() {
         return order;
     }
 
     public void setOrder(int order) {
         this.order = order;
+    }
+
+    public String getGen() {
+        return gen;
+    }
+
+    public void setGen(String gen) {
+        this.gen = gen;
+    }
+
+    public String getQuality() {
+        return quality;
+    }
+
+    public void setQuality(String quality) {
+        this.quality = quality;
     }
 }

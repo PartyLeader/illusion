@@ -51,6 +51,8 @@ public class UserController {
     protected ImageService imageService;
     @Autowired
     protected WarehouseService warehouseService;
+    @Autowired
+    protected ProductService productService;
 
 
     private List<Size> sizeList;
@@ -492,6 +494,7 @@ for(int i=0;i< _goodList.size();i++) {
         model.addAttribute("recipes", recipeService.getRecipe());
         model.addAttribute("goodList", goodService.getGood());
         model.addAttribute("warehouse",warehouseService.getWarehouse());
+        model.addAttribute("product",productService.getProduct());
         setModel(model);
         return "plan-work-work";
     }
@@ -565,6 +568,40 @@ for(int i=0;i< _goodList.size();i++) {
         return "redirect:/warehouse";
     }
 
+    @RequestMapping(value = "/write-description/{productId}")
+    public String getOrderforDescr(@PathVariable("productId") int productId, Model model) {
+        LoadLists();
+        model.addAttribute("orderList", orderService.getOrders());
+        model.addAttribute("recipeList",recipeService.getRecipe());
+        model.addAttribute("fashionList",fashionService.getFashion());
+        model.addAttribute("userList",usersService.getUsers());
+        model.addAttribute("sizeList",sizeService.getSize());
+        List <Product> product = productService.getProduct();
+        model.addAttribute("product", product.get(productId-1));
+        setModel(model);
+        return "write-description";
+    }
+
+    @RequestMapping(value = "/write-description/{productId}", method = RequestMethod.POST)
+    public String ProductDescrPOST(@ModelAttribute("product") Product product,@PathVariable("productId") int productId,Model model) {
+        List<Product> prod =  productService.getProduct();
+        Product oldProduct = prod.get(productId-1);
+
+        List <Order> ord = orderService.getOrders();
+        Order order = ord.get(oldProduct.getOrder()-1);
+
+        oldProduct.setSpecification(product.getSpecification());
+
+        if (order.getState() == '5')
+            oldProduct.setQuality(product.getQuality());
+
+        productService.updateProduct(oldProduct);
+
+        setModel(model);
+        return "redirect:/plan-work-work";
+    }
+
+
     @RequestMapping(value = "create-order")
     public String createRequestGet(Model model) {
         model.addAttribute("order", new Order());
@@ -590,7 +627,7 @@ for(int i=0;i< _goodList.size();i++) {
         order.setBlock(0);
         orderService.createOrder(order);
         System.out.println(order.getId());
-        Random rand = new Random();
+
        if( _userSession.getAuthorities().toArray()[0].equals("ROLE_ADMIN"))
            return "redirect:/analyticView";
         else
@@ -627,6 +664,17 @@ for(int i=0;i< _goodList.size();i++) {
     @RequestMapping("/start-order/{orderId}")
     public String startOrder(@PathVariable("orderId") int orderId) {
         orderService.startOrder(orderId);
+        List <Order> ord = orderService.getOrders(orderId);
+        Order order = ord.get(0);
+        Product product = new Product();
+        product.setOrder(orderId);
+        product.setGen(order.getGen());
+        product.setFashion(order.getFashion());
+        product.setMagic(order.getRecipe());
+        product.setSpecification("");
+        product.setQuality("");
+        productService.createProduct(product);
+        System.out.print(product.getId());
         return "redirect:/analyticView";
     }
 
