@@ -1,6 +1,5 @@
 package selenium;
 
-
 import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
 
@@ -12,7 +11,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
-public class monitoreOrderStateTest extends TestCase {
+public class RegistryNewUserTest extends TestCase {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
@@ -26,22 +25,33 @@ public class monitoreOrderStateTest extends TestCase {
   }
 
   @Test
-  public void testMonitoreOrderState() throws Exception {
+  public void testRegistryNewUser() throws Exception {
     driver.get(baseUrl + "/ClassicWebApplication/index");
     driver.findElement(By.cssSelector("u")).click();
     driver.findElement(By.id("email")).clear();
-    driver.findElement(By.id("email")).sendKeys("user@user.com");
+    driver.findElement(By.id("email")).sendKeys("magic@magic.com");
     driver.findElement(By.id("password")).clear();
     driver.findElement(By.id("password")).sendKeys("121");
     driver.findElement(By.xpath("//button[@type='submit']")).click();
-    driver.findElement(By.linkText("Заказы")).click();
-    driver.findElement(By.id("statelink")).click();
-    assertEquals("Отправлен", driver.findElement(By.id("curstate")).getText());
+    driver.findElement(By.linkText("Склад")).click();
+    driver.findElement(By.xpath("//div[@id='user-menu']/a[2]/u")).click();
+    driver.findElement(By.id("name")).clear();
+    driver.findElement(By.id("name")).sendKeys("anna");
+    driver.findElement(By.id("email")).clear();
+    driver.findElement(By.id("email")).sendKeys("anna@anna.com");
+    driver.findElement(By.id("password")).clear();
+    driver.findElement(By.id("password")).sendKeys("121");
+    driver.findElement(By.xpath("//button[@type='submit']")).click();
+    driver.findElement(By.cssSelector("u")).click();
+    driver.findElement(By.id("email")).clear();
+    driver.findElement(By.id("email")).sendKeys("anna@anna.com");
+    driver.findElement(By.id("password")).clear();
+    driver.findElement(By.id("password")).sendKeys("121");
+    driver.findElement(By.xpath("//button[@type='submit']")).click();
   }
 
   @After
   public void tearDown() throws Exception {
-      driver.findElement(By.cssSelector("u")).click();
     driver.quit();
     String verificationErrorString = verificationErrors.toString();
     if (!"".equals(verificationErrorString)) {

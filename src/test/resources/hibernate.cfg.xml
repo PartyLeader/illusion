@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+    <session-factory>
+        <mapping class="com.company.permgen.webapp.model.User"/>
+        <mapping class="com.company.permgen.webapp.model.Fashion"/>
+        <mapping class="com.company.permgen.webapp.model.Good"/>
+        <mapping class="com.company.permgen.webapp.model.GoodType"/>
+        <mapping class="com.company.permgen.webapp.model.Image"/>
+        <mapping class="com.company.permgen.webapp.model.Magic"/>
+        <mapping class="com.company.permgen.webapp.model.Order"/>
+        <mapping class="com.company.permgen.webapp.model.Output"/>
+        <mapping class="com.company.permgen.webapp.model.Product"/>
+        <mapping class="com.company.permgen.webapp.model.Recipe"/>
+        <mapping class="com.company.permgen.webapp.model.Role"/>
+        <mapping class="com.company.permgen.webapp.model.Size"/>
+        <mapping class="com.company.permgen.webapp.model.State"/>
+        <mapping class="com.company.permgen.webapp.model.Warehouse"/>
+    </session-factory>
+
+</hibernate-configuration>

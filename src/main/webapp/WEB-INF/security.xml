@@ -40,6 +40,7 @@
         <security:intercept-url pattern="/add-good*" access="ROLE_TAILOR,ROLE_VAHTANG,ROLE_HANDLER" />
         <security:intercept-url pattern="/down-good*" access="ROLE_TAILOR,ROLE_MAGIC,ROLE_HANDLER" />
         <security:intercept-url pattern="/write-description/*" access="ROLE_TAILOR,ROLE_MAGIC" />
+        <security:intercept-url pattern="/description/*" access="ROLE_USER,ROLE_ADMIN" />
         <security:intercept-url pattern="/delete-order/*" access="ROLE_ADMIN,ROLE_USER" />
         <security:intercept-url pattern="/order/*" access="ROLE_ADMIN,ROLE_USER" />
         <security:intercept-url pattern="/orderStateView/*" access="ROLE_ADMIN,ROLE_USER" />

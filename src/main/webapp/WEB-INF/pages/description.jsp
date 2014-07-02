@@ -33,7 +33,6 @@
                 <div class="row">
                     <div class="col-md-7">
                         <section class="widget">
-                            <form:form modelAttribute="product" method="post" onsubmit="true" class="form-horizontal label-left">
                                 <h4>Информация о заказе</h4>
                                 <div class="control-group">
                                     <label class="control-label">Номер заказа</label>
@@ -81,24 +80,20 @@
                                 <div class="control-group">
                                     <label class="control-label">Описание</label>
                                     <div class="controls form-group">
-                                        <form:textarea row="10" class="form-control parsley-validated" required="required" type="text" name="specification" value="" path="specification"/>
-                                        <form:errors path="specification" element="span"/>
+                                        <label class="control-label">${product.specification}</label>
                                     </div>
                                 </div>
-                                <c:if test="${userRole == 'ROLE_MAGIC'}">
                                     <div class="control-group">
                                         <label class="control-label">Качество</label>
                                         <div class="controls form-group">
-                                            <form:textarea row="10" class="form-control parsley-validated" required="required" type="text" name="quality" value="" path="quality"/>
-                                            <form:errors path="quality" element="span"/>
+                                            <label class="control-label">${product.quality}</label>
                                         </div>
                                     </div>
-                                </c:if>
                                 <div class="form-actions">
-                                    <button type="submit" class="btn btn-success btn-lg"><i class="fa fa-check"></i> Сохранить</button>
-                                    <a href="<c:url value="/plan-work-work"/>" class="btn btn-inverse btn-lg"><i class="fa eicon-cancel"></i> Отмена</a>
+                                    <c:if test="${userRole == 'ROLE_USER'}"><a href="<c:url value="/orders"/>" class="btn btn-inverse btn-lg"></c:if>
+                                    <c:if test="${userRole == 'ROLE_ADMIN'}"><a href="<c:url value="/analyticView"/>" class="btn btn-inverse btn-lg"></c:if>
+                                            <i class="fa eicon-cancel"></i> Закрыть</a>
                                 </div>
-                            </form:form>
                         </section>
                     </div>
                 </div>

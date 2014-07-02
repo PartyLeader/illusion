@@ -582,6 +582,20 @@ for(int i=0;i< _goodList.size();i++) {
         return "write-description";
     }
 
+    @RequestMapping(value = "/description/{productId}")
+    public String getDescr(@PathVariable("productId") int productId, Model model) {
+        LoadLists();
+        model.addAttribute("orderList", orderService.getOrders());
+        model.addAttribute("recipeList",recipeService.getRecipe());
+        model.addAttribute("fashionList",fashionService.getFashion());
+        model.addAttribute("userList",usersService.getUsers());
+        model.addAttribute("sizeList",sizeService.getSize());
+        List <Product> product = productService.getProduct();
+        model.addAttribute("product", product.get(productId-1));
+        setModel(model);
+        return "description";
+    }
+
     @RequestMapping(value = "/write-description/{productId}", method = RequestMethod.POST)
     public String ProductDescrPOST(@ModelAttribute("product") Product product,@PathVariable("productId") int productId,Model model) {
         List<Product> prod =  productService.getProduct();
@@ -592,7 +606,7 @@ for(int i=0;i< _goodList.size();i++) {
 
         oldProduct.setSpecification(product.getSpecification());
 
-        if (order.getState() == '5')
+        if (order.getState() == 5)
             oldProduct.setQuality(product.getQuality());
 
         productService.updateProduct(oldProduct);
